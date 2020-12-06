@@ -1,4 +1,4 @@
-package ciao;
+package it.unicam.cs.ids.Utenti;
 
 public class Visitatore 
 {
