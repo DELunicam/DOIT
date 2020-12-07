@@ -2,9 +2,18 @@ package it.unicam.cs.ids.progetto;
 
 public class Candidatura {
 	
-	String idProgetto;
-	String idProgettista;
-	StatoCandidatura stato;
+	private String idProgetto;
+	private String idProgettista;
+	private StatoCandidatura stato;
+
+	public Candidatura() {
+
+	}
+
+	public Candidatura(String idProgetto, String idProgettista) {
+		this.idProgetto = idProgetto;
+		this.idProgettista = idProgettista;
+	}
 	
 	public String getIdProgetto() {
 		return this.idProgetto;
