@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.Progetto;
+package it.unicam.cs.ids.progetto;
 
 public class Candidatura {
 	
