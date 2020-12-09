@@ -2,22 +2,22 @@ package it.unicam.cs.ids.progetto;
 
 import it.unicam.cs.ids.utenti.Progettista;
 
-//import java.util.HashMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class Progetto {
 
-    private String id;
-    private String nome;
-    private String descrizione;
-    private StatoProgetto stato;
-    private Set<Progettista> progettisti = new HashSet<Progettista>();
+    String id;
+    String nome;
+    String descrizione;
+    StatoProgetto stato;
+    HashSet<Progettista> progettisti = new HashSet<Progettista>();
     //HashMap<String, Integer> infoProgettistiRichiesti = new HashMap<String, Integer>(); // tag e numero necessario
-    private Map<Specializzazione, Integer> infoProgettistiRichiesti;
-    private Set<Candidatura> candidature = new HashSet<Candidatura>();
-    
+    Map<Specializzazione, Integer> infoProgettistiRichiesti;
+    HashSet<Candidatura> candidature = new HashSet<Candidatura>();
+
+
     public Progetto(String nome, String descrizione) {
         this.nome = nome;
         this.descrizione = descrizione;
@@ -75,7 +75,7 @@ public class Progetto {
         return cercato;
     }
 
-    public Set<Progettista> getProgettisti() {
+    public HashSet<Progettista> getProgettisti() {
         return this.progettisti;
     }
 
@@ -92,7 +92,7 @@ public class Progetto {
         this.infoProgettistiRichiesti.put(tag, numero);
     }
 
-    public void setMultipleInfoProgettistiRichiesti(Map<Specializzazione, Integer> in) {
+    public void setMultipleInfoProgettistiProgettisti(HashMap<Specializzazione, Integer> in) {
 //        for (Specializzazione i : in.keySet()) {
 //            setSingleInfoProgettistiRichiesti(i, in.get(i));
 //        }
