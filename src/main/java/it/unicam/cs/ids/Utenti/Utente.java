@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.utenti;
+package it.unicam.cs.ids.Utenti;
 
 public class Utente 
 {
