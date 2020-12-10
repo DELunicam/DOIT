@@ -1,6 +1,5 @@
-package it.unicam.cs.ids.Utenti;
+package it.unicam.cs.ids.utenti;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Esperto extends Utente{
