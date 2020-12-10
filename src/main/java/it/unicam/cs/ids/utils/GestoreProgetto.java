@@ -9,6 +9,7 @@ import java.util.*;
 
 public class GestoreProgetto {
     private Set<Progetto> progetti;
+
     public GestoreProgetto(){
         this.progetti = new HashSet<>();
     }
@@ -16,9 +17,9 @@ public class GestoreProgetto {
         this.progetti = progetti;
     }
 
-    public Progetto createProgetto(String nome, String descrizione) {
+    public Progetto createProgetto(String idProponente, String nome, String descrizione) {
         //TODO createProgetto
-        Progetto progettoNeutro = new Progetto(nome, descrizione);
+        Progetto progettoNeutro = new Progetto(idProponente, nome, descrizione);
         this.progetti.add(progettoNeutro);
         return progettoNeutro;
     }
@@ -32,8 +33,19 @@ public class GestoreProgetto {
         progetto.setInfoProgettistiRichiesti(in);
     }
 
-    public void getProgetto(String idProponente) {
+    /**
+     *
+     * @param idProgetto
+     * @return Progetto con id uguale a idProgetto, null se non esiste
+     */
+    public Progetto getProgetto(String idProgetto) {
         //TODO WTF getProgetto
+        for(Progetto progetto : progetti){
+            if(progetto.getId().equals(idProgetto)){
+                return progetto;
+            }
+        }
+        return null;
     }
 
     public void pubblicaProgetto(Progetto progetto) {
@@ -44,8 +56,15 @@ public class GestoreProgetto {
         //TODO getListaProgetti
     }
 
-    public void getListaProgetti(String idProponente, StatoProgetto stato){
+    public Set<Progetto> getListaProgetti(String idProponente, StatoProgetto stato){
         //TODO getListaProgetti
+        Set<Progetto> result = new HashSet<>();
+        for(Progetto progetto : progetti){
+            if(progetto.getIdProponente().equals(idProponente) && progetto.getStatoProgetto().equals(stato)) {
+                result.add(progetto);
+            }
+        }
+        return result;
     }
 
     public void selezionaCandidatura(String idProgetto, StatoProgetto stato){

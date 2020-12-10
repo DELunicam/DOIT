@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.progetto;
 
 import it.unicam.cs.ids.utenti.Progettista;
+import it.unicam.cs.ids.utenti.Proponente;
 
 //import java.util.HashMap;
 import java.util.HashSet;
@@ -13,14 +14,17 @@ public class Progetto {
     private String nome;
     private String descrizione;
     private StatoProgetto stato;
+    private String idProponente;
     private Set<Progettista> progettisti = new HashSet<Progettista>();
     //HashMap<String, Integer> infoProgettistiRichiesti = new HashMap<String, Integer>(); // tag e numero necessario
     private Map<Specializzazione, Integer> infoProgettistiRichiesti;
     private Set<Candidatura> candidature = new HashSet<Candidatura>();
     
-    public Progetto(String nome, String descrizione) {
+    public Progetto(String idProponente, String nome, String descrizione) {
+        this.idProponente = idProponente;
         this.nome = nome;
         this.descrizione = descrizione;
+        this.stato = StatoProgetto.NEUTRO;
     }
 
     public String getId() {
@@ -53,6 +57,14 @@ public class Progetto {
 
     public void setStatoProgetto(StatoProgetto statoProgetto) {
         this.stato = statoProgetto;
+    }
+
+    public String getIdProponente() {
+        return idProponente;
+    }
+
+    public void setIdProponente(String idProponente) {
+        this.idProponente = idProponente;
     }
 
     public void setProgettista(Progettista tizio) {

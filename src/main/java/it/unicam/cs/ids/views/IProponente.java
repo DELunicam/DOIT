@@ -15,10 +15,12 @@ import java.util.*;
 
 public class IProponente {
     Scanner sc;
-    GestoreProgetto gestore = new GestoreProgetto();
+    public GestoreProgetto gestore = new GestoreProgetto();
+    String idProponente;
 
-    public IProponente() {
+    public IProponente(String idProponente) {
         this.sc = new Scanner(System.in);
+        this.idProponente = idProponente;
         //TODO IProponente
     }
 
@@ -45,7 +47,7 @@ public class IProponente {
         System.out.println("Inserire una descrizione per "+nome);
         String descrizione = sc.nextLine();
 
-        Progetto progettoNeutro = gestore.createProgetto(nome, descrizione);
+        Progetto progettoNeutro = gestore.createProgetto(idProponente, nome, descrizione);
         //Progetto progettoNeutro = new Progetto(name, description);
 
         System.out.println("Nuovo progetto creato: ");
@@ -100,10 +102,8 @@ public class IProponente {
             infoProgettistiRichiesti.put(specProgettisti, numProgettisti);
         }
 
-        //TODO questo sara compito del gestore che prendera come argomento il progetto e la map
         gestore.insertInfoProgettisti(progettoNeutro, infoProgettistiRichiesti);
         System.out.println(progettoNeutro.getInfoProgettistiRichiesti().keySet());
-        //
 
         System.out.println("Il progetto "+progettoNeutro.getNome()+" è stato creato");
         printInfoProgetto(progettoNeutro);
@@ -122,20 +122,50 @@ public class IProponente {
         progetto.getInfoProgettistiRichiesti().forEach((key, value) -> System.out.println(key + " : " + value));
     }
 
+    /**
+     * Stampa in console le informazioni dei progetti creati dal proponente aventi un certo stato
+     *
+     * @param stato Lo stato del progetti progetti da visualizzare
+     */
     public void viewProgetti(StatoProgetto stato){
         //TODO viewProgetti
+        Set<Progetto> progettiNeutri = gestore.getListaProgetti(idProponente, stato);
+        if(progettiNeutri.size()==0){
+            System.out.println("Non ci sono progetti "+stato);
+            return;
+        }
+        System.out.println("ID | NOME | DESCRIZIONE");
+        for(Progetto p : progettiNeutri){
+            System.out.println(p.getId()+" | "+p.getNome()+" | "+p.getDescrizione());
+        }
+        selezionaProgetto();
     }
 
-    public void selezionaProgetto(String id){
+    public void selezionaProgetto(){
         //TODO selezionaProgetto
+        System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
+        String idProgetto = sc.nextLine();
+        while(!idProgetto.equals("EXIT")) {
+            this.printInfoProgetto(gestore.getProgetto(idProgetto));
+            // TODO merge con metodo di luca
+        }
     }
 
     public void selezionaProgettisti(){
         //TODO selezionaProgettisti
     }
 
-    public void pubblicaProgetto(){
+    public void pubblicaProgetto(String idProgetto){
         //TODO pubblicaProgetto
+        System.out.println("Vuoi rendere il progetto " + idProgetto + " pubblico?");
+        System.out.println("Se reso pubblico i progettisti possono iniziare a candidarsi");
+        System.out.println("[Y] YES,    [N] NO");
+        String yN = sc.nextLine().toUpperCase();
+        if (yN.equals("Y")) {
+            gestore.getProgetto(idProgetto).setStatoProgetto(StatoProgetto.PUBBLICO);
+        } else if (yN.equals("N")) {
+            return;
+        }
     }
 
     public void selezionaProgettista(){
