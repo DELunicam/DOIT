@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.utils;
-
-import it.unicam.cs.ids.progetto.Specializzazione;
 import it.unicam.cs.ids.progetto.Candidatura;
+import it.unicam.cs.ids.progetto.StatoCandidatura;
+import it.unicam.cs.ids.progetto.Specializzazione;
 import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
 import it.unicam.cs.ids.utenti.Progettista;
@@ -11,6 +11,7 @@ import java.util.*;
 public class GestoreProgetto {
     private Set<Progetto> progetti;
     private FakeDb db = new FakeDb(); // fake db
+    private Set<Candidatura> candidature;
     public GestoreProgetto(){
         this.progetti = new HashSet<>();
     }
@@ -93,8 +94,12 @@ public class GestoreProgetto {
         return candidature;
     }
 
-    public void modificaStatoCandidatura(StatoProgetto stato){
-        //TODO modificaStatoCandidatura
+    public void modificaStatoCandidatura(StatoCandidatura stato)
+    {
+        for (Candidatura candidatura : candidature)
+        {
+            candidatura.setStatoCandidatura(stato);
+        }
     }
 
     // serve per prendere le info data una candidatura, aggiungere al diagramma
@@ -114,7 +119,17 @@ public class GestoreProgetto {
         return info;
     }
 
-    public void notificaEsito(String idProgettista) {
-        //TODO notificaEsito
+
+    public void notificaEsito(String idProgettista)
+    {
+
+        for(Candidatura candidatura : candidature)
+        {
+            if(candidatura.getIdProgettista().equals(idProgettista))
+            {
+                System.out.println("La tua candidatura è stata:"+ candidatura.getStatoCandidatura());
+            }
+        }
     }
+
 }
