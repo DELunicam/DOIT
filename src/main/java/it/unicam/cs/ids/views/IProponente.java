@@ -148,7 +148,7 @@ public class IProponente {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
         while(!idProgetto.equals("EXIT")) {
-            Progetto progetto = gestore.getProgetto(idProgetto)
+            Progetto progetto = gestore.getProgetto(idProgetto);
             this.printInfoProgetto(progetto);
             // TODO merge con metodo di luca
             System.out.println("Se si desiderano informazioni su progettisti digitare [PROGETTISTI]\n" +

@@ -22,7 +22,8 @@ public class GestoreProgetto {
     public Progetto createProgetto(String idProponente, String nome, String descrizione) {
         //TODO createProgetto
         Progetto progettoNeutro = new Progetto(idProponente, nome, descrizione);
-        this.progetti.add(progettoNeutro);
+        //this.progetti.add(progettoNeutro);
+        this.db.add(progettoNeutro);
         return progettoNeutro;
     }
 

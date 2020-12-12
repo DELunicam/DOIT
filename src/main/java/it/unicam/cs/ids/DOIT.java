@@ -15,18 +15,26 @@ public class DOIT {
 
         IProponente proponente = new IProponente("PROP1");
 
-        System.out.println("Cosa vuoi fare?\n" +
-                "[CREA]\n" +
-                "[PUBBLICA]\n" +
-                "[SELEZIONA PROGETTISTI]\n" +
-                "[CONFERMA PROGETTISTI]");
 
-        String input = sc.nextLine().toUpperCase();
-        switch(input){
-            case "CREA": proponente.startProgetto();
-            case "PUBBLICA": ; //
-            case "SELEZIONA PROGETTISTI": ; //
-            case "CONFERMA PROGETTISTI": ; //
+        while(true) {
+            System.out.println("Cosa vuoi fare?\n" +
+                    "[CREA]\n" +
+                    "[PUBBLICA]\n" +
+                    "[SELEZIONA PROGETTISTI]\n" +
+                    "[CONFERMA PROGETTISTI]\n" +
+                    "[EXIT]");
+            String input = sc.nextLine().toUpperCase();
+            switch (input) {
+                case "CREA":
+                    proponente.startProgetto();
+                case "PUBBLICA":
+                    ; //
+                case "SELEZIONA PROGETTISTI":
+                    ; //
+                case "CONFERMA PROGETTISTI":
+                    proponente.viewProgetti(StatoProgetto.NEUTRO); //
+                case "EXIT": break;
+            }
         }
     }
 }

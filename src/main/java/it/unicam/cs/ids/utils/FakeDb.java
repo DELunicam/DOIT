@@ -59,15 +59,17 @@ public class FakeDb {
 		map.put(Specializzazione.MATEMATICA, 3);
 		
 		// PROGETTI
-		Progetto uno = new Progetto("progettoA", "descrizione banale", mario.getId(), StatoProgetto.IN_ATTESA);
+		Progetto uno = new Progetto(mario.getId(), "progettoA", "descrizione banale");
 		uno.setId("progettoPrimo");
+		uno.setStatoProgetto(StatoProgetto.IN_ATTESA);
 		uno.setProgettista(daniele);
 		uno.setProgettista(enzo);
 		uno.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
 		uno.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 
-		Progetto due = new Progetto("progettoB", "descrizione banale", mario.getId(), StatoProgetto.INATTIVO);
+		Progetto due = new Progetto(mario.getId(), "progettoB", "descrizione banale");
 		due.setId("progettoSecondo");
+		due.setStatoProgetto(StatoProgetto.INATTIVO);
 		due.setProgettista(luca);
 		due.setProgettista(enzo);
 		due.setSingleInfoProgettistiRichiesti(Specializzazione.MATEMATICA, 4);
@@ -99,6 +101,10 @@ public class FakeDb {
 		uno.setCandidatura(sad);
 		due.setCandidatura(zoo);
 	
+	}
+
+	public void add(Progetto progetto){
+    	this.progetti.add(progetto);
 	}
 
 }
