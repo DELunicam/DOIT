@@ -1,11 +1,12 @@
 package it.unicam.cs.ids.views;
 
-
 import it.unicam.cs.ids.utils.GestoreProgetto;
 import it.unicam.cs.ids.progetto.Specializzazione;
 import it.unicam.cs.ids.progetto.Candidatura;
 import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
+import it.unicam.cs.ids.utenti.Progettista;
+import it.unicam.cs.ids.utenti.Proponente;
 
 import java.util.*;
 
@@ -16,9 +17,11 @@ import java.util.*;
 public class IProponente {
     Scanner sc;
     GestoreProgetto gestore = new GestoreProgetto();
+    String idProponente;
 
-    public IProponente() {
+    public IProponente(String idProponente) {
         this.sc = new Scanner(System.in);
+        this.idProponente = idProponente;
         //TODO IProponente
     }
 
@@ -45,7 +48,7 @@ public class IProponente {
         System.out.println("Inserire una descrizione per "+nome);
         String descrizione = sc.nextLine();
 
-        Progetto progettoNeutro = gestore.createProgetto(nome, descrizione);
+        Progetto progettoNeutro = gestore.createProgetto(nome, descrizione, this.idProponente);
         //Progetto progettoNeutro = new Progetto(name, description);
 
         System.out.println("Nuovo progetto creato: ");
@@ -62,7 +65,7 @@ public class IProponente {
         } else if(yN.equals("N")){
             insertInfoProgettisti(progettoNeutro);
         } else{
-            System.out.println("Impossibile processare l'operazione'");
+            System.out.println("Impossibile processare l'operazione");
         }
     }
 
@@ -123,11 +126,48 @@ public class IProponente {
     }
 
     public void viewProgetti(StatoProgetto stato){
+        System.out.println("Si desidera visualizzare la lista dei progetti con stato " + stato.toString() + "?\n)" +
+        "[Y] YES,    [N] NO");
+        String yN = sc.nextLine().toUpperCase();
+        if (yN.equals("Y")) {
+            Set<Progetto> progettiConStato = gestore.getListaProgetti(this.idProponente, stato);
+            for (Progetto progetto : progettiConStato) {
+                printInfoProgetto(progetto);
+            }
+            selezionaProgetto(this.idProponente);
+        } else if (yN.equals("N")) {
+            System.out.println("Non si vuole visualizzare la lista");
+        } else {
+            System.out.println("Impossibile processare l'operazione");
+        }
+        
+
+        // FARE QUESTO
         //TODO viewProgetti
     }
 
-    public void selezionaProgetto(String id){
-        //TODO selezionaProgetto
+    public void selezionaProgetto(String idProgetto){
+        System.out.println("Digita il nome del progetto desiderato");
+        String nomeProg = sc.nextLine();
+        Set<Progetto> progettiConStato = gestore.getListaProgetti(this.idProponente);
+        for (Progetto progetto : progettiConStato) {
+            if (progetto.getNome().equals(nomeProg)) {
+                System.out.println("Progetto trovato:");
+                progetto.printInfo();
+                System.out.println("Se si desiderano informazioni su progettisti digitare [PROGETTISTI]\n" +
+                "Se si desiderano informazioni sulle candidature digitare [CANDIDATURE]");
+                String dettagli = sc.nextLine().toUpperCase();
+                if (dettagli.equals("PROGETTISTI")) {
+                    // TODO viewProgettisti() o qualcosa di simile
+                } else if (dettagli.equals("CANDIDATURE")) {
+                    this.viewCandidature(progetto.getId(), progetto.getStatoProgetto());
+                } else {
+                    System.out.println("Impossibile processare l'operazione");
+                }
+                return;
+            }
+        }
+        System.out.println("Progetto non trovato\n");
     }
 
     public void selezionaProgettisti(){
@@ -142,16 +182,78 @@ public class IProponente {
         //TODO selezionaProgettista
     }
 
-    public void viewCandidatura(String id){
-        //TODO viewCandidatura
+    public void viewCandidature(String idProgetto, StatoProgetto stato) {
+        Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, stato);
+        for (Candidatura candidatura : candidature) {
+            System.out.println("Candidato: " + candidatura.getIdProgettista() +
+            ", stato candidatura: " + candidatura.getStatoCandidatura());
+        }
+        this.selezionaCandidato(idProgetto);
     }
 
-    public void viewInfoProgettista(Candidatura candidatura){
-        //TODO viewInfoProgettista
+    // TODO controllare
+    public void selezionaCandidato(String idProgetto) {
+        System.out.println("Si desidera selezionare un team di progettisti?\n" +
+        "[Y] YES,    [N] NO");
+        String input = sc.nextLine().toUpperCase();
+
+        if (input.equals("Y")) {
+            System.out.println("Digita il nome del progettista desiderato");
+            HashSet<Progettista> candidature = new HashSet<Progettista>();
+            int numSelezionati = 0;
+            int numMassimo = gestore.getProgetto(idProgetto).getNumeroProgettistiRichiesti();
+    
+            while (numSelezionati < numMassimo) {
+                String idProg = sc.nextLine();
+                Progettista scelto = gestore.getProgettista(idProg);
+                if (scelto != null) {
+                    candidature.add(scelto);
+                    numSelezionati++;
+                }
+            }
+            this.viewInfoProgettista(candidature);
+
+        } else if (input.equals("N")) {
+            System.out.println("Team non confermato");
+            // TODO svuota array e ricomincia a selezionare le candidature buone
+        } else {
+            System.out.println("Impossibile processare l'operazione");
+        }
+    
+    }
+
+
+    //public void viewInfoProgettista(Candidatura candidatura){
+    public void viewInfoProgettista(Set<Progettista> progettisti) {
+        //String info = gestore.getInfoProgettisti(progettisti);
+        //System.out.println(info);
+        for (Progettista progettista : progettisti) {
+            System.out.println(
+                "PROGETTISTA " + progettista.getId() + "\n" +
+                "Nome: " + progettista.getNome() + "\n" +
+                "Cognome: " + progettista.getCognome() + "\n" +
+                "Specializzazioni: " + progettista.getSpecializzazioni() + "\n" +
+                "Progetti svolti: " + progettista.getProgetti() + "\n" +
+                "Mail: " + progettista.getMailAddress()
+            );
+        }
+        this.accettaCandidatura();
     }
 
     public void accettaCandidatura(){
-        //TODO accettaCandidatura
+        System.out.println("Si desidera confermare la formazione di questo team di progettisti?\n" +
+        "[Y] YES,    [N] NO");
+        String input = sc.nextLine().toUpperCase();
+        if (input.equals("Y")) {
+            // TODO invia notifica ai progettisti e svuota array
+            // TODO cambia stato progetto/candidature
+            System.out.println("Complimenti hai trovato un team per il progetto!");
+        } else if (input.equals("N")) {
+            System.out.println("Team non confermato");
+            // TODO svuota array e ricomincia a selezionare le candidature buone
+        } else {
+            System.out.println("Impossibile processare l'operazione");
+        }
     }
 
     public void seleziona(){

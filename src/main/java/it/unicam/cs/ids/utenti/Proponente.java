@@ -11,7 +11,7 @@ public class Proponente extends Utente
 	
 	public void setId(String id)
 	{
-		this.name = id;
+		this.idProponente = id;
 	}
 	
 	public String getNome() 
