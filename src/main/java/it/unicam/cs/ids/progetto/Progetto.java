@@ -1,9 +1,8 @@
 package it.unicam.cs.ids.progetto;
 
 import it.unicam.cs.ids.utenti.Progettista;
-import it.unicam.cs.ids.utenti.Proponente;
 
-//import java.util.HashMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -17,7 +16,7 @@ public class Progetto {
     private String idProponente;
     private Set<Progettista> progettisti = new HashSet<Progettista>();
     //HashMap<String, Integer> infoProgettistiRichiesti = new HashMap<String, Integer>(); // tag e numero necessario
-    private Map<Specializzazione, Integer> infoProgettistiRichiesti;
+    private Map<Specializzazione, Integer> infoProgettistiRichiesti = new HashMap<Specializzazione, Integer>();
     private Set<Candidatura> candidature = new HashSet<Candidatura>();
     
     public Progetto(String idProponente, String nome, String descrizione) {
@@ -60,12 +59,13 @@ public class Progetto {
     }
 
     public String getIdProponente() {
-        return idProponente;
+        return this.idProponente;
     }
 
     public void setIdProponente(String idProponente) {
         this.idProponente = idProponente;
     }
+
 
     public void setProgettista(Progettista tizio) {
         this.progettisti.add(tizio);
@@ -123,21 +123,35 @@ public class Progetto {
     }
 
 
-//    public Integer getNumeroProgettistiRichiesti() {
-//        Integer out = 0;
-//        for (String i : this.infoProgettistiRichiesti.keySet()) {
-//            out += this.infoProgettistiRichiesti.get(i);
-//        }
-//        return out;
-//    }
+    public Integer getNumeroProgettistiRichiesti() {
+        Integer totale = 0;
+        for (Specializzazione i : this.infoProgettistiRichiesti.keySet()) {
+            totale += this.infoProgettistiRichiesti.get(i);
+        }
+        return totale;
+    }
 
     public void setInfoProgettistiRichiesti(Map<Specializzazione, Integer> infoProgettistiRichiesti) {
         this.infoProgettistiRichiesti = infoProgettistiRichiesti;
     }
 
     // candidature???
+    // candidature aggiunte, aggiungere su diagramma classi di progetto?
+    public void setCandidatura(Candidatura candidatura) {
+        this.candidature.add(candidatura);
+    }
 
-    // extra per comodit�
+    public void setCandidature(HashSet<Candidatura> set) {
+        for (Candidatura candidatura : set) {
+            setCandidatura(candidatura);
+        }
+    }
+
+    public Set<Candidatura> getCandidature() {
+        return this.candidature;
+    }
+
+    // extra per comodità (usato in IProponente.selezionaProgetto())
     public void setInfo(String id, String nome, String descrizione, StatoProgetto stato) {
         this.id = id;
         this.nome = nome;
@@ -150,8 +164,8 @@ public class Progetto {
                 + "Nome: " + this.getNome() + "\n"
                 + "Descrizione: " + this.getDescrizione() + "\n"
                 + "Stato: " + this.getStatoProgetto() + "\n"
-                + "Progettisti: \n" + this.getProgettisti() + "\n"
-                + "Progettisti richiesti: \n" + this.getInfoProgettistiRichiesti() + "\n";
+                //+ "Progettisti: \n" + this.getProgettisti() + "\n"
+                + "Progettisti richiesti: \n" + this.getInfoProgettistiRichiesti();
         return info;
     }
 
