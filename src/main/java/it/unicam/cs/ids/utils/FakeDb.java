@@ -61,7 +61,7 @@ public class FakeDb {
 		// PROGETTI
 		Progetto uno = new Progetto(mario.getId(), "progettoA", "descrizione banale");
 		uno.setId("progettoPrimo");
-		uno.setStatoProgetto(StatoProgetto.IN_ATTESA);
+		uno.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
 		uno.setProgettista(daniele);
 		uno.setProgettista(enzo);
 		uno.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
