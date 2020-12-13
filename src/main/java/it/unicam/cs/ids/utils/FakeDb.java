@@ -104,6 +104,7 @@ public class FakeDb {
 
 		this.progetti.add(uno);
 		this.progetti.add(due);
+		this.progetti.add(tre);
 
 		// CANDIDATURE
 		Candidatura foo = new Candidatura();
@@ -124,11 +125,11 @@ public class FakeDb {
 		zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 		Candidatura ciao = new Candidatura();
 		ciao.setIdProgettista(daniele.getId());
-		ciao.setIdProgettista(tre.getId());
+		ciao.setIdProgetto(tre.getId());
 		ciao.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 		Candidatura puffo = new Candidatura();
 		puffo.setIdProgettista(enzo.getId());
-		puffo.setIdProgettista(tre.getId());
+		puffo.setIdProgetto(tre.getId());
 		puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
 

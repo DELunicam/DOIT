@@ -189,11 +189,13 @@ public class IProponente {
             {
                 Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, StatoProgetto.PUBBLICO);
                 this.requestEsperto(candidature);
+                return;
             }
 
             else if (yN.equals("N"))
             {
                viewCandidature(idProgetto, StatoProgetto.PUBBLICO);
+               return;
             }
 
 
@@ -221,6 +223,7 @@ public class IProponente {
             ", stato candidatura: " + candidatura.getStatoCandidatura());
         }
         this.selezionaCandidato(idProgetto);
+        
     }
 
     // TODO controllare
@@ -230,7 +233,7 @@ public class IProponente {
         String input = sc.nextLine().toUpperCase();
 
         if (input.equals("Y")) {
-            System.out.println("Digita il nome del progettista desiderato");
+            System.out.println("Digita l'id del progettista desiderato");
             HashSet<Progettista> candidature = new HashSet<Progettista>();
             int numSelezionati = 0;
             int numMassimo = gestore.getProgetto(idProgetto).getNumeroProgettistiRichiesti();
@@ -241,7 +244,7 @@ public class IProponente {
                 if (scelto != null) {
                     candidature.add(scelto);
                     numSelezionati++;
-                    System.out.println("Progettista"+scelto.getNome() +"confermato\n");
+                    System.out.println("Progettista "+scelto.getNome() +" confermato\n");
                 }
                 else 
                 {
@@ -291,6 +294,7 @@ public class IProponente {
         } else {
             System.out.println("Impossibile processare l'operazione");
         }
+
     }
 
     public void seleziona(){
