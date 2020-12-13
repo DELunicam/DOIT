@@ -32,6 +32,7 @@ public class FakeDb {
 		Progettista luca = new Progettista();
 		luca.setId("PROG1");
 		luca.setNome("luca");
+		luca.addSpecializzazione(Specializzazione.CHIMICA);
 		Progettista enzo = new Progettista();
 		enzo.setId("PROG2");
 		enzo.setNome("enzo");
@@ -46,6 +47,7 @@ public class FakeDb {
 		Progettista paolo = new Progettista();
 		paolo.setId("PROG5");
 		paolo.setNome("paolo");
+		paolo.addSpecializzazione(Specializzazione.INGEGNERIA);
 		
 		this.progettisti.add(luca);
 		this.progettisti.add(enzo);
@@ -66,7 +68,10 @@ public class FakeDb {
 		uno.setStatoProgetto(StatoProgetto.PUBBLICO);
 		uno.setProgettista(daniele);
 		uno.setProgettista(enzo);
+<<<<<<< Updated upstream
 		uno.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 3);
+=======
+>>>>>>> Stashed changes
 		uno.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 
 		Progetto due = new Progetto(mario.getId(), "progettoB", "descrizione banale");
@@ -99,9 +104,7 @@ public class FakeDb {
 		zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
 		uno.setCandidatura(foo);
-		uno.setCandidatura(bar);
-		uno.setCandidatura(sad);
-		due.setCandidatura(zoo);
+		
 	
 	}
 
