@@ -12,7 +12,7 @@ public class Progettista extends Utente
 	private ArrayList<Specializzazione> specializzazioni = new ArrayList<Specializzazione>(); 
 	private ArrayList<String> progettiSvolti = new ArrayList<String>(); ;
 	public Progettista() {}
-	public String getInfo()
+	/* public String getInfo()
 	{
 		String info = id;
 		ListIterator<Specializzazione> i = specializzazioni.listIterator();
@@ -25,7 +25,13 @@ public class Progettista extends Utente
 		}
 		return info;
 	}
-	
+		*/	
+	//aggiunto
+	public void setId(String id)
+	{
+		this.id = id;
+	}
+
 	public String getId()
 	{
 		return id;

@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.views;
 
 
-import it.unicam.cs.ids.utils.FakeDb;
 import it.unicam.cs.ids.utils.GestoreProgetto;
 import it.unicam.cs.ids.progetto.Specializzazione;
 import it.unicam.cs.ids.progetto.Candidatura;
@@ -73,6 +72,7 @@ public class IProponente {
     }
 
     public void requestEsperto(Progetto progettoNeutro){
+        //TODO requestEsperto
         progettoNeutro.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
         System.out.println("Richiesta effettuata, sarai notificato quando almeno un esperto valutera il progetto");
     }
@@ -137,10 +137,9 @@ public class IProponente {
      *
      * @param stato Lo stato del progetti progetti da visualizzare
      */
-    public void viewProgetti(StatoProgetto stato)
-    {
+    public void viewProgetti(StatoProgetto stato){
         //TODO viewProgetti
-        Set<Progetto> progettiNeutri = gestore.getListaProgetti(idProponente,stato);
+        Set<Progetto> progettiNeutri = gestore.getListaProgetti(idProponente, stato);
         if(progettiNeutri.size()==0){
             System.out.println("Non ci sono progetti "+stato);
             return;
@@ -177,8 +176,7 @@ public class IProponente {
 
     {
 
-        //TODO selezionaProgettisti
-       ////viewCandidature(idProgetto, stato);
+        
         System.out.print("Digitare l'id del progetto per cui si vuole selezionare progettisti, [EXIT] per uscire\n");
         String  idProgetto = sc.next();
         System.out.println("Desideri che un esperto valuti le candidature? \n ");
@@ -191,16 +189,19 @@ public class IProponente {
             {
                 Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, StatoProgetto.PUBBLICO);
                 this.requestEsperto(candidature);
+                return;
             }
 
             else if (yN.equals("N"))
             {
                viewCandidature(idProgetto, StatoProgetto.PUBBLICO);
+               return;
             }
 
 
         }
     }
+
 
     public void pubblicaProgetto(String idProgetto){
         //TODO pubblicaProgetto
@@ -215,10 +216,6 @@ public class IProponente {
         }
     }
 
-    public void selezionaProgettista(){
-        //TODO selezionaProgettista
-    }
-
     public void viewCandidature(String idProgetto, StatoProgetto stato) {
         Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, stato);
         for (Candidatura candidatura : candidature) {
@@ -226,6 +223,7 @@ public class IProponente {
             ", stato candidatura: " + candidatura.getStatoCandidatura());
         }
         this.selezionaCandidato(idProgetto);
+        
     }
 
     // TODO controllare
@@ -235,22 +233,22 @@ public class IProponente {
         String input = sc.nextLine().toUpperCase();
 
         if (input.equals("Y")) {
-            System.out.println("Digita il nome del progettista desiderato");
+            System.out.println("Digita l'id del progettista desiderato");
             HashSet<Progettista> candidature = new HashSet<Progettista>();
             int numSelezionati = 0;
             int numMassimo = gestore.getProgetto(idProgetto).getNumeroProgettistiRichiesti();
 
-            while (numSelezionati < numMassimo -1){
+            while (numSelezionati < numMassimo) {
                 String idProg = sc.nextLine();
                 Progettista scelto = gestore.getProgettista(idProg);
                 if (scelto != null) {
                     candidature.add(scelto);
-                    System.out.println("Progettista confermato\n");
                     numSelezionati++;
+                    System.out.println("Progettista "+scelto.getNome() +" confermato\n");
                 }
-                else
+                else 
                 {
-                    System.out.println("Id progettista non valido \n");
+                    System.out.println ("Id progettista non valido \n");
                 }
             }
             this.viewInfoProgettista(candidature);
@@ -296,6 +294,7 @@ public class IProponente {
         } else {
             System.out.println("Impossibile processare l'operazione");
         }
+
     }
 
     public void seleziona(){

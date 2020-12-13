@@ -1,5 +1,8 @@
 package it.unicam.cs.ids;
 
+import it.unicam.cs.ids.progetto.Progetto;
+import it.unicam.cs.ids.progetto.StatoProgetto;
+import it.unicam.cs.ids.utils.GestoreProgetto;
 import it.unicam.cs.ids.views.IProponente;
 
 import java.util.Scanner;
@@ -7,28 +10,26 @@ import java.util.Scanner;
 public class DOIT {
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
-<<<<<<< Updated upstream
-        IProponente proponente = new IProponente();
-        proponente.startProgetto();
-=======
 
         IProponente proponente = new IProponente("PROP1");
 
-        boolean exit = true;
-        while(exit) {
+        boolean exit = false;
+        while(!exit) {
             System.out.println("Cosa vuoi fare?\n" +
                     "[CREA]\n" +
                     "[PUBBLICA]\n" +
                     "[SELEZIONA PROGETTISTI]\n" +
                     "[CONFERMA PROGETTISTI]\n" +
-                    "[EXIT]\n");
+                    "[EXIT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
                 case "CREA":
                     proponente.startProgetto();
                     break;
                 case "PUBBLICA":
+                    
                     break; //
                 case "SELEZIONA PROGETTISTI":
                     proponente.selezionaProgettisti();
@@ -37,10 +38,9 @@ public class DOIT {
                     proponente.viewProgetti(StatoProgetto.NEUTRO);
                     break;//
                 case "EXIT":
-                    exit= false;
+                    exit=true;
                     break;
             }
         }
->>>>>>> Stashed changes
     }
 }

@@ -32,10 +32,10 @@ public class FakeDb {
 		Progettista luca = new Progettista();
 		luca.setId("PROG1");
 		luca.setNome("luca");
-		luca.addSpecializzazione(Specializzazione.CHIMICA);
 		Progettista enzo = new Progettista();
 		enzo.setId("PROG2");
 		enzo.setNome("enzo");
+		enzo.addSpecializzazione(Specializzazione.INGEGNERIA);
 		Progettista daniele = new Progettista();
 		daniele.setId("PROG3");
 		daniele.setNome("daniele");
@@ -43,11 +43,9 @@ public class FakeDb {
 		Progettista marco = new Progettista();
 		marco.setId("PROG4");
 		marco.setNome("marco");
-		marco.addSpecializzazione(Specializzazione.CHIMICA);
 		Progettista paolo = new Progettista();
 		paolo.setId("PROG5");
 		paolo.setNome("paolo");
-		paolo.addSpecializzazione(Specializzazione.INGEGNERIA);
 		
 		this.progettisti.add(luca);
 		this.progettisti.add(enzo);
@@ -65,13 +63,10 @@ public class FakeDb {
 		// PROGETTI
 		Progetto uno = new Progetto(mario.getId(), "progettoA", "descrizione banale");
 		uno.setId("progettoPrimo");
-		uno.setStatoProgetto(StatoProgetto.PUBBLICO);
+		uno.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
 		uno.setProgettista(daniele);
 		uno.setProgettista(enzo);
-<<<<<<< Updated upstream
-		uno.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 3);
-=======
->>>>>>> Stashed changes
+		uno.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
 		uno.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 
 		Progetto due = new Progetto(mario.getId(), "progettoB", "descrizione banale");
@@ -82,8 +77,34 @@ public class FakeDb {
 		due.setSingleInfoProgettistiRichiesti(Specializzazione.MATEMATICA, 4);
 		due.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 5);
 
+		Progetto tre = new Progetto(mario.getId(), "progettoC", "descrizione banale");
+		tre.setId("progettoTerzo");
+		tre.setStatoProgetto(StatoProgetto.PUBBLICO);
+		tre.setProgettista(daniele);
+		tre.setProgettista(enzo);
+
+		tre.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
+		tre.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
+		
+		Progetto quattro = new Progetto(mario.getId(), "progettoD", "descrizione banale");
+		quattro.setId("progettoQuarto");
+		quattro.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
+		quattro.setProgettista(daniele);
+		quattro.setProgettista(enzo);
+		quattro.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
+		quattro.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
+
+		Progetto quinto = new Progetto(mario.getId(), "progettoE", "descrizione banale");
+		quinto.setId("progettoQuinto");
+		quinto.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
+		quinto.setProgettista(daniele);
+		quinto.setProgettista(enzo);
+		quinto.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
+		quinto.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
+
 		this.progetti.add(uno);
 		this.progetti.add(due);
+		this.progetti.add(tre);
 
 		// CANDIDATURE
 		Candidatura foo = new Candidatura();
@@ -102,10 +123,23 @@ public class FakeDb {
 		zoo.setIdProgettista(daniele.getId());
 		zoo.setIdProgetto(due.getId());
 		zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+		Candidatura ciao = new Candidatura();
+		ciao.setIdProgettista(daniele.getId());
+		ciao.setIdProgetto(tre.getId());
+		ciao.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+		Candidatura puffo = new Candidatura();
+		puffo.setIdProgettista(enzo.getId());
+		puffo.setIdProgetto(tre.getId());
+		puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+
 
 		uno.setCandidatura(foo);
+		uno.setCandidatura(bar);
+		uno.setCandidatura(sad);
+		due.setCandidatura(zoo);
+		tre.setCandidatura(puffo);
+		tre.setCandidatura(ciao);
 		
-	
 	}
 
 	public void add(Progetto progetto){
