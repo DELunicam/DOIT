@@ -35,9 +35,11 @@ public class FakeDb {
 		Progettista enzo = new Progettista();
 		enzo.setId("PROG2");
 		enzo.setNome("enzo");
+		enzo.addSpecializzazione(Specializzazione.INGEGNERIA);
 		Progettista daniele = new Progettista();
 		daniele.setId("PROG3");
 		daniele.setNome("daniele");
+		daniele.addSpecializzazione(Specializzazione.CHIMICA);
 		Progettista marco = new Progettista();
 		marco.setId("PROG4");
 		marco.setNome("marco");
@@ -75,6 +77,31 @@ public class FakeDb {
 		due.setSingleInfoProgettistiRichiesti(Specializzazione.MATEMATICA, 4);
 		due.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 5);
 
+		Progetto tre = new Progetto(mario.getId(), "progettoC", "descrizione banale");
+		tre.setId("progettoTerzo");
+		tre.setStatoProgetto(StatoProgetto.PUBBLICO);
+		tre.setProgettista(daniele);
+		tre.setProgettista(enzo);
+
+		tre.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
+		tre.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
+		
+		Progetto quattro = new Progetto(mario.getId(), "progettoD", "descrizione banale");
+		quattro.setId("progettoQuarto");
+		quattro.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
+		quattro.setProgettista(daniele);
+		quattro.setProgettista(enzo);
+		quattro.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
+		quattro.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
+
+		Progetto quinto = new Progetto(mario.getId(), "progettoE", "descrizione banale");
+		quinto.setId("progettoQuinto");
+		quinto.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
+		quinto.setProgettista(daniele);
+		quinto.setProgettista(enzo);
+		quinto.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
+		quinto.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
+
 		this.progetti.add(uno);
 		this.progetti.add(due);
 
@@ -95,12 +122,23 @@ public class FakeDb {
 		zoo.setIdProgettista(daniele.getId());
 		zoo.setIdProgetto(due.getId());
 		zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+		Candidatura ciao = new Candidatura();
+		ciao.setIdProgettista(daniele.getId());
+		ciao.setIdProgettista(tre.getId());
+		ciao.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+		Candidatura puffo = new Candidatura();
+		puffo.setIdProgettista(enzo.getId());
+		puffo.setIdProgettista(tre.getId());
+		puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+
 
 		uno.setCandidatura(foo);
 		uno.setCandidatura(bar);
 		uno.setCandidatura(sad);
 		due.setCandidatura(zoo);
-	
+		tre.setCandidatura(puffo);
+		tre.setCandidatura(ciao);
+		
 	}
 
 	public void add(Progetto progetto){

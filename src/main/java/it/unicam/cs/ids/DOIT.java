@@ -15,7 +15,7 @@ public class DOIT {
 
         IProponente proponente = new IProponente("PROP1");
 
-        boolean exit = true;
+        boolean exit = false;
         while(!exit) {
             System.out.println("Cosa vuoi fare?\n" +
                     "[CREA]\n" +
@@ -29,8 +29,10 @@ public class DOIT {
                     proponente.startProgetto();
                     break;
                 case "PUBBLICA":
+                    
                     break; //
                 case "SELEZIONA PROGETTISTI":
+                    proponente.selezionaProgettisti();
                     break; //
                 case "CONFERMA PROGETTISTI":
                     proponente.viewProgetti(StatoProgetto.NEUTRO);

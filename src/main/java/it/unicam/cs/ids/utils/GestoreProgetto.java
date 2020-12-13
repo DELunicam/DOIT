@@ -50,7 +50,8 @@ public class GestoreProgetto {
         return null;
     }
 
-    public void pubblicaProgetto(Progetto progetto) {
+    public void pubblicaProgetto(Progetto progetto)
+    {
         //TODO pubblicaProgetto
     }
 
@@ -85,6 +86,17 @@ public class GestoreProgetto {
         }
         return progettiCercati;
     }
+    public Set<Progettista> getProgettisti(Set<Candidatura> candidatura)
+    
+    {
+        Set<Progettista> progettisti = new HashSet<Progettista>(); 
+        for (Candidatura cand : candidatura)
+        {
+            progettisti.add(getProgettista(cand.getIdProgettista()));
+        }
+        return progettisti;
+    }
+  
 
     public Set<Candidatura> selezionaCandidatura(String idProgetto, StatoProgetto stato){
         Set<Candidatura> candidature = new HashSet<Candidatura>();
@@ -112,14 +124,14 @@ public class GestoreProgetto {
         return null;
     }
 
-    public String getInfoProgettisti(Set<Progettista> progettisti) {
+   /* public String getInfoProgettisti(Set<Progettista> progettisti) {
         String info = "INFO PROGETTISTI:\n";
         for (Progettista progettista : progettisti) {
             info += progettista.getInfo() + "\n";
         }
         return info;
     }
-
+    */
 
     public void notificaEsito(String idProgettista)
     {

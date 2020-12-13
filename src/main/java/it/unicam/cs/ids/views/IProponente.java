@@ -8,6 +8,7 @@ import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
 import it.unicam.cs.ids.utenti.Progettista;
 import it.unicam.cs.ids.utenti.Proponente;
+import it.unicam.cs.ids.progetto.StatoCandidatura;
 
 import java.util.*;
 
@@ -72,11 +73,18 @@ public class IProponente {
 
     public void requestEsperto(Progetto progettoNeutro){
         //TODO requestEsperto
+        progettoNeutro.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
         System.out.println("Richiesta effettuata, sarai notificato quando almeno un esperto valutera il progetto");
     }
 
-    public void requestEsperto(List<Candidatura> listaCandidature){
-        //TODO requestEsperto
+    public void requestEsperto(Set<Candidatura> listaCandidature)
+    {  
+        for(Candidatura candidatura : listaCandidature)
+        {
+            gestore.getProgetto(candidatura.getIdProgetto()).setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
+            candidatura.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+        }
+        System.out.println("Richieta effettuata, sarai notificato quando almeno un esperto valuterà le candidature");
     }
 
     public void insertInfoProgettisti(Progetto progettoNeutro){
@@ -164,9 +172,34 @@ public class IProponente {
         }
     }
 
-    public void selezionaProgettisti(){
-        //TODO selezionaProgettisti
+    public void selezionaProgettisti()
+
+    {
+
+        
+        System.out.print("Digitare l'id del progetto per cui si vuole selezionare progettisti, [EXIT] per uscire\n");
+        String  idProgetto = sc.next();
+        System.out.println("Desideri che un esperto valuti le candidature? \n ");
+            System.out.println("[Y] YES,    [N] NO");
+        while(!idProgetto.equals("EXIT"))
+        {
+
+            String yN = sc.nextLine().toUpperCase();
+            if (yN.equals("Y")) 
+            {
+                Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, StatoProgetto.PUBBLICO);
+                this.requestEsperto(candidature);
+            }
+
+            else if (yN.equals("N"))
+            {
+               viewCandidature(idProgetto, StatoProgetto.PUBBLICO);
+            }
+
+
+        }
     }
+
 
     public void pubblicaProgetto(String idProgetto){
         //TODO pubblicaProgetto
@@ -179,10 +212,6 @@ public class IProponente {
         } else if (yN.equals("N")) {
             return;
         }
-    }
-
-    public void selezionaProgettista(){
-        //TODO selezionaProgettista
     }
 
     public void viewCandidature(String idProgetto, StatoProgetto stato) {
@@ -212,6 +241,11 @@ public class IProponente {
                 if (scelto != null) {
                     candidature.add(scelto);
                     numSelezionati++;
+                    System.out.println("Progettista"+scelto.getNome() +"confermato\n");
+                }
+                else 
+                {
+                    System.out.println ("Id progettista non valido \n");
                 }
             }
             this.viewInfoProgettista(candidature);
