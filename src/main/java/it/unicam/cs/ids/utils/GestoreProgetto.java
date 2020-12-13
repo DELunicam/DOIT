@@ -6,6 +6,7 @@ import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
 import it.unicam.cs.ids.utenti.Progettista;
 
+
 import java.util.*;
 
 public class GestoreProgetto {
@@ -70,7 +71,29 @@ public class GestoreProgetto {
             candidatura.setStatoCandidatura(stato);
         } 
     }
+<<<<<<< Updated upstream
 
+=======
+     //crea una lista di progettisti a partire da una lista di candidature
+    public Set<Progettista> getProgettisti(Set<Candidatura> candidatura)
+    
+    {
+        Set<Progettista> progettisti = new HashSet<Progettista>(); 
+        for (Candidatura cand : candidatura)
+        {
+            progettisti.add(getProgettista(cand.getIdProgettista()));
+        }
+        return progettisti;
+    }
+    // serve per prendere le info data una candidatura, aggiungere al diagramma ???
+    public Progettista getProgettista(String idProgettista) {
+        for (Progettista progettista : db.progettisti) {
+            if (progettista.getId().equals(idProgettista))
+                return progettista;
+        }
+        return null;
+    }
+>>>>>>> Stashed changes
 
 
     public void getInfoProgettisti(Set<Progettista> progettisti)

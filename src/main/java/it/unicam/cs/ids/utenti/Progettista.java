@@ -3,17 +3,19 @@ package it.unicam.cs.ids.utenti;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+import it.unicam.cs.ids.progetto.Specializzazione;
+
 public class Progettista extends Utente
 {
 
 	private String id;
-	private ArrayList<String> specializzazioni = new ArrayList<String>(); 
+	private ArrayList<Specializzazione> specializzazioni = new ArrayList<Specializzazione>(); 
 	private ArrayList<String> progettiSvolti = new ArrayList<String>(); ;
 	public Progettista() {}
 	public String getInfo()
 	{
 		String info = id;
-		ListIterator<String> i = specializzazioni.listIterator();
+		ListIterator<Specializzazione> i = specializzazioni.listIterator();
 		int a = 0;
 		while(i.hasNext() == true)
 		{		
@@ -30,7 +32,7 @@ public class Progettista extends Utente
 	}
 	
 	
-	public ArrayList<String> getSpecializzazioni()
+	public ArrayList<Specializzazione> getSpecializzazioni()
 	{
 		return this.specializzazioni;
 	}
@@ -39,14 +41,14 @@ public class Progettista extends Utente
 		return this.progettiSvolti;
 	}
 	
-	public Progettista(Utente utente, ArrayList<String> spec)
+	public Progettista(Utente utente, ArrayList<Specializzazione> spec)
 	
 	{
 		this.id = utente.getId();
 		this.specializzazioni.addAll(spec);
 	}
 	
-	public void addSpecializzazione(String spec)
+	public void addSpecializzazione(Specializzazione spec)
 	{
 		this.specializzazioni.add(spec);
 	}
