@@ -12,6 +12,7 @@ import it.unicam.cs.ids.progetto.StatoCandidatura;
 
 import java.util.*;
 
+
 /**
  * cancellare ID nome sul diagramma delle classi
  */
@@ -139,52 +140,55 @@ public class IProponente {
      */
     public void viewProgetti(StatoProgetto stato){
         //TODO viewProgetti
-        Set<Progetto> progettiNeutri = gestore.getListaProgetti(idProponente, stato);
-        if(progettiNeutri.size()==0){
+        Set<Progetto> progettiTrovati = gestore.getListaProgetti(idProponente, stato);
+        if(progettiTrovati.size()==0){
             System.out.println("Non ci sono progetti "+stato);
             return;
         }
         System.out.println("ID | NOME | DESCRIZIONE");
-        for(Progetto p : progettiNeutri){
+        for(Progetto p : progettiTrovati){
             System.out.println(p.getId()+" | "+p.getNome()+" | "+p.getDescrizione());
         }
         selezionaProgetto();
     }
 
-    public void selezionaProgetto(){
-        //TODO selezionaProgetto
+    public void selezionaProgetto() {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
-        while(!idProgetto.equals("EXIT")) {
+        if(!idProgetto.equals("EXIT")) {
             Progetto progetto = gestore.getProgetto(idProgetto);
             this.printInfoProgetto(progetto);
             // TODO merge con metodo di luca
-            System.out.println("Se si desiderano informazioni su progettisti digitare [PROGETTISTI]\n" +
-                    "Se si desiderano informazioni sulle candidature digitare [CANDIDATURE]");
-            String dettagli = sc.nextLine().toUpperCase();
-            if (dettagli.equals("PROGETTISTI")) {
-                // TODO viewProgettisti() o qualcosa di simile
-            } else if (dettagli.equals("CANDIDATURE")) {
-                this.viewCandidature(progetto.getId(), progetto.getStatoProgetto());
-            } else {
-                System.out.println("Impossibile processare l'operazione");
+
+            switch(progetto.getStatoProgetto()) {
+                case NEUTRO:
+                this.pubblicaProgetto(progetto.getId());
+                    break;
+                case PUBBLICO:
+                    this.selezionaProgettisti(progetto.getId());
+                    break; //
+                case IN_VALUTAZIONE_CANDIDATURE:
+                    this.viewCandidature(progetto.getId(), progetto.getStatoProgetto());
+                    break; //
+                default:
+                    System.out.println("Impossibile processare l'operazione");
+                    break;
             }
         }
     }
+    
 
-    public void selezionaProgettisti()
+    //public void selezionaProgettisti()
+    public void selezionaProgettisti(String idProgetto)
 
     {
-
         
-        System.out.print("Digitare l'id del progetto per cui si vuole selezionare progettisti, [EXIT] per uscire\n");
-        String  idProgetto = sc.next();
         System.out.println("Desideri che un esperto valuti le candidature? \n ");
-            System.out.println("[Y] YES,    [N] NO");
-        while(!idProgetto.equals("EXIT"))
+        System.out.println("[Y] YES,    [N] NO");
+        String yN = sc.nextLine().toUpperCase();
+        while (!yN.equals("EXIT"))
         {
 
-            String yN = sc.nextLine().toUpperCase();
             if (yN.equals("Y")) 
             {
                 Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, StatoProgetto.PUBBLICO);
@@ -211,7 +215,9 @@ public class IProponente {
         String yN = sc.nextLine().toUpperCase();
         if (yN.equals("Y")) {
             gestore.getProgetto(idProgetto).setStatoProgetto(StatoProgetto.PUBBLICO);
+            System.out.println("Il progetto " + idProgetto + " è stato reso pubblico");
         } else if (yN.equals("N")) {
+            System.out.println("Il progetto " + idProgetto + " non è stato reso pubblico");
             return;
         }
     }
@@ -280,7 +286,7 @@ public class IProponente {
         this.accettaCandidatura();
     }
 
-    public void accettaCandidatura(){
+    public void accettaCandidatura() {
         System.out.println("Si desidera confermare la formazione di questo team di progettisti?\n" +
         "[Y] YES,    [N] NO");
         String input = sc.nextLine().toUpperCase();

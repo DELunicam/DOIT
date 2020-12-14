@@ -62,7 +62,7 @@ public class FakeDb {
 		
 		// PROGETTI
 		Progetto uno = new Progetto(mario.getId(), "progettoA", "descrizione banale");
-		uno.setId("progettoPrimo");
+		uno.setId("p1");
 		uno.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
 		uno.setProgettista(daniele);
 		uno.setProgettista(enzo);
@@ -70,7 +70,7 @@ public class FakeDb {
 		uno.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 
 		Progetto due = new Progetto(mario.getId(), "progettoB", "descrizione banale");
-		due.setId("progettoSecondo");
+		due.setId("p2");
 		due.setStatoProgetto(StatoProgetto.INATTIVO);
 		due.setProgettista(luca);
 		due.setProgettista(enzo);
@@ -78,7 +78,7 @@ public class FakeDb {
 		due.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 5);
 
 		Progetto tre = new Progetto(mario.getId(), "progettoC", "descrizione banale");
-		tre.setId("progettoTerzo");
+		tre.setId("p3");
 		tre.setStatoProgetto(StatoProgetto.PUBBLICO);
 		tre.setProgettista(daniele);
 		tre.setProgettista(enzo);
@@ -87,24 +87,26 @@ public class FakeDb {
 		tre.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 		
 		Progetto quattro = new Progetto(mario.getId(), "progettoD", "descrizione banale");
-		quattro.setId("progettoQuarto");
+		quattro.setId("p4");
 		quattro.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
 		quattro.setProgettista(daniele);
 		quattro.setProgettista(enzo);
 		quattro.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
 		quattro.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 
-		Progetto quinto = new Progetto(mario.getId(), "progettoE", "descrizione banale");
-		quinto.setId("progettoQuinto");
-		quinto.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
-		quinto.setProgettista(daniele);
-		quinto.setProgettista(enzo);
-		quinto.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
-		quinto.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
+		Progetto cinque = new Progetto(mario.getId(), "progettoE", "descrizione banale");
+		cinque.setId("p5");
+		cinque.setStatoProgetto(StatoProgetto.NEUTRO);
+		cinque.setProgettista(daniele);
+		cinque.setProgettista(enzo);
+		cinque.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
+		cinque.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 
 		this.progetti.add(uno);
 		this.progetti.add(due);
 		this.progetti.add(tre);
+		this.progetti.add(quattro);
+		this.progetti.add(cinque);
 
 		// CANDIDATURE
 		Candidatura foo = new Candidatura();
