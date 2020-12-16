@@ -120,7 +120,7 @@ public class FakeDb {
 		Candidatura sad = new Candidatura();
 		sad.setIdProgettista(paolo.getId());
 		sad.setIdProgetto(uno.getId());
-		sad.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+		sad.setStatoCandidatura(StatoCandidatura.RIFIUTATA);
 		Candidatura zoo = new Candidatura();
 		zoo.setIdProgettista(daniele.getId());
 		zoo.setIdProgetto(due.getId());

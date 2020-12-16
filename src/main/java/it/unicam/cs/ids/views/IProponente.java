@@ -7,7 +7,6 @@ import it.unicam.cs.ids.progetto.Candidatura;
 import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
 import it.unicam.cs.ids.utenti.Progettista;
-import it.unicam.cs.ids.utenti.Proponente;
 import it.unicam.cs.ids.progetto.StatoCandidatura;
 
 import java.util.*;
@@ -85,7 +84,7 @@ public class IProponente {
             gestore.getProgetto(candidatura.getIdProgetto()).setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
             candidatura.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
         }
-        System.out.println("Richieta effettuata, sarai notificato quando almeno un esperto valuterà le candidature");
+        System.out.println("Richiesta effettuata, sarai notificato quando almeno un esperto valuterà le candidature");
     }
 
     public void insertInfoProgettisti(Progetto progettoNeutro){
@@ -168,7 +167,8 @@ public class IProponente {
                     this.selezionaProgettisti(progetto.getId());
                     break; //
                 case IN_VALUTAZIONE_CANDIDATURE:
-                    this.viewCandidature(progetto.getId(), progetto.getStatoProgetto());
+                    //this.viewCandidature(progetto.getId(), progetto.getStatoProgetto());
+                    this.viewCandidature(progetto.getId(), StatoCandidatura.ACCETTATA);
                     break; //
                 default:
                     System.out.println("Impossibile processare l'operazione");
@@ -191,14 +191,16 @@ public class IProponente {
 
             if (yN.equals("Y")) 
             {
-                Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, StatoProgetto.PUBBLICO);
+                //Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, StatoProgetto.PUBBLICO);
+                Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, StatoCandidatura.DA_VALUTARE);
                 this.requestEsperto(candidature);
                 return;
             }
 
             else if (yN.equals("N"))
             {
-               viewCandidature(idProgetto, StatoProgetto.PUBBLICO);
+                //viewCandidature(idProgetto, StatoProgetto.PUBBLICO);
+               viewCandidature(idProgetto, StatoCandidatura.DA_VALUTARE);
                return;
             }
 
@@ -215,6 +217,7 @@ public class IProponente {
         String yN = sc.nextLine().toUpperCase();
         if (yN.equals("Y")) {
             gestore.getProgetto(idProgetto).setStatoProgetto(StatoProgetto.PUBBLICO);
+            //gestore.pubblicaProgetto(idProgetto);
             System.out.println("Il progetto " + idProgetto + " è stato reso pubblico");
         } else if (yN.equals("N")) {
             System.out.println("Il progetto " + idProgetto + " non è stato reso pubblico");
@@ -222,14 +225,24 @@ public class IProponente {
         }
     }
 
-    public void viewCandidature(String idProgetto, StatoProgetto stato) {
-        Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, stato);
+//    public void viewCandidature(String idProgetto, StatoProgetto stato) {
+//        Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, stato);
+//        for (Candidatura candidatura : candidature) {
+//            System.out.println("Candidato: " + candidatura.getIdProgettista() +
+//            ", stato candidatura: " + candidatura.getStatoCandidatura());
+//        }
+//        this.selezionaCandidato(idProgetto);
+//
+//    }
+
+    public void viewCandidature(String idProgetto, StatoCandidatura statoCandidatura) {
+        Set<Candidatura> candidature = gestore.selezionaCandidatura(idProgetto, statoCandidatura);
         for (Candidatura candidatura : candidature) {
             System.out.println("Candidato: " + candidatura.getIdProgettista() +
-            ", stato candidatura: " + candidatura.getStatoCandidatura());
+                    ", stato candidatura: " + candidatura.getStatoCandidatura());
         }
         this.selezionaCandidato(idProgetto);
-        
+
     }
 
     // TODO controllare
@@ -265,7 +278,6 @@ public class IProponente {
         } else {
             System.out.println("Impossibile processare l'operazione");
         }
-
     }
 
 
@@ -300,7 +312,6 @@ public class IProponente {
         } else {
             System.out.println("Impossibile processare l'operazione");
         }
-
     }
 
     public void seleziona(){

@@ -159,18 +159,18 @@ public class Progetto {
         this.stato = stato;
     }
 
-    public String getInfo() {
-        String info = "ID: " + this.getId() + "\n"
-                + "Nome: " + this.getNome() + "\n"
-                + "Descrizione: " + this.getDescrizione() + "\n"
-                + "Stato: " + this.getStatoProgetto() + "\n"
-                //+ "Progettisti: \n" + this.getProgettisti() + "\n"
-                + "Progettisti richiesti: \n" + this.getInfoProgettistiRichiesti();
-        return info;
-    }
+//    public String getInfo() {
+//        String info = "ID: " + this.getId() + "\n"
+//                + "Nome: " + this.getNome() + "\n"
+//                + "Descrizione: " + this.getDescrizione() + "\n"
+//                + "Stato: " + this.getStatoProgetto() + "\n"
+//                //+ "Progettisti: \n" + this.getProgettisti() + "\n"
+//                + "Progettisti richiesti: \n" + this.getInfoProgettistiRichiesti();
+//        return info;
+//    }
 
-    public void printInfo() {
-        System.out.println(this.getInfo());
-    }
+//    public void printInfo() {
+//        System.out.println(this.getInfo());
+//    }
 
 }
