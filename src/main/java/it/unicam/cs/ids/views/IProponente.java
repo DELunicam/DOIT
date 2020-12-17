@@ -230,7 +230,7 @@ public class IProponente {
                 ", stato candidatura: " + candidatura.getStatoCandidatura());
             }
         }
-        if (statoCandidatura.equals(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE)) {
+        if (statoCandidatura.equals(StatoCandidatura.PRESELEZIONATA)) {
             //statoCandidature = StatoCandidatura.PRESELEZIONATA;
             selezionaTeam(idProgetto);
         }
