@@ -168,7 +168,7 @@ public class IProponente {
                     this.selezionaProgettisti(progetto.getId());
                     break; //
                 case IN_VALUTAZIONE_CANDIDATURE:
-                    this.viewCandidature(progetto.getId(), progetto.getStatoProgetto());
+                    this.viewCandidature(progetto.getId(), StatoCandidatura.PRESELEZIONATA);
                     break; //
                 default:
                     System.out.println("Impossibile processare l'operazione");
@@ -177,30 +177,13 @@ public class IProponente {
         }
     }
     
-    public void preselezionaProgettisti(String idProgetto) {
-        System.out.println("Desideri che un esperto valuti le progettistiCandidati? \n ");
-        System.out.println("[Y] YES,    [N] NO");
-        String yN = sc.nextLine().toUpperCase();
-        while (!yN.equals("EXIT")) {
-            if (yN.equals("Y")) {
-                Set<Candidatura> progettistiCandidati = gestore.selezionaCandidatura(idProgetto, StatoProgetto.PUBBLICO);
-                this.requestEsperto(progettistiCandidati);
-                return;
-            }
-            else if (yN.equals("N")) {
-               viewCandidature(idProgetto, StatoProgetto.PUBBLICO);
-               return;
-            }
-        }
-    }
-
 
     //public void selezionaProgettisti()
     public void selezionaProgettisti(String idProgetto)
 
     {
         
-        System.out.println("Desideri che un esperto valuti le progettistiCandidati? \n ");
+        System.out.println("Desideri che un esperto valuti le candidature?");
         System.out.println("[Y] YES,    [N] NO");
         String yN = sc.nextLine().toUpperCase();
         while (!yN.equals("EXIT"))
@@ -208,17 +191,16 @@ public class IProponente {
 
             if (yN.equals("Y")) 
             {
-                Set<Candidatura> progettistiCandidati = gestore.selezionaCandidatura(idProgetto, StatoProgetto.PUBBLICO);
+                Set<Candidatura> progettistiCandidati = gestore.selezionaCandidatura(idProgetto, StatoCandidatura.DA_VALUTARE);
                 this.requestEsperto(progettistiCandidati);
                 return;
             }
 
             else if (yN.equals("N"))
             {
-               viewCandidature(idProgetto, StatoProgetto.PUBBLICO);
+               viewCandidature(idProgetto, StatoCandidatura.DA_VALUTARE);
                return;
             }
-
 
         }
     }
@@ -239,123 +221,120 @@ public class IProponente {
         }
     }
 
-    public void viewCandidature(String idProgetto, StatoProgetto stato) {
-        Set<Candidatura> progettistiCandidati = gestore.selezionaCandidatura(idProgetto, stato);
-        StatoCandidatura statoCandidature;
-        if (stato.equals(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE)) {
-            statoCandidature = StatoCandidatura.PRESELEZIONATA;
+    public void viewCandidature(String idProgetto, StatoCandidatura statoCandidatura) {
+        Set<Candidatura> progettistiCandidati = gestore.selezionaCandidatura(idProgetto, statoCandidatura);
+        //StatoCandidatura statoCandidature;
+        for (Candidatura candidatura : progettistiCandidati) {
+            if (statoCandidatura.equals(candidatura.getStatoCandidatura())) {
+                System.out.println("Candidato: " + candidatura.getIdProgettista() +
+                ", stato candidatura: " + candidatura.getStatoCandidatura());
+            }
+        }
+        if (statoCandidatura.equals(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE)) {
+            //statoCandidature = StatoCandidatura.PRESELEZIONATA;
+            selezionaTeam(idProgetto);
         }
         else {
-            statoCandidature = StatoCandidatura.DA_VALUTARE;
+            //statoCandidature = StatoCandidatura.DA_VALUTARE;
+            selezionaCandidati(idProgetto);
         }
-        for (Candidatura candidatura : progettistiCandidati) {
-            // TODO mostra solo quelle con stato giusto?
-            System.out.println("Candidato: " + candidatura.getIdProgettista() +
-            ", stato candidatura: " + candidatura.getStatoCandidatura());
-        }
-        this.selezionaCandidato(idProgetto, statoCandidature);
-        
+        //this.selezionaCandidato(idProgetto, statoCandidature);
     }
 
-    // permette sia la selezione di un'ampia rosa di candidati, che la selezione definitiva del team finale
-    // TODO check del reale stato delle candidature
-    public void selezionaCandidato(String idProgetto, StatoCandidatura statoCand) {
 
-        // SELEZIONE DEFINITIVA
-        if (statoCand.equals(StatoCandidatura.PRESELEZIONATA)) {
-            System.out.println("Si desidera selezionare un team definitivo di progettisti?\n" +
+    // PRESELEZIONE ILLIMITATA
+    public void selezionaCandidati(String idProgetto) {
+        System.out.println("Si desidera preselezionare i progettisti?\n" +
+            "[Y] YES,    [N] NO");
+        String input = sc.nextLine().toUpperCase();
+
+        if (input.equals("Y")) {
+            System.out.println("Digita l'id del progettista desiderato,    [DONE] per terminare");
+            HashSet<Progettista> progettistiPreselezionati = new HashSet<Progettista>();
+    
+            while (!input.equals("DONE")) {
+                String idProg = sc.nextLine();
+                if (idProg.equals("DONE")) {
+                        System.out.println ("Selezione terminata \n");
+                        break;
+                }
+                Progettista scelto = gestore.getProgettista(idProg);
+                if (scelto != null) {
+                    progettistiPreselezionati.add(scelto);
+                    for (Candidatura candidatura : gestore.getProgetto(idProgetto).getCandidature()) {
+                        candidatura.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
+                    }
+                    System.out.println("Progettista "+scelto.getNome() +" selezionato\n");
+                }
+                else {
+                    System.out.println ("Id progettista non valido \n");
+                }
+            }
+            this.viewInfoProgettista(progettistiPreselezionati);
+            System.out.println("Si vuole passare alla selezione di un team definitivo di progettisti?\n" +
                 "[Y] YES,    [N] NO");
-            String input = sc.nextLine().toUpperCase();
-
-            if (input.equals("Y")) {
-                System.out.println("Digita l'id del progettista desiderato");
-                HashSet<Progettista> progettistiSelezionati = new HashSet<Progettista>();
-                int numSelezionati = 0;
-                int numMassimo = gestore.getProgetto(idProgetto).getNumeroProgettistiRichiesti();
-
-                while (numSelezionati < numMassimo) {
-                    String idProg = sc.nextLine();
-                    Progettista scelto = gestore.getProgettista(idProg);
-                    if (scelto != null) {
-                        progettistiSelezionati.add(scelto);
-                        numSelezionati++;
-                        System.out.println("Progettista "+scelto.getNome() +" confermato\n");
-                    }
-                    else {
-                        System.out.println ("Id progettista non valido \n");
-                    }
-                }
-                this.viewInfoProgettista(progettistiSelezionati);
-                System.out.println("Si desidera confermare il team definitivo di progettisti?\n" +
-                    "[Y] YES,    [N] NO");
-                String yN = sc.nextLine().toUpperCase();
-                if (yN.equals("Y")) {
-                    // selezione definitiva team di progettisti
-                    this.accettaCandidatura();
-                } else if (yN.equals("N")) {
-                    System.out.println("Non si vuole selezionare un team definitivo di progettisti");
-                } else {
-                    System.out.println("Impossibile processare l'operazione");
-                }
-
-            } else if (input.equals("N")) {
-                System.out.println("Team non confermato");
-                // TODO svuota array e ricomincia a selezionare le progettistiCandidati buone
+            String yN = sc.nextLine().toUpperCase();
+            if (yN.equals("Y")) {
+                gestore.getProgetto(idProgetto).setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
+                // selezione definitiva team di progettisti
+                selezionaTeam(idProgetto);
+            } else if (yN.equals("N")) {
+                System.out.println("Non si vuole selezionare un team definitivo di progettisti");
             } else {
                 System.out.println("Impossibile processare l'operazione");
             }
+
+        } else if (input.equals("N")) {
+            System.out.println("Non si vogliono selezionare candidati");
+        } else {
+            System.out.println("Impossibile processare l'operazione");
         }
+    }
 
-        // PRESELEZIONE ILLIMITATA
-        else { // statoCand.equals(StatoCandidatura.DA_VALUTARE)
-            System.out.println("Si desidera preselezionare i progettisti?\n" +
+
+    // SELEZIONE DEFINITIVA
+    public void selezionaTeam(String idProgetto) {
+        System.out.println("Si desidera selezionare un team definitivo di progettisti?\n" +
+            "[Y] YES,    [N] NO");
+        String input = sc.nextLine().toUpperCase();
+
+        if (input.equals("Y")) {
+            System.out.println("Digita l'id del progettista desiderato");
+            HashSet<Progettista> progettistiSelezionati = new HashSet<Progettista>();
+            int numSelezionati = 0;
+            int numMassimo = gestore.getProgetto(idProgetto).getNumeroProgettistiRichiesti();
+
+            while (numSelezionati < numMassimo) {
+                String idProg = sc.nextLine();
+                Progettista scelto = gestore.getProgettista(idProg);
+                if (scelto != null) {
+                    progettistiSelezionati.add(scelto);
+                    numSelezionati++;
+                    System.out.println("Progettista "+scelto.getNome() +" confermato\n");
+                }
+                else {
+                    System.out.println ("Id progettista non valido \n");
+                }
+            }
+            this.viewInfoProgettista(progettistiSelezionati);
+            System.out.println("Si desidera passare alla conferma del team definitivo di progettisti?\n" +
                 "[Y] YES,    [N] NO");
-            String input = sc.nextLine().toUpperCase();
-
-            if (input.equals("Y")) {
-                System.out.println("Digita l'id del progettista desiderato,    [DONE] per terminare");
-                HashSet<Progettista> progettistiPreselezionati = new HashSet<Progettista>();
-    
-                while (!input.equals("DONE")) {
-                    String idProg = sc.nextLine();
-                    if (idProg.equals("DONE")) {
-                            System.out.println ("Selezione terminata \n");
-                            break;
-                    }
-                    Progettista scelto = gestore.getProgettista(idProg);
-                    if (scelto != null) {
-                        progettistiPreselezionati.add(scelto);
-                        for (Candidatura candidatura : gestore.getProgetto(idProgetto).getCandidature()) {
-                            candidatura.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
-                        }
-                        System.out.println("Progettista "+scelto.getNome() +" selezionato\n");
-                    }
-                    else {
-                        System.out.println ("Id progettista non valido \n");
-                    }
-                }
-                statoCand = StatoCandidatura.PRESELEZIONATA;
-                this.viewInfoProgettista(progettistiPreselezionati);
-                System.out.println("Si vuole passare alla selezione di un team definitivo di progettisti?\n" +
-                    "[Y] YES,    [N] NO");
-                String yN = sc.nextLine().toUpperCase();
-                if (yN.equals("Y")) {
-                    // selezione definitiva team di progettisti
-                    selezionaCandidato(idProgetto, statoCand);
-                } else if (yN.equals("N")) {
-                    System.out.println("Non si vuole selezionare un team definitivo di progettisti");
-                } else {
-                    System.out.println("Impossibile processare l'operazione");
-                }
-
-    
-            } else if (input.equals("N")) {
-                System.out.println("Non si vogliono selezionare candidati");
+            String yN = sc.nextLine().toUpperCase();
+            if (yN.equals("Y")) {
+                // selezione definitiva team di progettisti
+                this.accettaCandidatura();
+            } else if (yN.equals("N")) {
+                System.out.println("Non si vuole selezionare un team definitivo di progettisti");
             } else {
                 System.out.println("Impossibile processare l'operazione");
             }
+
+        } else if (input.equals("N")) {
+            System.out.println("Team non confermato");
+            // TODO svuota array e ricomincia a selezionare le progettistiCandidati buone
+        } else {
+            System.out.println("Impossibile processare l'operazione");
         }
-        
     }
 
 
@@ -396,10 +375,6 @@ public class IProponente {
     public void seleziona(){
         //TODO seleziona
     }
-
-
-
-
 
 
 }

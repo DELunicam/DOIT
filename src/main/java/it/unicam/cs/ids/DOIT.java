@@ -30,13 +30,13 @@ public class DOIT {
                     break;
                 case "PUBBLICA":
                     proponente.viewProgetti(StatoProgetto.NEUTRO);
-                    break; //
+                    break;
                 case "SELEZIONA PROGETTISTI":
                     proponente.viewProgetti(StatoProgetto.PUBBLICO);
-                    break; //
+                    break;
                 case "CONFERMA PROGETTISTI":
                     proponente.viewProgetti(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
-                    break;//
+                    break;
                 case "EXIT":
                     exit=true;
                     break;
