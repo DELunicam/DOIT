@@ -322,7 +322,7 @@ public class IProponente {
             String yN = sc.nextLine().toUpperCase();
             if (yN.equals("Y")) {
                 // selezione definitiva team di progettisti
-                this.accettaCandidatura();
+                this.accettaCandidature(idProgetto, progettistiSelezionati);
             } else if (yN.equals("N")) {
                 System.out.println("Non si vuole selezionare un team definitivo di progettisti");
             } else {
@@ -355,22 +355,29 @@ public class IProponente {
         //this.accettaCandidatura();
     }
 
-    public void accettaCandidatura() {
+
+    public void accettaCandidature(String idProgetto, Set<Progettista> progettistiSelezionati) {
         System.out.println("Si desidera confermare la formazione di questo team di progettisti?\n" +
         "[Y] YES,    [N] NO");
         String input = sc.nextLine().toUpperCase();
         if (input.equals("Y")) {
-            // TODO invia notifica ai progettisti e svuota array
-            // TODO cambia stato progetto/progettistiCandidati
+            // TODO invia notifica ai progettisti
+            for (Progettista progettista : progettistiSelezionati) {
+                for(Candidatura candidatura : gestore.getProgetto(idProgetto).getCandidature()) {
+                    if (progettista.getId().equals(candidatura.getIdProgettista())) {
+                        candidatura.setStatoCandidatura(StatoCandidatura.ACCETTATA);
+                    }
+                }
+            }
+            gestore.getProgetto(idProgetto).setStatoProgetto(StatoProgetto.FINALIZZATO);
             System.out.println("Complimenti hai trovato un team per il progetto!");
         } else if (input.equals("N")) {
             System.out.println("Team non confermato");
-            // TODO svuota array e ricomincia a selezionare le progettistiCandidati buone
         } else {
             System.out.println("Impossibile processare l'operazione");
         }
-
     }
+
 
     public void seleziona(){
         //TODO seleziona
