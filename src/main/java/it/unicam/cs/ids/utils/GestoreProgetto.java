@@ -6,10 +6,7 @@ import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
 import it.unicam.cs.ids.utenti.Progettista;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
+import java.util.*;
 
 public class GestoreProgetto {
     private Set<Progetto> progetti;
@@ -53,9 +50,9 @@ public class GestoreProgetto {
         return null;
     }
 
-    public void pubblicaProgetto(String idProgetto) {
+    public void pubblicaProgetto(Progetto progetto)
+    {
         //TODO pubblicaProgetto
-        this.getProgetto(idProgetto).setStatoProgetto(StatoProgetto.PUBBLICO);
     }
 
     public Set<Progetto> getListaProgetti(String idProponente){
@@ -101,23 +98,16 @@ public class GestoreProgetto {
     }
   
 
-//    public Set<Candidatura> selezionaCandidatura(String idProgetto, StatoProgetto stato){
-//        Set<Candidatura> candidature = new HashSet<Candidatura>();
-//        for (Progetto progetto : db.progetti) {
-//            if (progetto.getId().equals(idProgetto) && (progetto.getStatoProgetto().equals(stato)))
-//                candidature =  progetto.getCandidature();
-//        }
-//        return candidature;
-//    }
-
     public Set<Candidatura> selezionaCandidatura(String idProgetto, StatoCandidatura statoCandidatura){
         Set<Candidatura> candidature = new HashSet<Candidatura>();
         for (Progetto progetto : db.progetti) {
-            if (progetto.getId().equals(idProgetto))
-                for(Candidatura candidatura : progetto.getCandidature()){
-                    if(candidatura.getStatoCandidatura().equals(statoCandidatura))
+            if (progetto.getId().equals(idProgetto)) {
+                for (Candidatura candidatura : progetto.getCandidature()) {
+                    if (candidatura.getStatoCandidatura().equals(statoCandidatura)) {
                         candidature.add(candidatura);
+                    }
                 }
+            }
         }
         return candidature;
     }

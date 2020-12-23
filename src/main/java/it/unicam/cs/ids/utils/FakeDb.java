@@ -133,6 +133,14 @@ public class FakeDb {
 		puffo.setIdProgettista(enzo.getId());
 		puffo.setIdProgetto(tre.getId());
 		puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+		Candidatura bee = new Candidatura();
+		bee.setIdProgettista(daniele.getId());
+		bee.setIdProgetto(uno.getId());
+		bee.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
+		Candidatura poi = new Candidatura();
+		poi.setIdProgettista(enzo.getId());
+		poi.setIdProgetto(uno.getId());
+		poi.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
 
 
 		uno.setCandidatura(foo);
@@ -141,6 +149,8 @@ public class FakeDb {
 		due.setCandidatura(zoo);
 		tre.setCandidatura(puffo);
 		tre.setCandidatura(ciao);
+		uno.setCandidatura(bee);
+		uno.setCandidatura(poi);
 		
 	}
 
