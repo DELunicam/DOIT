@@ -1,11 +1,7 @@
 package it.unicam.cs.ids.progetto;
 
-import it.unicam.cs.ids.utenti.Progettista;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class Progetto {
 
@@ -14,11 +10,8 @@ public class Progetto {
     private String descrizione;
     private StatoProgetto stato;
     private String idProponente;
-    private Set<Progettista> progettisti = new HashSet<Progettista>();
-    //HashMap<String, Integer> infoProgettistiRichiesti = new HashMap<String, Integer>(); // tag e numero necessario
-    private Map<Specializzazione, Integer> infoProgettistiRichiesti = new HashMap<Specializzazione, Integer>();
-    private Set<Candidatura> candidature = new HashSet<Candidatura>();
-    
+    private Map<Specializzazione, Integer> infoProgettistiRichiesti = new HashMap<>();
+
     public Progetto(String idProponente, String nome, String descrizione) {
         this.idProponente = idProponente;
         this.nome = nome;
@@ -66,62 +59,13 @@ public class Progetto {
         this.idProponente = idProponente;
     }
 
-
-    public void setProgettista(Progettista tizio) {
-        this.progettisti.add(tizio);
-    }
-
-    public void setProgettisti(HashSet<Progettista> set) {
-        for (Progettista tizio : set) {
-            setProgettista(tizio);
-        }
-    }
-
-    // credo non serva, fatto con id tante volte servisse
-    public Progettista getProgettista(String givenId) {
-        Progettista cercato = new Progettista();
-        for (Progettista tizio : this.progettisti) {
-            if (tizio.getId().equals(givenId))
-                cercato = tizio;
-        }
-        return cercato;
-    }
-
-    public Set<Progettista> getProgettisti() {
-        return this.progettisti;
-    }
-
-    public String getStringProgettisti() {
-        String out = new String();
-        for (Progettista tizio : this.progettisti) {
-            out += "ID: " + tizio.getId() + "\n";
-            // System.out.println("ID: " + tizio.id + ", nome: " + tizio.nome);
-        }
-        return out;
-    }
-
-    public void setSingleInfoProgettistiRichiesti(Specializzazione tag, Integer numero) {
-        this.infoProgettistiRichiesti.put(tag, numero);
-    }
-
-    public void setMultipleInfoProgettistiRichiesti(Map<Specializzazione, Integer> in) {
-//        for (Specializzazione i : in.keySet()) {
-//            setSingleInfoProgettistiRichiesti(i, in.get(i));
-//        }
-        this.infoProgettistiRichiesti.putAll(in);
-    }
-
-//    public String getInfoProgettistiRichiesti() {
-//        String out = new String();
-//        for (String i : this.infoProgettistiRichiesti.keySet()) {
-//            out += "Specializzazione: " + i + ", numero progettisti necessari: " + this.infoProgettistiRichiesti.get(i) + "\n";
-//        }
-//        return out;
-//    }
     public Map<Specializzazione, Integer> getInfoProgettistiRichiesti() {
         return infoProgettistiRichiesti;
     }
 
+    public void setInfoProgettistiRichiesti(Map<Specializzazione, Integer> infoProgettistiRichiesti) {
+        this.infoProgettistiRichiesti = infoProgettistiRichiesti;
+    }
 
     public Integer getNumeroProgettistiRichiesti() {
         Integer totale = 0;
@@ -131,46 +75,46 @@ public class Progetto {
         return totale;
     }
 
-    public void setInfoProgettistiRichiesti(Map<Specializzazione, Integer> infoProgettistiRichiesti) {
-        this.infoProgettistiRichiesti = infoProgettistiRichiesti;
+    public void addSingleInfoProgettistiRichiesti(Specializzazione tag, Integer numero) {
+        this.infoProgettistiRichiesti.put(tag, numero);
     }
 
-    // candidature???
-    // candidature aggiunte, aggiungere su diagramma classi di progetto?
-    public void setCandidatura(Candidatura candidatura) {
-        this.candidature.add(candidatura);
+    public void addMultipleInfoProgettistiRichiesti(Map<Specializzazione, Integer> in) {
+//        for (Specializzazione i : in.keySet()) {
+//            addSingleInfoProgettistiRichiesti(i, in.get(i));
+//        }
+        this.infoProgettistiRichiesti.putAll(in);
     }
 
-    public void setCandidature(HashSet<Candidatura> set) {
-        for (Candidatura candidatura : set) {
-            setCandidatura(candidatura);
-        }
+    public String getInfo() {
+        return "ID: " + this.getId() + "\n"
+                + "Nome: " + this.getNome() + "\n"
+                + "Descrizione: " + this.getDescrizione() + "\n"
+                + "Stato: " + this.getStatoProgetto() + "\n"
+                + "Progettisti richiesti: \n" + this.progettistiString();
     }
 
-    public Set<Candidatura> getCandidature() {
-        return this.candidature;
+    private String progettistiString() {
+        StringBuilder output = new StringBuilder();
+        output.append("Specializzazione, numero richiesti\n");
+        this.infoProgettistiRichiesti.forEach((spec, num) -> {
+            output.append(spec).append(", ").append(num).append("\n");
+        });
+        return output.toString();
     }
-
-    // extra per comodità (usato in IProponente.selezionaProgetto())
-    public void setInfo(String id, String nome, String descrizione, StatoProgetto stato) {
-        this.id = id;
-        this.nome = nome;
-        this.descrizione = descrizione;
-        this.stato = stato;
-    }
-
-//    public String getInfo() {
-//        String info = "ID: " + this.getId() + "\n"
-//                + "Nome: " + this.getNome() + "\n"
-//                + "Descrizione: " + this.getDescrizione() + "\n"
-//                + "Stato: " + this.getStatoProgetto() + "\n"
-//                //+ "Progettisti: \n" + this.getProgettisti() + "\n"
-//                + "Progettisti richiesti: \n" + this.getInfoProgettistiRichiesti();
-//        return info;
+//        private String progettistiString() {
+//        String out = new String();
+//        for (String i : this.infoProgettistiRichiesti.keySet()) {
+//            out += "Specializzazione: " + i + ", numero progettisti necessari: " + this.infoProgettistiRichiesti.get(i) + "\n";
+//        }
+//        return out;
 //    }
 
-//    public void printInfo() {
-//        System.out.println(this.getInfo());
+//    // extra per comodità (usato in IProponente.selezionaProgetto())
+//    public void setInfo(String id, String nome, String descrizione, StatoProgetto stato) {
+//        this.id = id;
+//        this.nome = nome;
+//        this.descrizione = descrizione;
+//        this.stato = stato;
 //    }
-
 }

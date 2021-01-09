@@ -1,48 +1,47 @@
 package it.unicam.cs.ids.utils;
-import it.unicam.cs.ids.progetto.Candidatura;
-import it.unicam.cs.ids.progetto.StatoCandidatura;
-import it.unicam.cs.ids.progetto.Specializzazione;
-import it.unicam.cs.ids.progetto.Progetto;
-import it.unicam.cs.ids.progetto.StatoProgetto;
-import it.unicam.cs.ids.utenti.Progettista;
 
-import java.util.*;
+import it.unicam.cs.ids.progetto.Progetto;
+import it.unicam.cs.ids.progetto.Specializzazione;
+import it.unicam.cs.ids.progetto.StatoProgetto;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class GestoreProgetto {
-    private Set<Progetto> progetti;
+    private static GestoreProgetto instance;
     private FakeDb db = new FakeDb(); // fake db
-    private Set<Candidatura> candidature;
-    public GestoreProgetto(){
-        this.progetti = new HashSet<>();
+
+    public GestoreProgetto() {
     }
-    public GestoreProgetto(Set<Progetto> progetti) {
-        this.progetti = progetti;
+
+    // Singleton
+    public static GestoreProgetto getInstance() {
+        if (instance == null) {
+            instance = new GestoreProgetto();
+        }
+        return instance;
     }
 
     public Progetto createProgetto(String idProponente, String nome, String descrizione) {
-        //TODO createProgetto
         Progetto progettoNeutro = new Progetto(idProponente, nome, descrizione);
-        //this.progetti.add(progettoNeutro);
-        this.db.add(progettoNeutro);
+        db.add(progettoNeutro);
         return progettoNeutro;
     }
 
     public void requestEsperto(Progetto progettoNeutro) {
-        //TODO requestEsperto
+        progettoNeutro.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
     }
 
     public void insertInfoProgettisti(Progetto progetto, Map<Specializzazione, Integer> in) {
-        //TODO insertInfoProgettisti
         progetto.setInfoProgettistiRichiesti(in);
     }
 
     /**
-     *
      * @param idProgetto
      * @return Progetto con id uguale a idProgetto, null se non esiste
      */
     public Progetto getProgetto(String idProgetto) {
-        //TODO getProgetto
         for (Progetto progetto : db.progetti) {
             if (progetto.getId().equals(idProgetto))
                 return progetto;
@@ -50,20 +49,16 @@ public class GestoreProgetto {
         return null;
     }
 
-    public void pubblicaProgetto(Progetto progetto)
-    {
-        //TODO pubblicaProgetto
+    public void pubblicaProgetto(Progetto progetto) {
+        progetto.setStatoProgetto(StatoProgetto.PUBBLICO);
     }
 
-    public Set<Progetto> getListaProgetti(String idProponente){
-        Set<Progetto> progettiCercati = new HashSet<Progetto>();
-        /*
-        for (Progetto progetto : this.progetti) {
-            if (progetto.getIdProponente().equals(idProponente))
-                progettiCercati.add(progetto);
-        }
-        */
-        // per test
+    public Set<Progetto> getListaProgetti() {
+        return db.progetti;
+    }
+
+    public Set<Progetto> getListaProgetti(String idProponente) {
+        Set<Progetto> progettiCercati = new HashSet<>();
         for (Progetto progetto : db.progetti) {
             if (progetto.getIdProponente().equals(idProponente))
                 progettiCercati.add(progetto);
@@ -72,82 +67,99 @@ public class GestoreProgetto {
     }
 
     public Set<Progetto> getListaProgetti(String idProponente, StatoProgetto stato) {
-        Set<Progetto> progettiCercati = new HashSet<Progetto>();
-        /*
-        for (Progetto progetto : this.progetti) {
-            if (progetto.getIdProponente().equals(idProponente) && progetto.getStatoProgetto().equals(stato))
-                progettiCercati.add(progetto);
-        }
-        */
-        // per test
+        Set<Progetto> progettiCercati = new HashSet<>();
         for (Progetto progetto : db.progetti) {
             if (progetto.getIdProponente().equals(idProponente) && progetto.getStatoProgetto().equals(stato))
                 progettiCercati.add(progetto);
         }
         return progettiCercati;
     }
-    public Set<Progettista> getProgettisti(Set<Candidatura> candidatura)
-    
-    {
-        Set<Progettista> progettisti = new HashSet<Progettista>(); 
-        for (Candidatura cand : candidatura)
-        {
-            progettisti.add(getProgettista(cand.getIdProgettista()));
-        }
-        return progettisti;
-    }
-  
 
-    public Set<Candidatura> selezionaCandidatura(String idProgetto, StatoCandidatura statoCandidatura){
-        Set<Candidatura> candidature = new HashSet<Candidatura>();
+    // Restituisce tutti i progetti PUBBLICI che richiedono una delle specializzazioni passate
+    // private Set<Progetto> getListaProgetti(Set<Specializzazione> specializzazioni, StatoProgetto statoProgetto)
+    // forse e' meglio
+    public Set<Progetto> getListaProgetti(Set<Specializzazione> specializzazioni) {
+        Set<Progetto> progettiCercati = new HashSet<>();
+        for (Specializzazione specializzazione : specializzazioni) {
+            progettiCercati.addAll(getListaProgetti(specializzazione));
+        }
+        return progettiCercati;
+    }
+
+    // Restituisce tutti i progetti PUBBLICI che richiedono la specializzazione passata
+    // private Set<Progetto> getListaProgetti(Specializzazione specializzazione, StatoProgetto statoProgetto)
+    // forse e' meglio
+    private Set<Progetto> getListaProgetti(Specializzazione specializzazione) {
+        Set<Progetto> progettiCercati = new HashSet<>();
         for (Progetto progetto : db.progetti) {
-            if (progetto.getId().equals(idProgetto)) {
-                for (Candidatura candidatura : progetto.getCandidature()) {
-                    if (candidatura.getStatoCandidatura().equals(statoCandidatura)) {
-                        candidature.add(candidatura);
-                    }
-                }
+            if (progetto.getStatoProgetto().equals(StatoProgetto.PUBBLICO) &&
+                    progetto.getInfoProgettistiRichiesti().containsKey(specializzazione)) {
+                progettiCercati.add(progetto);
             }
         }
-        return candidature;
+        return progettiCercati;
     }
 
-    public void modificaStatoCandidatura(StatoCandidatura stato)
-    {
-        for (Candidatura candidatura : candidature)
-        {
-            candidatura.setStatoCandidatura(stato);
+    public Set<Progetto> getListaProgetti(StatoProgetto statoProgetto) {
+        Set<Progetto> progettiCercati = new HashSet<>();
+        for (Progetto progetto : db.progetti) {
+            if (progetto.getStatoProgetto().equals(statoProgetto))
+                progettiCercati.add(progetto);
         }
+        return progettiCercati;
     }
 
-    // serve per prendere le info data una candidatura, aggiungere al diagramma
-    public Progettista getProgettista(String idProgettista) {
-        for (Progettista progettista : db.progettisti) {
-            if (progettista.getId().equals(idProgettista))
-                return progettista;
-        }
-        return null;
+    public void notificaEsito(String idProgettista) {
+        //TODO notificaEsito
     }
 
-   /* public String getInfoProgettisti(Set<Progettista> progettisti) {
-        String info = "INFO PROGETTISTI:\n";
-        for (Progettista progettista : progettisti) {
-            info += progettista.getInfo() + "\n";
-        }
-        return info;
+    public String getInfoProgetto(String idProgetto) {
+        return this.getProgetto(idProgetto).getInfo();
     }
-    */
 
-    public void notificaEsito(String idProgettista)
-    {
-
-        for(Candidatura candidatura : candidature)
-        {
-            if(candidatura.getIdProgettista().equals(idProgettista))
-            {
-                System.out.println("La tua candidatura è stata:"+ candidatura.getStatoCandidatura());
-            }
-        }
-    }
+//    public Set<Progettista> getProgettisti(Set<Candidatura> candidatura) {
+//        Set<Progettista> progettisti = new HashSet<Progettista>();
+//        for (Candidatura cand : candidatura) {
+//            progettisti.add(getProgettista(cand.getIdProgettista()));
+//        }
+//        return progettisti;
+//    }
+//
+//    public Set<Candidatura> selezionaCandidatura(String idProgetto, StatoCandidatura statoCandidatura) {
+//        Set<Candidatura> candidature = new HashSet<Candidatura>();
+//        for (Progetto progetto : db.progetti) {
+//            if (progetto.getId().equals(idProgetto)) {
+//                for (Candidatura candidatura : progetto.getCandidature()) {
+//                    if (candidatura.getStatoCandidatura().equals(statoCandidatura)) {
+//                        candidature.add(candidatura);
+//                    }
+//                }
+//            }
+//        }
+//        return candidature;
+//    }
+//
+//    public void modificaStatoCandidatura(StatoCandidatura stato) {
+//        for (Candidatura candidatura : candidature) {
+//            candidatura.setStatoCandidatura(stato);
+//        }
+//    }
+//
+//    // serve per prendere le info data una candidatura, aggiungere al diagramma
+//    public Progettista getProgettista(String idProgettista) {
+//        for (Progettista progettista : db.progettisti) {
+//            if (progettista.getId().equals(idProgettista))
+//                return progettista;
+//        }
+//        return null;
+//    }
+//
+//    public String getInfoProgettisti(Set<Progettista> progettisti) {
+//        String info = "INFO PROGETTISTI:\n";
+//        for (Progettista progettista : progettisti) {
+//            info += progettista.getInfo() + "\n";
+//        }
+//        return info;
+//    }
 
 }

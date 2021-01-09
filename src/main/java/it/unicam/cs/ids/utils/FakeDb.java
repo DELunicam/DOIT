@@ -1,16 +1,12 @@
 package it.unicam.cs.ids.utils;
 
-import java.util.Set;
-import java.util.HashSet;
-import java.util.HashMap;
-
-import it.unicam.cs.ids.progetto.Progetto;
-import it.unicam.cs.ids.progetto.StatoProgetto;
-import it.unicam.cs.ids.progetto.Candidatura;
-import it.unicam.cs.ids.progetto.StatoCandidatura;
+import it.unicam.cs.ids.progetto.*;
 import it.unicam.cs.ids.utenti.Progettista;
 import it.unicam.cs.ids.utenti.Proponente;
-import it.unicam.cs.ids.progetto.Specializzazione;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FakeDb {
     Set<Progetto> progetti = new HashSet<Progetto>();
@@ -64,43 +60,43 @@ public class FakeDb {
 		Progetto uno = new Progetto(mario.getId(), "progettoA", "descrizione banale");
 		uno.setId("p1");
 		uno.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
-		uno.setProgettista(daniele);
-		uno.setProgettista(enzo);
-		uno.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
-		uno.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
+//		uno.setProgettista(daniele);
+//		uno.setProgettista(enzo);
+		uno.addSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
+		uno.addSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 
 		Progetto due = new Progetto(mario.getId(), "progettoB", "descrizione banale");
 		due.setId("p2");
 		due.setStatoProgetto(StatoProgetto.INATTIVO);
-		due.setProgettista(luca);
-		due.setProgettista(enzo);
-		due.setSingleInfoProgettistiRichiesti(Specializzazione.MATEMATICA, 4);
-		due.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 5);
+//		due.setProgettista(luca);
+//		due.setProgettista(enzo);
+		due.addSingleInfoProgettistiRichiesti(Specializzazione.MATEMATICA, 4);
+		due.addSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 5);
 
 		Progetto tre = new Progetto(mario.getId(), "progettoC", "descrizione banale");
 		tre.setId("p3");
 		tre.setStatoProgetto(StatoProgetto.PUBBLICO);
-		tre.setProgettista(daniele);
-		tre.setProgettista(enzo);
+//		tre.setProgettista(daniele);
+//		tre.setProgettista(enzo);
 
-		tre.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
-		tre.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
+		tre.addSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
+		tre.addSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 		
 		Progetto quattro = new Progetto(mario.getId(), "progettoD", "descrizione banale");
 		quattro.setId("p4");
 		quattro.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
-		quattro.setProgettista(daniele);
-		quattro.setProgettista(enzo);
-		quattro.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
-		quattro.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
+//		quattro.setProgettista(daniele);
+//		quattro.setProgettista(enzo);
+		quattro.addSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
+		quattro.addSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 
 		Progetto cinque = new Progetto(mario.getId(), "progettoE", "descrizione banale");
 		cinque.setId("p5");
 		cinque.setStatoProgetto(StatoProgetto.NEUTRO);
-		cinque.setProgettista(daniele);
-		cinque.setProgettista(enzo);
-		cinque.setSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
-		cinque.setSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
+//		cinque.setProgettista(daniele);
+//		cinque.setProgettista(enzo);
+		cinque.addSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
+		cinque.addSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 
 		this.progetti.add(uno);
 		this.progetti.add(due);
@@ -143,14 +139,14 @@ public class FakeDb {
 		poi.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
 
 
-		uno.setCandidatura(foo);
-		uno.setCandidatura(bar);
-		uno.setCandidatura(sad);
-		due.setCandidatura(zoo);
-		tre.setCandidatura(puffo);
-		tre.setCandidatura(ciao);
-		uno.setCandidatura(bee);
-		uno.setCandidatura(poi);
+//		uno.setCandidatura(foo);
+//		uno.setCandidatura(bar);
+//		uno.setCandidatura(sad);
+//		due.setCandidatura(zoo);
+//		tre.setCandidatura(puffo);
+//		tre.setCandidatura(ciao);
+//		uno.setCandidatura(bee);
+//		uno.setCandidatura(poi);
 		
 	}
 
