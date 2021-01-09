@@ -1,8 +1,6 @@
 package it.unicam.cs.ids;
 
-import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
-import it.unicam.cs.ids.utils.GestoreProgetto;
 import it.unicam.cs.ids.views.IProponente;
 
 import java.util.Scanner;

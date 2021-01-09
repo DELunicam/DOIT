@@ -1,8 +1,6 @@
-package it.unicam.cs.ids.utils;
+package it.unicam.cs.ids.progetto;
 
-import it.unicam.cs.ids.progetto.Progetto;
-import it.unicam.cs.ids.progetto.Specializzazione;
-import it.unicam.cs.ids.progetto.StatoProgetto;
+import it.unicam.cs.ids.utils.FakeDb;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -10,7 +8,7 @@ import java.util.Set;
 
 public class GestoreProgetto {
     private static GestoreProgetto instance;
-    private FakeDb db = new FakeDb(); // fake db
+    private final FakeDb db = new FakeDb(); // fake db
 
     public GestoreProgetto() {
     }
@@ -25,7 +23,7 @@ public class GestoreProgetto {
 
     public Progetto createProgetto(String idProponente, String nome, String descrizione) {
         Progetto progettoNeutro = new Progetto(idProponente, nome, descrizione);
-        db.add(progettoNeutro);
+        db.addProgetto(progettoNeutro);
         return progettoNeutro;
     }
 
