@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.progetto;
 
 import it.unicam.cs.ids.utenti.Progettista;
+import it.unicam.cs.ids.candidatura.Candidatura;
 
 import java.util.HashMap;
 import java.util.HashSet;

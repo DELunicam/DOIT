@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.utils;
-import it.unicam.cs.ids.progetto.Candidatura;
-import it.unicam.cs.ids.progetto.StatoCandidatura;
+import it.unicam.cs.ids.candidatura.Candidatura;
+import it.unicam.cs.ids.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.progetto.Specializzazione;
 import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
@@ -23,7 +23,7 @@ public class GestoreProgetto {
         //TODO createProgetto
         Progetto progettoNeutro = new Progetto(idProponente, nome, descrizione);
         //this.progetti.add(progettoNeutro);
-        this.db.add(progettoNeutro);
+        this.db.addProgetto(progettoNeutro);
         return progettoNeutro;
     }
 
