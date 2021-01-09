@@ -1,8 +1,18 @@
 package it.unicam.cs.ids.utils;
 
+import java.util.Set;
+import java.util.HashSet;
+import java.util.HashMap;
+
+import it.unicam.cs.ids.progetto.Progetto;
+import it.unicam.cs.ids.progetto.StatoProgetto;
+import it.unicam.cs.ids.candidatura.Candidatura;
+import it.unicam.cs.ids.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.progetto.*;
 import it.unicam.cs.ids.utenti.Progettista;
 import it.unicam.cs.ids.utenti.Proponente;
+import it.unicam.cs.ids.valutazione.Valutazione;
+import it.unicam.cs.ids.progetto.Specializzazione;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,7 +21,9 @@ import java.util.Set;
 public class FakeDb {
     Set<Progetto> progetti = new HashSet<Progetto>();
     Set<Proponente> proponenti = new HashSet<Proponente>();
-    Set<Progettista> progettisti = new HashSet<Progettista>();
+	Set<Progettista> progettisti = new HashSet<Progettista>();
+	public Set<Candidatura> candidature = new HashSet<Candidatura>();
+	public Set<Valutazione> valutazioni = new HashSet<Valutazione>();
 
     public FakeDb() {
 		
@@ -150,8 +162,25 @@ public class FakeDb {
 		
 	}
 
-	public void add(Progetto progetto){
+	public void addProgetto(Progetto progetto){
     	this.progetti.add(progetto);
+	}
+
+	public void addCandidatura(Candidatura candidatura){
+    	this.candidature.add(candidatura);
+	}
+
+	public void addValutazione(Valutazione valutazione){
+    	this.valutazioni.add(valutazione);
+	}
+
+	// aggiunto per completare metodo getProgettisti() in GestoreCandidature -luca
+	public Progettista selectProgettista(String idProgettista) {
+		for (Progettista progettista : this.progettisti) {
+            if (progettista.getId().equals(idProgettista))
+            return progettista;
+        }
+        return null;
 	}
 
 }

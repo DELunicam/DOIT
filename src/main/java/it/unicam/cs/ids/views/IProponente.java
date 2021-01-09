@@ -3,12 +3,12 @@ package it.unicam.cs.ids.views;
 
 import it.unicam.cs.ids.utils.GestoreProgetto;
 import it.unicam.cs.ids.progetto.Specializzazione;
-import it.unicam.cs.ids.progetto.Candidatura;
+import it.unicam.cs.ids.candidatura.Candidatura;
 import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
 import it.unicam.cs.ids.utenti.Progettista;
 import it.unicam.cs.ids.utenti.Proponente;
-import it.unicam.cs.ids.progetto.StatoCandidatura;
+import it.unicam.cs.ids.candidatura.StatoCandidatura;
 
 import java.util.*;
 

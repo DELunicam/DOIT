@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.progetto;
+package it.unicam.cs.ids.candidatura;
 
 public enum StatoCandidatura {
 	DA_VALUTARE,
