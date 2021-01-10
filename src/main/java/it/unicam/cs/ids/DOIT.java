@@ -4,7 +4,7 @@ import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
 import it.unicam.cs.ids.utils.GestoreProgetto;
 import it.unicam.cs.ids.views.IProponente;
-
+import it.unicam.cs.ids.GestoriUtenti.GestoreProgettisti;
 import java.util.Scanner;
 
 public class DOIT {
@@ -39,6 +39,10 @@ public class DOIT {
                     break;//
                 case "EXIT":
                     exit=true;
+                    break;
+                case "A":
+                GestoreProgettisti a = new GestoreProgettisti();
+                System.out.println(a.getInfoProgettista("PROG2"));
                     break;
             }
         }

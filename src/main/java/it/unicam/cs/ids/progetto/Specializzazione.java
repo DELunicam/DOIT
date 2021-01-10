@@ -5,4 +5,6 @@ public enum Specializzazione {
     INFORMATICA,
     MATEMATICA,
     INGEGNERIA
+    
+
 }

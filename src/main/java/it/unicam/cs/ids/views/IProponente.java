@@ -264,7 +264,7 @@ public class IProponente {
 
 
     //public void viewInfoProgettista(Candidatura candidatura){
-    public void viewInfoProgettista(Set<Progettista> progettisti) {
+   public void viewInfoProgettista(Set<Progettista> progettisti) {
         //String info = gestore.getInfoProgettisti(progettisti);
         //System.out.println(info);
         for (Progettista progettista : progettisti) {
@@ -273,12 +273,17 @@ public class IProponente {
                 "Nome: " + progettista.getNome() + "\n" +
                 "Cognome: " + progettista.getCognome() + "\n" +
                 "Specializzazioni: " + progettista.getSpecializzazioni() + "\n" +
-                "Progetti svolti: " + progettista.getProgetti() + "\n" +
-                "Mail: " + progettista.getMailAddress()
+             //   "Progetti svolti: " + progettista.getProgetti() + "\n" +
+               "Mail: " + progettista.getMailAddress()
             );
         }
+<<<<<<< Updated upstream
         this.accettaCandidatura();
     }
+=======
+        //this.accettaCandidatura();
+    } 
+>>>>>>> Stashed changes
 
     public void accettaCandidatura(){
         System.out.println("Si desidera confermare la formazione di questo team di progettisti?\n" +
