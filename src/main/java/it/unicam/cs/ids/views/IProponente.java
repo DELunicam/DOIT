@@ -1,9 +1,9 @@
 package it.unicam.cs.ids.views;
 
-
 import it.unicam.cs.ids.progetto.GestoreProgetto;
 import it.unicam.cs.ids.progetto.Specializzazione;
 import it.unicam.cs.ids.candidatura.Candidatura;
+import it.unicam.cs.ids.candidatura.GestoreCandidature;
 import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
 import it.unicam.cs.ids.utenti.Progettista;
@@ -19,6 +19,7 @@ import java.util.*;
 public class IProponente {
     Scanner sc;
     GestoreProgetto gestore = new GestoreProgetto();
+    GestoreCandidature gestoreCandidature = new GestoreCandidature();
     String idProponente;
 
     public IProponente(String idProponente) {
@@ -190,7 +191,7 @@ public class IProponente {
 
             if (yN.equals("Y")) 
             {
-                Set<Candidatura> progettistiCandidati = gestore.selezionaCandidatura(idProgetto, StatoCandidatura.DA_VALUTARE);
+                Set<Candidatura> progettistiCandidati = gestoreCandidature.getCandidature(idProgetto, StatoCandidatura.DA_VALUTARE);
                 this.requestEsperto(progettistiCandidati);
                 return;
             }
@@ -221,7 +222,7 @@ public class IProponente {
     }
 
     public void viewCandidature(String idProgetto, StatoCandidatura statoCandidatura) {
-        Set<Candidatura> progettistiCandidati = gestore.selezionaCandidatura(idProgetto, statoCandidatura);
+        Set<Candidatura> progettistiCandidati = gestoreCandidature.getCandidature(idProgetto, statoCandidatura);
         //StatoCandidatura statoCandidature;
         for (Candidatura candidatura : progettistiCandidati) {
             if (statoCandidatura.equals(candidatura.getStatoCandidatura())) {
@@ -260,7 +261,7 @@ public class IProponente {
                 Progettista scelto = gestore.getProgettista(idProg);
                 if (scelto != null) {
                     progettistiPreselezionati.add(scelto);
-                    for (Candidatura candidatura : gestore.getProgetto(idProgetto).getCandidature()) {
+                    for (Candidatura candidatura : gestoreCandidature.getCandidature(idProgetto)) {
                         candidatura.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
                     }
                     System.out.println("Progettista "+scelto.getNome() +" selezionato\n");
@@ -362,7 +363,7 @@ public class IProponente {
         if (input.equals("Y")) {
             // TODO invia notifica ai progettisti
             for (Progettista progettista : progettistiSelezionati) {
-                for(Candidatura candidatura : gestore.getProgetto(idProgetto).getCandidature()) {
+                for(Candidatura candidatura : gestoreCandidature.getCandidature(idProgetto)) {
                     if (progettista.getId().equals(candidatura.getIdProgettista())) {
                         candidatura.setStatoCandidatura(StatoCandidatura.ACCETTATA);
                     }
@@ -375,11 +376,6 @@ public class IProponente {
         } else {
             System.out.println("Impossibile processare l'operazione");
         }
-    }
-
-
-    public void seleziona(){
-        //TODO seleziona
     }
 
 

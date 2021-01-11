@@ -6,11 +6,19 @@ import it.unicam.cs.ids.utenti.Progettista;
 import it.unicam.cs.ids.utils.FakeDb;
 
 public class GestoreCandidature {
-    
+    private static GestoreCandidature instance;
     private FakeDb db = new FakeDb(); // fake db
 
     public GestoreCandidature() {
 
+    }
+
+    // Singleton
+    public static GestoreCandidature getInstance() {
+        if (instance == null) {
+            instance = new GestoreCandidature();
+        }
+        return instance;
     }
 
     // --> sul diagramma sta in Candidatura, ma credo vada qui -luca
@@ -48,6 +56,14 @@ public class GestoreCandidature {
         this.getCandidatura(idCandidatura).setStatoCandidatura(statoCandidatura);
     }
 
+    // aggiunta, stava in gestore progettto come:
+    // public void modificaStatoCandidatura(StatoCandidatura stato)
+    public void modificaStatoCandidature(StatoCandidatura statoCandidatura, Set<Candidatura> candidature) {
+        for (Candidatura candidatura : candidature) {
+            candidatura.setStatoCandidatura(statoCandidatura);
+        }
+    }
+
     // ottieni una lista di progettisti data una lista di candidature
     public Set<Progettista> getProgettisti(Set<Candidatura> candidature) {
         Set<Progettista> progettisti = new HashSet<Progettista>();
@@ -70,12 +86,22 @@ public class GestoreCandidature {
         return nuovaCandidatura;
     }
 
-    // --> controllare il cambio di stato -luca
-    // aggiunge l'id dell'esperto che le ha approvato alle candidature
-    public void confermaSelezione(String idEsperto, Set<Candidatura> candidatureSelezionate) {
-        for (Candidatura candidatura : candidatureSelezionate) {
-            // candidatura.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA); <- cambiando lo stato la selezione può essere fatta da un solo esperto
-            candidatura.addEsperto(idEsperto);
+
+    // aggiunge a liste temporanee di candidature consigliate o meno
+    public void addCandidatura(Candidatura candidatura, Boolean consigliata, Set<Candidatura> consigliate, Set<Candidatura> sconsigliate) {
+        if (consigliata)
+            consigliate.add(candidatura);
+        else
+            sconsigliate.add(candidatura);
+    }
+
+    // aggiunge l'id dell'esperto che le ha approvato alle candidature e il parete positivo o negativo
+    public void confermaSelezione(String idEsperto, Set<Candidatura> consigliate, Set<Candidatura> sconsigliate) {
+        for (Candidatura candidatura : consigliate) {
+            candidatura.addParereEsperto(idEsperto, true);
+        }
+        for (Candidatura candidatura : sconsigliate) {
+            candidatura.addParereEsperto(idEsperto, false);
         }
     }
 

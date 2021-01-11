@@ -123,26 +123,6 @@ public class GestoreProgetto {
 //        return progettisti;
 //    }
 //
-//    public Set<Candidatura> selezionaCandidatura(String idProgetto, StatoCandidatura statoCandidatura) {
-//        Set<Candidatura> candidature = new HashSet<Candidatura>();
-//        for (Progetto progetto : db.progetti) {
-//            if (progetto.getId().equals(idProgetto)) {
-//                for (Candidatura candidatura : progetto.getCandidature()) {
-//                    if (candidatura.getStatoCandidatura().equals(statoCandidatura)) {
-//                        candidature.add(candidatura);
-//                    }
-//                }
-//            }
-//        }
-//        return candidature;
-//    }
-//
-//    public void modificaStatoCandidatura(StatoCandidatura stato) {
-//        for (Candidatura candidatura : candidature) {
-//            candidatura.setStatoCandidatura(stato);
-//        }
-//    }
-//
 //    // serve per prendere le info data una candidatura, aggiungere al diagramma
 //    public Progettista getProgettista(String idProgettista) {
 //        for (Progettista progettista : db.progettisti) {
