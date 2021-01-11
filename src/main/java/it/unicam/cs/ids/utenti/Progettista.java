@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.utenti;
 
-import java.util.ArrayList;
-import java.util.ListIterator;
+import java.util.*;
 
 import it.unicam.cs.ids.progetto.Specializzazione;
 
@@ -9,23 +8,19 @@ public class Progettista extends Utente
 {
 
 	private String id;
-	private ArrayList<Specializzazione> specializzazioni = new ArrayList<Specializzazione>(); 
-	private ArrayList<String> progettiSvolti = new ArrayList<String>(); ;
+	private Set<Specializzazione> specializzazioni = new HashSet<Specializzazione>(); 
+	
 	public Progettista() {}
-	/* public String getInfo()
-	{
-		String info = id;
-		ListIterator<Specializzazione> i = specializzazioni.listIterator();
-		int a = 0;
-		while(i.hasNext() == true)
-		{		
-		info = info + " " + specializzazioni.get(a);
-		a= a +1;
-		i.next();
+	public String getInfo()
+	{	
+		String info = "ID PROGETTISTA " +id+"\nSpecializzazioni:";
+		for(Specializzazione spec : specializzazioni)
+		{	
+			info += spec.name() + " ";
 		}
 		return info;
 	}
-		*/	
+
 	//aggiunto
 	public void setId(String id)
 	{
@@ -37,17 +32,13 @@ public class Progettista extends Utente
 		return id;
 	}
 	
-	
-	public ArrayList<Specializzazione> getSpecializzazioni()
+	public Set<Specializzazione> getSpecializzazioni()
 	{
 		return this.specializzazioni;
 	}
-	public ArrayList<String> getProgetti()
-	{
-		return this.progettiSvolti;
-	}
 	
-	public Progettista(Utente utente, ArrayList<Specializzazione> spec)
+	
+	public Progettista(Utente utente, Set<Specializzazione> spec)
 	
 	{
 		this.id = utente.getId();
@@ -57,11 +48,6 @@ public class Progettista extends Utente
 	public void addSpecializzazione(Specializzazione spec)
 	{
 		this.specializzazioni.add(spec);
-	}
-	
-	public void addProgetti(String idProgetto)
-	{
-		this.progettiSvolti.add(idProgetto);
 	}
 	
 	
