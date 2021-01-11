@@ -3,6 +3,7 @@ package it.unicam.cs.ids.views;
 
 import it.unicam.cs.ids.progetto.GestoreProgetto;
 import it.unicam.cs.ids.progetto.Specializzazione;
+import it.unicam.cs.ids.GestoriUtenti.GestoreProgettisti;
 import it.unicam.cs.ids.candidatura.Candidatura;
 import it.unicam.cs.ids.progetto.Progetto;
 import it.unicam.cs.ids.progetto.StatoProgetto;
@@ -19,6 +20,7 @@ import java.util.*;
 public class IProponente {
     Scanner sc;
     GestoreProgetto gestore = new GestoreProgetto();
+    GestoreProgettisti gestoreProgettista = new GestoreProgettisti();
     String idProponente;
 
     public IProponente(String idProponente) {
@@ -257,7 +259,7 @@ public class IProponente {
                         System.out.println ("Selezione terminata \n");
                         break;
                 }
-                Progettista scelto = gestore.getProgettista(idProg);
+                Progettista scelto = gestoreProgettista.getProgettista(idProg);
                 if (scelto != null) {
                     progettistiPreselezionati.add(scelto);
                     for (Candidatura candidatura : gestore.getProgetto(idProgetto).getCandidature()) {
@@ -305,7 +307,7 @@ public class IProponente {
 
             while (numSelezionati < numMassimo) {
                 String idProg = sc.nextLine();
-                Progettista scelto = gestore.getProgettista(idProg);
+                Progettista scelto = gestoreProgettista.getProgettista(idProg);
                 if (scelto != null) {
                     progettistiSelezionati.add(scelto);
                     numSelezionati++;
@@ -341,18 +343,11 @@ public class IProponente {
     public void viewInfoProgettista(Set<Progettista> progettisti) {
         //String info = gestore.getInfoProgettisti(progettisti);
         //System.out.println(info);
-        for (Progettista progettista : progettisti) {
-            System.out.println(
-                "PROGETTISTA " + progettista.getId() + "\n" +
-                "Nome: " + progettista.getNome() + "\n" +
-                "Cognome: " + progettista.getCognome() + "\n" +
-                "Specializzazioni: " + progettista.getSpecializzazioni() + "\n" +
-                "Progetti svolti: " + progettista.getProgetti() + "\n" +
-                "Mail: " + progettista.getMailAddress()
-            );
+       
+            System.out.println(gestoreProgettista.getInfoProgettisti(progettisti));
         }
         //this.accettaCandidatura();
-    }
+    
 
 
     public void accettaCandidature(String idProgetto, Set<Progettista> progettistiSelezionati) {

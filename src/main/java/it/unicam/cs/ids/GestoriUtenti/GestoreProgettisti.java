@@ -4,6 +4,7 @@ import it.unicam.cs.ids.progetto.Specializzazione;
 import it.unicam.cs.ids.utils.FakeDb;
 import it.unicam.cs.ids.utenti.Progettista;
 import java.util.*;
+import it.unicam.cs.ids.candidatura.*;
 public class GestoreProgettisti 
 {
     public static GestoreProgettisti instance;
@@ -45,18 +46,50 @@ public class GestoreProgettisti
             }
             return progettisti;
         }
+        public String getProgettiSvolti(String idProgettista)
 
+        {
+            String progettiSvolti = "PROGETTI SVOLTI: \n";
+            for(Candidatura candidatura : db.candidature)
+            {
+                if(candidatura.getIdProgettista().equals(idProgettista) && candidatura.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA))
+                {
+                   progettiSvolti += "ID PROGETTO: "+candidatura.getIdProgetto()+ "\n"; 
+                }
+            }
+            return progettiSvolti;
+        }
         public String getInfoProgettista(String idProgettista)
         {   
-            
-            for (Progettista progettista : db.progettisti)
-            {
-                if(progettista.getId().equals(idProgettista))
-                {
-                    return progettista.getInfo();
-                }
-               
+            String info = "INFO PROGETTISTA: \n";
+            for (Progettista progettista : db.progettisti) {
+                     info += 
+                    "ID: " + progettista.getId() + "\n" +
+                    "Nome: " + progettista.getNome() + "\n" +
+                    "Cognome: " + progettista.getCognome() + "\n" +
+                    progettista.getInfoSpec() "\n" +
+                    "Progetti svolti: " + getProgettiSvolti(progettista.getId()) + "\n" +
+                    "Mail: " + progettista.getMailAddress();
             }
-            return null;
+            return info;
         }
-}
+
+        public Set<Progettista> getProgettisti(Set<Candidatura> candidatura)
+         {
+                    Set<Progettista> progettisti = new HashSet<Progettista>();
+                    for (Candidatura cand : candidatura) {
+                       progettisti.add(getProgettista(cand.getIdProgettista()));
+                    }
+                   return progettisti;
+         }
+
+         public String getInfoProgettisti(Set<Progettista> progettisti) 
+         {
+             String info = "INFO PROGETTISTI:\n";
+              for (Progettista progettista : progettisti)
+               {
+                  info += this.getInfoProgettista(progettista.getId()) + "\n";
+               }
+                return info;
+         }
+       }       

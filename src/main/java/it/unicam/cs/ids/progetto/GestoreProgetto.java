@@ -115,14 +115,8 @@ public class GestoreProgetto {
         return this.getProgetto(idProgetto).getInfo();
     }
 
-//    public Set<Progettista> getProgettisti(Set<Candidatura> candidatura) {
-//        Set<Progettista> progettisti = new HashSet<Progettista>();
-//        for (Candidatura cand : candidatura) {
-//            progettisti.add(getProgettista(cand.getIdProgettista()));
-//        }
-//        return progettisti;
-//    }
-//
+
+
 //    public Set<Candidatura> selezionaCandidatura(String idProgetto, StatoCandidatura statoCandidatura) {
 //        Set<Candidatura> candidature = new HashSet<Candidatura>();
 //        for (Progetto progetto : db.progetti) {
@@ -142,22 +136,7 @@ public class GestoreProgetto {
 //            candidatura.setStatoCandidatura(stato);
 //        }
 //    }
-//
-//    // serve per prendere le info data una candidatura, aggiungere al diagramma
-//    public Progettista getProgettista(String idProgettista) {
-//        for (Progettista progettista : db.progettisti) {
-//            if (progettista.getId().equals(idProgettista))
-//                return progettista;
-//        }
-//        return null;
-//    }
-//
-//    public String getInfoProgettisti(Set<Progettista> progettisti) {
-//        String info = "INFO PROGETTISTI:\n";
-//        for (Progettista progettista : progettisti) {
-//            info += progettista.getInfo() + "\n";
-//        }
-//        return info;
-//    }
+
+
 
 }

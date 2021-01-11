@@ -11,9 +11,9 @@ public class Progettista extends Utente
 	private Set<Specializzazione> specializzazioni = new HashSet<Specializzazione>(); 
 	
 	public Progettista() {}
-	public String getInfo()
+	public String getInfoSpec()
 	{	
-		String info = "ID PROGETTISTA " +id+"\nSpecializzazioni:";
+		String info = "Specializzazioni : \n";
 		for(Specializzazione spec : specializzazioni)
 		{	
 			info += spec.name() + " ";

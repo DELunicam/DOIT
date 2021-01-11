@@ -38,10 +38,7 @@ public class DOIT {
                 case "EXIT":
                     exit=true;
                     break;
-                case "A":
-                GestoreProgettisti a = new GestoreProgettisti();
-                System.out.println(a.getInfoProgettista("PROG2"));
-                    break;
+                
             }
         }
     }
