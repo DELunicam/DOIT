@@ -8,7 +8,7 @@ public class Candidatura {
 	private String idProgetto;
 	private String idProgettista;
     private StatoCandidatura stato;
-    private Set<String> idEsperti = new HashSet<String>();
+    private Map<String, Boolean> pareriEsperti = new HashMap<String, Boolean>(); // idesperto, valutazione pos o neg
 
 	public Candidatura() {
 
@@ -50,6 +50,17 @@ public class Candidatura {
 	public void setStatoCandidatura(StatoCandidatura stato) {
 		this.stato = stato;
 	}
+
+	public Map<String, Boolean> getPareriEsperti() {
+		return this.pareriEsperti;
+	}
+	public void setPareriEsperti(Map<String, Boolean> parereEsperti) {
+		this.pareriEsperti = parereEsperti;
+	}
+	
+    public void addParereEsperto(String idEsperto, Boolean posNeg) {
+        this.pareriEsperti.put(idEsperto, posNeg);
+    }
 	
 	public String getInfoCandidatura() {
 		String info = "ID progetto: " + this.getIdProgetto() + "\n"
@@ -62,11 +73,6 @@ public class Candidatura {
 		System.out.println(this.getInfoCandidatura());
     }
     
-    // --> aggiunto -luca
-    // aggiunge l'id di un esperto che ha approvato la candidatura
-    public void addEsperto(String idEsperto) {
-        this.idEsperti.add(idEsperto);
-    }
 	
 }
 

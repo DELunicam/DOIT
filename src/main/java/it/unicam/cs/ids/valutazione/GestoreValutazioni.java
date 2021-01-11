@@ -6,11 +6,19 @@ import it.unicam.cs.ids.progetto.Specializzazione;
 import it.unicam.cs.ids.utils.FakeDb;
 
 public class GestoreValutazioni {
-    
+    private static GestoreValutazioni instance;
     private FakeDb db = new FakeDb(); // fake db
 
     public GestoreValutazioni() {
 
+    }
+
+    // Singleton
+    public static GestoreValutazioni getInstance() {
+        if (instance == null) {
+            instance = new GestoreValutazioni();
+        }
+        return instance;
     }
 
     // --> aggiunto idEsperto fra i parametri dei create -luca

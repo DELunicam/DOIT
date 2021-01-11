@@ -2,7 +2,6 @@ package it.unicam.cs.ids;
 
 import it.unicam.cs.ids.progetto.StatoProgetto;
 import it.unicam.cs.ids.views.IProponente;
-import it.unicam.cs.ids.GestoriUtenti.GestoreProgettisti;
 import java.util.Scanner;
 
 public class DOIT {
