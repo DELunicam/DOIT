@@ -1,5 +1,8 @@
 package it.unicam.cs.ids.utenti;
-import java.util.ArrayList;
+import it.unicam.cs.ids.progetto.Specializzazione;
+import jdk.nashorn.internal.objects.annotations.Setter;
+
+import java.util.Set;
 
 
 public class Esperto extends Utente{
@@ -7,7 +10,7 @@ public class Esperto extends Utente{
 	private String id;
 	private String nome;
 	private String cognome;
-	private ArrayList<String> specializzazioni = new ArrayList<String>();
+	private Set<Specializzazione> specializzazioni = new HashSet<Specializzazione>();
 	
 	public String getId()
 	{
@@ -21,12 +24,12 @@ public class Esperto extends Utente{
 	{
 		return this.cognome;
 	}
-	public ArrayList<String> getSpecializzazioni()
+	public Set<Specializzazione> getSpecializzazioni()
 	{
 		return this.specializzazioni;
 	}
 	
-	public Esperto(Utente utente, ArrayList<String> spec)
+	public Esperto(Utente utente, Set<Specializzazione> spec)
 	{
 		this.nome = utente.getNome();
 		this.cognome = utente.getCognome();
@@ -35,9 +38,10 @@ public class Esperto extends Utente{
 	}
 	public Esperto() {}
 	
+	/* da implementare in IEsperto
 	public void valutaProgetti()
 	{
-		//richiama il metodo di gestoreProgetti che valuta i progetti?
+		
 	}
 	
 	public void valutaCandidatura()
@@ -45,10 +49,10 @@ public class Esperto extends Utente{
 		//richiama il metodo di gestoreProgetti che valuta le candidature?
 	}
 	
-	
-	public void addSpecializzazione(String spec)
+	*/
+	public void addSpecializzazione(Specializzazione spec)
 	{
-		specializzazioni.add( spec);
+		specializzazioni.add(spec);
 	
 	}
 }
