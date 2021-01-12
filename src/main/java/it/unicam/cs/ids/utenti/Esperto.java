@@ -1,59 +1,59 @@
 package it.unicam.cs.ids.utenti;
-import it.unicam.cs.ids.progetto.Specializzazione;
-import jdk.nashorn.internal.objects.annotations.Setter;
 
+import it.unicam.cs.ids.progetto.Specializzazione;
+
+import java.util.HashSet;
 import java.util.Set;
 
 
-public class Esperto extends Utente{
+public class Esperto extends Utente {
 
-	private String id;
-	private String nome;
-	private String cognome;
-	private Set<Specializzazione> specializzazioni = new HashSet<Specializzazione>();
-	
-	public String getId()
-	{
-		return this.id;
-	}
-	public String getNome()
-	{
-		return this.nome;
-	}
-	public String getCognome()
-	{
-		return this.cognome;
-	}
-	public Set<Specializzazione> getSpecializzazioni()
-	{
-		return this.specializzazioni;
-	}
-	
-	public Esperto(Utente utente, Set<Specializzazione> spec)
-	{
-		this.nome = utente.getNome();
-		this.cognome = utente.getCognome();
-		this.id = utente.getId();
-		this.specializzazioni.addAll(spec);
-	}
-	public Esperto() {}
-	
-	/* da implementare in IEsperto
-	public void valutaProgetti()
-	{
-		
-	}
-	
-	public void valutaCandidatura()
-	{
-		//richiama il metodo di gestoreProgetti che valuta le candidature?
-	}
-	
-	*/
-	public void addSpecializzazione(Specializzazione spec)
-	{
-		specializzazioni.add(spec);
-	
-	}
+    private String nome;
+    private String cognome;
+    private Set<Specializzazione> specializzazioni = new HashSet<>();
+
+
+    public Esperto() {
+    }
+
+    public Esperto(String id, String mailAddress, String nome, String cognome) {
+        super(id, mailAddress);
+        this.nome = nome;
+        this.cognome = cognome;
+    }
+
+    public Esperto(String id, String mailAddress, String nome, String cognome, Set<Specializzazione> specializzazioni) {
+        this(id, mailAddress, nome, cognome);
+        this.specializzazioni = specializzazioni;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public Set<Specializzazione> getSpecializzazioni() {
+        return specializzazioni;
+    }
+
+    public void setSpecializzazioni(Set<Specializzazione> specializzazioni) {
+        this.specializzazioni = specializzazioni;
+    }
+
+    public void addSpecializzazione(Specializzazione spec) {
+        specializzazioni.add(spec);
+
+    }
 }
 

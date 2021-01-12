@@ -4,7 +4,7 @@ import it.unicam.cs.ids.progetto.GestoreProgetto;
 
 import java.util.Scanner;
 
-public class IVisitatore implements PrinterProgettiInterface{
+public class IVisitatore{
     Scanner sc;
     GestoreProgetto gestoreProgetto;
 

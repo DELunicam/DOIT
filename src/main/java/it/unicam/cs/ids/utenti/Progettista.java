@@ -1,55 +1,64 @@
 package it.unicam.cs.ids.utenti;
 
-import java.util.*;
-
 import it.unicam.cs.ids.progetto.Specializzazione;
 
-public class Progettista extends Utente
-{
+import java.util.HashSet;
+import java.util.Set;
 
-	private String id;
-	private Set<Specializzazione> specializzazioni = new HashSet<Specializzazione>(); 
-	
-	public Progettista() {}
-	public String getInfoSpec()
-	{	
-		String info = "Specializzazioni : \n";
-		for(Specializzazione spec : specializzazioni)
-		{	
-			info += spec.name() + " ";
-		}
-		return info;
+public class Progettista extends Utente {
+
+    private String nome;
+    private String cognome;
+    private Set<Specializzazione> specializzazioni = new HashSet<>();
+
+    public Progettista() {
+    }
+
+    public Progettista(String id, String mailAddress, String nome, String cognome) {
+        super(id, mailAddress);
+        this.nome = nome;
+        this.cognome = cognome;
+    }
+
+    public Progettista(String id, String mailAddress, String nome, String cognome, Set<Specializzazione> specializzazioni) {
+        this(id, mailAddress, nome, cognome);
+        this.specializzazioni = specializzazioni;
+    }
+
+	public String getNome() {
+		return nome;
 	}
 
-	//aggiunto
-	public void setId(String id)
-	{
-		this.id = id;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getId()
-	{
-		return id;
+	public String getCognome() {
+		return cognome;
 	}
-	
-	public Set<Specializzazione> getSpecializzazioni()
-	{
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public void setSpecializzazioni(Set<Specializzazione> specializzazioni) {
+		this.specializzazioni = specializzazioni;
+	}
+
+	public Set<Specializzazione> getSpecializzazioni() {
 		return this.specializzazioni;
 	}
-	
-	
-	public Progettista(Utente utente, Set<Specializzazione> spec)
-	
-	{
-		this.id = utente.getId();
-		this.specializzazioni.addAll(spec);
-	}
-	
-	public void addSpecializzazione(Specializzazione spec)
-	{
+
+	public void addSpecializzazione(Specializzazione spec) {
 		this.specializzazioni.add(spec);
 	}
-	
-	
-	
+
+    public String getInfoSpec() {
+        String info = "Specializzazioni : \n";
+        for (Specializzazione spec : specializzazioni) {
+            info += spec.name() + " ";
+        }
+        return info;
+    }
+
 }
