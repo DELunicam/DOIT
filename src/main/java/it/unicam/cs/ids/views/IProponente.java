@@ -2,6 +2,7 @@ package it.unicam.cs.ids.views;
 
 import it.unicam.cs.ids.progetto.GestoreProgetto;
 import it.unicam.cs.ids.progetto.Specializzazione;
+import it.unicam.cs.ids.GestoriUtenti.GestoreProgettisti;
 import it.unicam.cs.ids.candidatura.Candidatura;
 import it.unicam.cs.ids.candidatura.GestoreCandidature;
 import it.unicam.cs.ids.progetto.Progetto;
@@ -20,6 +21,7 @@ public class IProponente {
     Scanner sc;
     GestoreProgetto gestore = new GestoreProgetto();
     GestoreCandidature gestoreCandidature = new GestoreCandidature();
+    GestoreProgettisti gestoreProgettisti = new GestoreProgettisti();
     String idProponente;
 
     public IProponente(String idProponente) {
@@ -258,7 +260,7 @@ public class IProponente {
                         System.out.println ("Selezione terminata \n");
                         break;
                 }
-                Progettista scelto = gestore.getProgettista(idProg);
+                Progettista scelto = gestoreProgettisti.getProgettista(idProg);
                 if (scelto != null) {
                     progettistiPreselezionati.add(scelto);
                     for (Candidatura candidatura : gestoreCandidature.getCandidature(idProgetto)) {
@@ -306,7 +308,7 @@ public class IProponente {
 
             while (numSelezionati < numMassimo) {
                 String idProg = sc.nextLine();
-                Progettista scelto = gestore.getProgettista(idProg);
+                Progettista scelto = gestoreProgettisti.getProgettista(idProg);
                 if (scelto != null) {
                     progettistiSelezionati.add(scelto);
                     numSelezionati++;
@@ -348,7 +350,7 @@ public class IProponente {
                 "Nome: " + progettista.getNome() + "\n" +
                 "Cognome: " + progettista.getCognome() + "\n" +
                 "Specializzazioni: " + progettista.getSpecializzazioni() + "\n" +
-                "Progetti svolti: " + progettista.getProgetti() + "\n" +
+                //"Progetti svolti: " + progettista.getProgetti() + "\n" +
                 "Mail: " + progettista.getMailAddress()
             );
         }

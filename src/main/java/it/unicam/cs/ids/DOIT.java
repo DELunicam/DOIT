@@ -1,6 +1,7 @@
 package it.unicam.cs.ids;
 
 import it.unicam.cs.ids.progetto.StatoProgetto;
+import it.unicam.cs.ids.views.IEsperto;
 import it.unicam.cs.ids.views.IProponente;
 import java.util.Scanner;
 
@@ -11,6 +12,7 @@ public class DOIT {
         Scanner sc = new Scanner(System.in);
 
         IProponente proponente = new IProponente("PROP1");
+        IEsperto esperto = new IEsperto("ESP1");
 
         boolean exit = false;
         while(!exit) {
@@ -19,6 +21,8 @@ public class DOIT {
                     "[PUBBLICA]\n" +
                     "[SELEZIONA PROGETTISTI]\n" +
                     "[CONFERMA PROGETTISTI]\n" +
+                    "[VALUTA PROPOSTA]\n" +
+                    "[VALUTA PROGETTISTI]\n" +
                     "[EXIT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
@@ -33,6 +37,12 @@ public class DOIT {
                     break;
                 case "CONFERMA PROGETTISTI":
                     proponente.viewProgetti(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
+                    break;
+                case "VALUTA PROPOSTA":
+                    esperto.valutaProposta();
+                    break;
+                case "VALUTA PROGETTISTI":
+                    esperto.valutaProgettisti();
                     break;
                 case "EXIT":
                     exit=true;

@@ -147,8 +147,17 @@ public class FakeDb {
 		Candidatura poi = new Candidatura();
 		poi.setIdProgettista(enzo.getId());
 		poi.setIdProgetto(uno.getId());
-		poi.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
-		
+		poi.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+	
+		this.candidature.add(foo);
+		this.candidature.add(bar);
+		this.candidature.add(sad);
+		this.candidature.add(zoo);
+		this.candidature.add(ciao);
+		this.candidature.add(puffo);
+		this.candidature.add(bee);
+		this.candidature.add(poi);
+
 	}
 
 	public void addProgetto(Progetto progetto){
