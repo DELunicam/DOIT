@@ -67,7 +67,7 @@ public class GestoreProgettisti
                     "ID: " + progettista.getId() + "\n" +
                     "Nome: " + progettista.getNome() + "\n" +
                     "Cognome: " + progettista.getCognome() + "\n" +
-                    progettista.getInfoSpec() "\n" +
+                    progettista.getInfoSpec() + "\n" +
                     "Progetti svolti: " + getProgettiSvolti(progettista.getId()) + "\n" +
                     "Mail: " + progettista.getMailAddress();
             }

@@ -1,8 +1,8 @@
 package it.unicam.cs.ids.utenti;
 import it.unicam.cs.ids.progetto.Specializzazione;
-import jdk.nashorn.internal.objects.annotations.Setter;
 
-import java.util.Set;
+
+import java.util.*;
 
 
 public class Esperto extends Utente{
