@@ -1,5 +1,8 @@
 package it.unicam.cs.ids.progetto;
 
+import it.unicam.cs.ids.candidatura.Candidatura;
+import it.unicam.cs.ids.candidatura.StatoCandidatura;
+import it.unicam.cs.ids.utenti.Progettista;
 import it.unicam.cs.ids.utils.FakeDb;
 
 import java.util.HashSet;
@@ -73,24 +76,22 @@ public class GestoreProgetto {
         return progettiCercati;
     }
 
-    // Restituisce tutti i progetti PUBBLICI che richiedono una delle specializzazioni passate
-    // private Set<Progetto> getListaProgetti(Set<Specializzazione> specializzazioni, StatoProgetto statoProgetto)
-    // forse e' meglio
-    public Set<Progetto> getListaProgetti(Set<Specializzazione> specializzazioni) {
+    // Restituisce tutti i progetti aventi stato che richiedono una delle specializzazioni passate
+
+    public Set<Progetto> getListaProgetti(Set<Specializzazione> specializzazioni, StatoProgetto statoProgetto) {
         Set<Progetto> progettiCercati = new HashSet<>();
         for (Specializzazione specializzazione : specializzazioni) {
-            progettiCercati.addAll(getListaProgetti(specializzazione));
+            progettiCercati.addAll(getListaProgetti(specializzazione, statoProgetto));
         }
         return progettiCercati;
     }
 
-    // Restituisce tutti i progetti PUBBLICI che richiedono la specializzazione passata
-    // private Set<Progetto> getListaProgetti(Specializzazione specializzazione, StatoProgetto statoProgetto)
-    // forse e' meglio
-    private Set<Progetto> getListaProgetti(Specializzazione specializzazione) {
+    // Restituisce tutti i progetti aventi stato che richiedono la specializzazione passata
+
+    private Set<Progetto> getListaProgetti(Specializzazione specializzazione, StatoProgetto statoProgetto) {
         Set<Progetto> progettiCercati = new HashSet<>();
         for (Progetto progetto : db.progetti) {
-            if (progetto.getStatoProgetto().equals(StatoProgetto.PUBBLICO) &&
+            if (progetto.getStatoProgetto().equals(statoProgetto) &&
                     progetto.getInfoProgettistiRichiesti().containsKey(specializzazione)) {
                 progettiCercati.add(progetto);
             }
@@ -107,6 +108,26 @@ public class GestoreProgetto {
         return progettiCercati;
     }
 
+    public Set<Progetto> getListaProgettiSvolti(Progettista progettista) {
+        Set<Progetto> progettiSvolti = new HashSet<>();
+        for (Candidatura candidatura : db.candidature) {
+            if (candidatura.getIdProgettista().equals(progettista.getId()) && candidatura.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)) {
+                progettiSvolti.add(this.getProgetto(candidatura.getIdProgetto()));
+            }
+        }
+        return progettiSvolti;
+    }
+
+    public Set<Progetto> getListaProgettiSvolti(String idProgettista) {
+        Set<Progetto> progettiSvolti = new HashSet<>();
+        for (Candidatura candidatura : db.candidature) {
+            if (candidatura.getIdProgettista().equals(idProgettista) && candidatura.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)) {
+                progettiSvolti.add(this.getProgetto(candidatura.getIdProgetto()));
+            }
+        }
+        return progettiSvolti;
+    }
+
     public void notificaEsito(String idProgettista) {
         //TODO notificaEsito
     }
@@ -114,10 +135,6 @@ public class GestoreProgetto {
     public String getInfoProgetto(String idProgetto) {
         return this.getProgetto(idProgetto).getInfo();
     }
-
-
-
-
 
 
 }
