@@ -20,8 +20,8 @@ import java.util.*;
 public class IProponente {
     Scanner sc;
     GestoreProgetto gestore = new GestoreProgetto();
-    GestoreProgettisti gestoreProgettista = new GestoreProgettisti();
     GestoreCandidature gestoreCandidature = new GestoreCandidature();
+    GestoreProgettisti gestoreProgettisti = new GestoreProgettisti();
     String idProponente;
 
     public IProponente(String idProponente) {
@@ -260,7 +260,7 @@ public class IProponente {
                         System.out.println ("Selezione terminata \n");
                         break;
                 }
-                Progettista scelto = gestoreProgettista.getProgettista(idProg);
+                Progettista scelto = gestoreProgettisti.getProgettista(idProg);
                 if (scelto != null) {
                     progettistiPreselezionati.add(scelto);
                     for (Candidatura candidatura : gestoreCandidature.getCandidature(idProgetto)) {
@@ -308,7 +308,7 @@ public class IProponente {
 
             while (numSelezionati < numMassimo) {
                 String idProg = sc.nextLine();
-                Progettista scelto = gestoreProgettista.getProgettista(idProg);
+                Progettista scelto = gestoreProgettisti.getProgettista(idProg);
                 if (scelto != null) {
                     progettistiSelezionati.add(scelto);
                     numSelezionati++;
@@ -344,8 +344,15 @@ public class IProponente {
     public void viewInfoProgettista(Set<Progettista> progettisti) {
         //String info = gestore.getInfoProgettisti(progettisti);
         //System.out.println(info);
-       
-            System.out.println(gestoreProgettista.getInfoProgettisti(progettisti));
+        for (Progettista progettista : progettisti) {
+            System.out.println(
+                "PROGETTISTA " + progettista.getId() + "\n" +
+                "Nome: " + progettista.getNome() + "\n" +
+                "Cognome: " + progettista.getCognome() + "\n" +
+                "Specializzazioni: " + progettista.getSpecializzazioni() + "\n" +
+                //"Progetti svolti: " + progettista.getProgetti() + "\n" +
+                "Mail: " + progettista.getMailAddress()
+            );
         }
         //this.accettaCandidatura();
     

@@ -51,6 +51,15 @@ public class GestoreCandidature {
         return null;
     }
 
+    // --> sul diagramma non c'è, aggiunto per recuperare la candidatura in valutaProgettisti() -luca
+    public Candidatura getCandidatura(String idProgetto, String idProgettista) {
+        for (Candidatura candidatura : db.candidature) {
+            if (candidatura.getIdProgetto().equals(idProgetto) && candidatura.getIdProgettista().equals(idProgettista))
+            return candidatura;
+        }
+        return null;
+    }
+
     // modifica lo stato di una candidatura
     public void modificaStatoCandidatura(String idCandidatura, StatoCandidatura statoCandidatura) {
         this.getCandidatura(idCandidatura).setStatoCandidatura(statoCandidatura);
@@ -86,22 +95,22 @@ public class GestoreCandidature {
         return nuovaCandidatura;
     }
 
-
     // aggiunge a liste temporanee di candidature consigliate o meno
-    public void addCandidatura(Candidatura candidatura, Boolean consigliata, Set<Candidatura> consigliate, Set<Candidatura> sconsigliate) {
-        if (consigliata)
-            consigliate.add(candidatura);
-        else
-            sconsigliate.add(candidatura);
+    public void addCandidatura(Candidatura candidatura, Set<Candidatura> set) {
+        set.add(candidatura);
     }
 
     // aggiunge l'id dell'esperto che le ha approvato alle candidature e il parete positivo o negativo
     public void confermaSelezione(String idEsperto, Set<Candidatura> consigliate, Set<Candidatura> sconsigliate) {
-        for (Candidatura candidatura : consigliate) {
-            candidatura.addParereEsperto(idEsperto, true);
+        if (!consigliate.isEmpty()) {
+            for (Candidatura candidatura : consigliate) {
+                candidatura.addParereEsperto(idEsperto, true);
+            }
         }
-        for (Candidatura candidatura : sconsigliate) {
-            candidatura.addParereEsperto(idEsperto, false);
+        if (!sconsigliate.isEmpty()) {
+            for (Candidatura candidatura : sconsigliate) {
+                candidatura.addParereEsperto(idEsperto, false);
+            }
         }
     }
 
