@@ -136,5 +136,13 @@ public class GestoreProgetto {
         return this.getProgetto(idProgetto).getInfo();
     }
 
+    public void modificaStatoProgetto(Progetto progetto, StatoProgetto statoProgetto){
+        progetto.setStatoProgetto(statoProgetto);
+    }
+
+    public void modificaStatoProgetto(String idProgetto, StatoProgetto statoProgetto){
+        Progetto progetto = this.getProgetto(idProgetto);
+        progetto.setStatoProgetto(statoProgetto);
+    }
 
 }

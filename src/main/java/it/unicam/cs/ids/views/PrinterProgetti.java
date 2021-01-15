@@ -26,6 +26,11 @@ public abstract class PrinterProgetti {
         printBasicProgetti(progetti);
     }
 
+    public static void printListaProgetti(String idProponente, StatoProgetto statoProgetto) {
+        Set<Progetto> progetti = gestoreProgetto.getListaProgetti(idProponente, statoProgetto);
+        printBasicProgetti(progetti);
+    }
+
     public static void printListaProgetti(Set<Specializzazione> specializzazioni, StatoProgetto statoProgetto) {
         Set<Progetto> progetti = gestoreProgetto.getListaProgetti(specializzazioni, statoProgetto);
         printBasicProgetti(progetti);

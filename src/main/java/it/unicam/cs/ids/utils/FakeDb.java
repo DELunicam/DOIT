@@ -110,41 +110,49 @@ public class FakeDb {
 
 		// CANDIDATURE
 		Candidatura foo = new Candidatura();
+		foo.setId("CAND1");
 		foo.setIdProgettista(luca.getId());
 		foo.setIdProgetto(uno.getId());
 		foo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
 		Candidatura bar = new Candidatura();
+		bar.setId("CAND2");
 		bar.setIdProgettista(marco.getId());
 		bar.setIdProgetto(uno.getId());
 		bar.setStatoCandidatura(StatoCandidatura.ACCETTATA);
 
 		Candidatura sad = new Candidatura();
+		sad.setId("CAND3");
 		sad.setIdProgettista(paolo.getId());
 		sad.setIdProgetto(uno.getId());
 		sad.setStatoCandidatura(StatoCandidatura.RIFIUTATA);
 
 		Candidatura zoo = new Candidatura();
+		zoo.setId("CAND4");
 		zoo.setIdProgettista(daniele.getId());
 		zoo.setIdProgetto(due.getId());
 		zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
 		Candidatura ciao = new Candidatura();
+		ciao.setId("CAND5");
 		ciao.setIdProgettista(daniele.getId());
 		ciao.setIdProgetto(tre.getId());
 		ciao.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
 		Candidatura puffo = new Candidatura();
+		puffo.setId("CAND6");
 		puffo.setIdProgettista(enzo.getId());
 		puffo.setIdProgetto(tre.getId());
 		puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
 		Candidatura bee = new Candidatura();
+		bee.setId("CAND7");
 		bee.setIdProgettista(daniele.getId());
 		bee.setIdProgetto(uno.getId());
 		bee.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
 
 		Candidatura poi = new Candidatura();
+		poi.setId("CAND8");
 		poi.setIdProgettista(enzo.getId());
 		poi.setIdProgetto(uno.getId());
 		poi.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);

@@ -1,7 +1,8 @@
 package it.unicam.cs.ids.views;
 
 import it.unicam.cs.ids.GestoriUtenti.GestoreProgettisti;
-import it.unicam.cs.ids.progetto.Progetto;
+import it.unicam.cs.ids.candidatura.Candidatura;
+import it.unicam.cs.ids.candidatura.GestoreCandidature;
 import it.unicam.cs.ids.utenti.Progettista;
 
 import java.util.Set;
@@ -39,4 +40,9 @@ public abstract class PrinterProgettisti {
     public static void printInfoProgettisti(Set<Progettista> progettisti){
         progettisti.forEach(PrinterProgettisti::printInfoProgettista);
     }
+
+    public static void printInfoProgettista(Candidatura candidatura){
+        printInfoProgettista(candidatura.getIdProgettista());
+    }
+
 }

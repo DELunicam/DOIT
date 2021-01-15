@@ -43,7 +43,7 @@ public class GestoreCandidature {
     }
 
     // --> sul diagramma non c'è, aggiunto per praticità, sarebbe il select dal db -luca
-    private Candidatura getCandidatura(String idCandidatura) {
+    public Candidatura getCandidatura(String idCandidatura) {
         for (Candidatura candidatura : db.candidature) {
             if (candidatura.getId().equals(idCandidatura))
             return candidatura;
