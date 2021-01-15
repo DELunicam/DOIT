@@ -25,6 +25,50 @@ public class IProponente {
         this.idProponente = idProponente;
     }
 
+    public void opzioniDisponibili(){
+        while(true) {
+            System.out.println("Cosa vuoi fare?\n" +
+                    "[CREA]\n" +
+                    "[PUBBLICA]\n" +
+                    "[SELEZIONA PROGETTISTI]\n" +
+                    "[CONFERMA PROGETTISTI]\n" +
+                    "[EXIT]");
+            String input = sc.nextLine().toUpperCase();
+            switch (input) {
+                case "CREA":
+                    startProgetto();
+                    break;
+
+                case "PUBBLICA":
+                    Set<Progetto> progettiNeutri = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.NEUTRO);
+                    if(progettiNeutri.size()>0){
+                        PrinterProgetti.printListaProgetti(progettiNeutri);
+                        selezionaProgetto();
+                    }
+                    break;
+
+                case "SELEZIONA PROGETTISTI":
+                    Set<Progetto> progettiPubblici = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.PUBBLICO);
+                    if(progettiPubblici.size()>0){
+                        PrinterProgetti.printListaProgetti(progettiPubblici);
+                        selezionaProgetto();
+                    }
+                    break;
+
+                case "CONFERMA PROGETTISTI":
+                    Set<Progetto> progettiInValutazione = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
+                    if(progettiInValutazione.size()>0){
+                        PrinterProgetti.printListaProgetti(progettiInValutazione);
+                        selezionaProgetto();
+                    }
+                    break;
+
+                case "EXIT":
+                    return;
+            }
+        }
+    }
+
     public void startProgetto() {
         System.out.println("Benvenuto proponente: vuoi creare un nuovo progetto? \n" +
                 "[Y] YES,    [N] NO");

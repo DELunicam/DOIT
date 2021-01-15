@@ -30,6 +30,25 @@ public class IEsperto {
         this.idEsperto = idEsperto;
     }
 
+    public void opzioniDisponibili(){
+        while (true) {
+            System.out.println("Cosa vuoi fare\n" +
+                    "[VALUTA PROPOSTA]\n" +
+                    "[VALUTA PROGETTISTI]");
+            String input = sc.nextLine().toUpperCase();
+            switch (input) {
+                case "VALUTA PROPOSTA":
+                    valutaProposta();
+                    break;
+                case "VALUTA PROGETTISTI":
+                    valutaProgettisti();
+                    break;
+                case "EXIT":
+                    return;
+            }
+        }
+    }
+
     // CASO D'USO
     public void valutaProposta() {
         // TODO controllare tutti gli input

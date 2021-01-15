@@ -19,6 +19,23 @@ public class IProgettista {
         this.idProgettista = idProgettista;
     }
 
+    public void opzioniDisponibili(){
+        while (true) {
+            System.out.println("Cosa vuoi fare?\n" +
+                    "[CANDIDA]\n" +
+                    "[EXIT]");
+            String input = sc.nextLine().toUpperCase();
+            switch (input) {
+                case "CANDIDA":
+                    candida();
+                    break;
+                case "EXIT":
+                    return;
+
+            }
+        }
+    }
+
     public void candida() {
         System.out.println("Vuoi visualizzare i progetti a cui puoi candidarti? \n[Y] YES,    [N] NO)\n");
         String input = sc.nextLine().toUpperCase();

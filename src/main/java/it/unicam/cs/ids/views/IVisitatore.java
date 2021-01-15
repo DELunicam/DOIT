@@ -8,6 +8,25 @@ public class IVisitatore {
         this.sc = new Scanner(System.in);
     }
 
+    public void opzioniDisponibili(){
+        while (true) {
+            System.out.println("Cosa vuoi fare\n" +
+                    "[VISUALIZZA PROGETTI]\n" +
+                    "[VISUALIZZA PROGETTISTI]");
+            String input = sc.nextLine().toUpperCase();
+            switch (input) {
+                case "VISUALIZZA PROGETTI":
+                    visualizzaListaProgetti();
+                    break;
+                case "VISUALIZZA PROGETTISTI":
+                    visualizzaProgettisti();
+                    break;
+                case "EXIT":
+                    return;
+            }
+        }
+    }
+
     public void visualizzaListaProgetti() {
         PrinterProgetti.printListaProgetti();
         System.out.println("Digita l'id di un progetto per visualizzarne i dettagli, \n" +

@@ -10,113 +10,38 @@ public class DOIT {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        boolean exit = false;
         System.out.println("BENVENUTO IN DOIT, [PROP] PER L'INTERFACCIA PROPONENTE, [PROG] PER L'INTERFACCIA PROGETTISTA, [ES] PER L'INTERFACCIA ESPERTO, [VIS] PER L'INTERFACCIA VISITATORE \n");
         String input = sc.nextLine().toUpperCase();
         switch (input) {
             case "PROP": {
-                System.out.println("DIGITA IL TUO ID");
-                String idProponente = sc.nextLine().toUpperCase();
-                IProponente proponente = new IProponente(input);
-                while (!exit) {
-                    System.out.println("Cosa vuoi fare?\n" +
-                            "[CREA]\n" +
-                            "[PUBBLICA]\n" +
-                            "[SELEZIONA PROGETTISTI]\n" +
-                            "[CONFERMA PROGETTISTI]\n" +
-                            "[EXIT]");
-                    input = sc.nextLine().toUpperCase();
-                    switch (input) {
-                        case "CREA":
-                            proponente.startProgetto();
-                            break;
-                        case "PUBBLICA":
-                            PrinterProgetti.printListaProgetti(idProponente, StatoProgetto.NEUTRO);
-                            proponente.selezionaProgetto();
-                            break;
-                        case "SELEZIONA PROGETTISTI":
-                            PrinterProgetti.printListaProgetti(idProponente, StatoProgetto.PUBBLICO);
-                            proponente.selezionaProgetto();
-                            break;
-                        case "CONFERMA PROGETTISTI":
-                            PrinterProgetti.printListaProgetti(idProponente, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
-                            proponente.selezionaProgetto();
-                            break;
-                        case "EXIT":
-                            exit = true;
-                            break;
-                    }
-                }
+                String idProponente = digitaID(sc);
+                IProponente proponente = new IProponente(idProponente);
+                proponente.opzioniDisponibili();
                 break;
             }
             case "PROG": {
-                System.out.println("DIGITA IL TUO ID");
-                input = sc.nextLine().toUpperCase();
+                String idProgettista = digitaID(sc);
                 IProgettista progettista = new IProgettista("PROG2");
-                while (!exit) {
-                    System.out.println("Cosa vuoi fare?\n" +
-                            "[CANDIDA]\n" +
-                            "[EXIT]");
-                    input = sc.nextLine().toUpperCase();
-                    switch (input) {
-                        case "CANDIDA":
-                            progettista.candida();
-                            break;
-                        case "EXIT":
-                            exit = true;
-                            break;
-
-                    }
-
-                }
+                progettista.opzioniDisponibili();
                 break;
             }
-
             case "ES": {
-                System.out.println("DIGITA IL TUO ID");
-                input = sc.nextLine().toUpperCase();
+                String idEsperto = digitaID(sc);
                 IEsperto iEsperto = new IEsperto("ESP1");
-                while (!exit) {
-                    System.out.println("Cosa vuoi fare\n" +
-                            "[VALUTA PROPOSTA]\n" +
-                            "[VALUTA PROGETTISTI]");
-                    input = sc.nextLine().toUpperCase();
-                    switch (input) {
-                        case "VALUTA PROPOSTA":
-                            iEsperto.valutaProposta();
-                            break;
-                        case "VALUTA PROGETTISTI":
-                            iEsperto.valutaProgettisti();
-                            break;
-                        case "EXIT":
-                            exit = true;
-                            break;
-                    }
-                }
+                iEsperto.opzioniDisponibili();
                 break;
             }
             case "VIS": {
                 IVisitatore iVisitatore = new IVisitatore();
-                while (!exit) {
-                    System.out.println("Cosa vuoi fare\n" +
-                            "[VISUALIZZA PROGETTI]\n" +
-                            "[VISUALIZZA PROGETTISTI]");
-                    input = sc.nextLine().toUpperCase();
-                    switch (input) {
-                        case "VISUALIZZA PROGETTI":
-                            iVisitatore.visualizzaListaProgetti();
-                            break;
-                        case "VISUALIZZA PROGETTISTI":
-                            iVisitatore.visualizzaProgettisti();
-                            break;
-                        case "EXIT":
-                            exit = true;
-                            break;
-                    }
-                }
+                iVisitatore.opzioniDisponibili();
                 break;
             }
         }
 
+    }
+
+    private static String digitaID (Scanner sc){
+        System.out.println("DIGITA IL TUO ID");
+        return sc.nextLine().toUpperCase();
     }
 }
