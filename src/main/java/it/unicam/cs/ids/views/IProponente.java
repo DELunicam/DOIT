@@ -177,7 +177,6 @@ public class IProponente {
     }
 
     public void selezionaProgettisti(String idProgetto) {
-
         System.out.println("Desideri che un esperto valuti le candidature?");
         System.out.println("[Y] YES,    [N] NO");
         String yN = sc.nextLine().toUpperCase();

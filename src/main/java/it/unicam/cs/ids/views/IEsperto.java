@@ -19,10 +19,8 @@ import java.util.*;
 
 public class IEsperto {
     Scanner sc;
-    GestoreProgetto gestoreProgetto = GestoreProgetto.getInstance();
     GestoreValutazioni gestoreValutazioni = GestoreValutazioni.getInstance();
     GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
-    GestoreProgettisti gestoreProgettisti = GestoreProgettisti.getInstance();
     String idEsperto;
 
     public IEsperto(String idEsperto) {
@@ -61,7 +59,7 @@ public class IEsperto {
             System.out.println("Digitare l'id del progetto per selezionarlo e visualizzare i dettagli, [EXIT] per uscire");
             String idProgetto = sc.nextLine();
             if (!idProgetto.equals("EXIT")) {
-                this.visualizzaProgetto(idProgetto);
+                PrinterProgetti.printInfoProgetto(idProgetto);
                 System.out.println("Si vuole valutare questa proposta di progetto? \n" +
                         "[Y] YES,    [N] NO");
                 String conferma = sc.nextLine().toUpperCase();
@@ -107,9 +105,9 @@ public class IEsperto {
             String idProgetto = sc.nextLine();
             if (!idProgetto.equals("EXIT")) {
                 System.out.println("Dettagli progetto " + idProgetto + ":");
-                this.visualizzaProgetto(idProgetto);
+                PrinterProgetti.printInfoProgetto(idProgetto);
                 System.out.println("Candidature al progetto " + idProgetto + ":");
-                this.visualizzaCandidature(idProgetto);
+                PrinterCandidature.printListaCandidature(idProgetto, StatoCandidatura.DA_VALUTARE);
                 System.out.println("Digitare l'id del progettista di cui si vogliono visualizzare i dettagli, [DONE] per uscire");
                 while (true) {
                     String idInput = sc.nextLine();
@@ -158,9 +156,6 @@ public class IEsperto {
 
     }
 
-    public void visualizzaProgetto(String idProgetto) {
-        System.out.println(gestoreProgetto.getInfoProgetto(idProgetto));
-    }
 
     public Map<Specializzazione, Integer> requestProgettistiECompetenze() {
         System.out.println("Inserire i progettisti richiesti e le loro specializzazioni separati da una virgola(,)\n" +
@@ -188,12 +183,5 @@ public class IEsperto {
         return infoProgettistiRichiesti;
     }
 
-    private void visualizzaCandidature(String idProgetto) {
-        Set<Candidatura> candidature = gestoreCandidature.getCandidature(idProgetto);
-        for (Candidatura candidatura : candidature) {
-            if (candidatura.getStatoCandidatura().equals(StatoCandidatura.DA_VALUTARE))
-                candidatura.printInfoCandidatura();
-        }
-    }
 
 }
