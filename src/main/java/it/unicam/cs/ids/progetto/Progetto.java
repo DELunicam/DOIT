@@ -3,13 +3,26 @@ package it.unicam.cs.ids.progetto;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Progetto {
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.lang.NonNull;
+@Entity
+public class Progetto {
+    @Id
+    @Column(name="project_id")
     private String id;
+    @NonNull
     private String nome;
     private String descrizione;
     private StatoProgetto stato;
+    @NonNull
     private String idProponente;
+    @ElementCollection
     private Map<Specializzazione, Integer> infoProgettistiRichiesti = new HashMap<>();
 
     public Progetto(String idProponente, String nome, String descrizione) {

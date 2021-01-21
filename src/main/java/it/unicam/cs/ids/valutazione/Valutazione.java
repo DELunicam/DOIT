@@ -2,14 +2,31 @@ package it.unicam.cs.ids.valutazione;
 
 import java.util.*;
 
+<<<<<<< Updated upstream:src/main/java/it/unicam/cs/ids/valutazione/Valutazione.java
 import it.unicam.cs.ids.progetto.Specializzazione;
+=======
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+import org.springframework.lang.NonNull;
+>>>>>>> Stashed changes:src/main/java/it/unicam/cs/ids/doit/valutazione/Valutazione.java
+
+import it.unicam.cs.ids.doit.progetto.Specializzazione;
+@Entity
 public class Valutazione {
-    private String id; // --> aggiunto, suppongo serva -luca
-	private String idEsperto;
+    @Id
+    @Column(name ="id_valutazione")
+    private String id; 
+    @NonNull
+    private String idEsperto;
+    @NonNull
     private String idProgetto;
-    private Boolean fattibilità; // false non fattibile, true fattibile
-    private Map<Specializzazione, Integer> lavoratoriConsigliati; // --> aggiunto, suppongo serva -luca
+    @NonNull
+    private Boolean fattibilità;
+    @ElementCollection
+    private Map<Specializzazione, Integer> lavoratoriConsigliati; 
     private String parere;
 
     public Valutazione() {

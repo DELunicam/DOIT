@@ -2,12 +2,23 @@ package it.unicam.cs.ids.candidatura;
 
 import java.util.*;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import org.springframework.lang.NonNull;
+@Entity
 public class Candidatura {
-    
-    private String id;
+	@Id
+	@Column(name="id_candidatura")
+	private String id;
+	@NonNull
 	private String idProgetto;
+	@NonNull
 	private String idProgettista;
-    private StatoCandidatura stato;
+	private StatoCandidatura stato;
+	@ElementCollection
     private Map<String, Boolean> pareriEsperti = new HashMap<String, Boolean>(); // idesperto, valutazione pos o neg
 
 	public Candidatura() {

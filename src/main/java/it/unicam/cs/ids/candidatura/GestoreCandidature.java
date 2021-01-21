@@ -2,9 +2,17 @@ package it.unicam.cs.ids.candidatura;
 
 import java.util.*;
 
+<<<<<<< Updated upstream:src/main/java/it/unicam/cs/ids/candidatura/GestoreCandidature.java
 import it.unicam.cs.ids.utenti.Progettista;
 import it.unicam.cs.ids.utils.FakeDb;
 
+=======
+import org.springframework.stereotype.Service;
+
+import it.unicam.cs.ids.doit.utenti.Progettista;
+import it.unicam.cs.ids.doit.utils.FakeDb;
+@Service
+>>>>>>> Stashed changes:src/main/java/it/unicam/cs/ids/doit/candidatura/GestoreCandidature.java
 public class GestoreCandidature {
     private static GestoreCandidature instance;
     private FakeDb db = new FakeDb(); // fake db
