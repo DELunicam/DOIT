@@ -4,7 +4,9 @@ import java.util.*;
 
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utils.FakeDb;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GestoreValutazioni {
     private static GestoreValutazioni instance;
     private FakeDb db = new FakeDb(); // fake db

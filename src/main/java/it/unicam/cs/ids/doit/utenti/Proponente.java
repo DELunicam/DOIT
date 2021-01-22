@@ -1,8 +1,14 @@
 package it.unicam.cs.ids.doit.utenti;
 
-public class Proponente extends Utente {
-    private String nome;
+import javax.persistence.Entity;
 
+import org.springframework.lang.NonNull;
+
+@Entity
+public class Proponente extends Utente {
+    @NonNull
+    private String nome;
+    
 	public Proponente() {
 	}
 

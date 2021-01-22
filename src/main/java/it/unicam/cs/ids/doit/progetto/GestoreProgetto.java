@@ -8,7 +8,9 @@ import it.unicam.cs.ids.doit.utils.FakeDb;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GestoreProgetto {
     private static GestoreProgetto instance;
     private final FakeDb db = new FakeDb(); // fake db

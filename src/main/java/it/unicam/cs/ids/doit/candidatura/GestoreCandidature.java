@@ -2,9 +2,11 @@ package it.unicam.cs.ids.doit.candidatura;
 
 import java.util.*;
 
+import org.springframework.stereotype.Service;
+
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import it.unicam.cs.ids.doit.utils.FakeDb;
-
+@Service
 public class GestoreCandidature {
     private static GestoreCandidature instance;
     private FakeDb db = new FakeDb(); // fake db
@@ -51,7 +53,6 @@ public class GestoreCandidature {
         return null;
     }
 
-    // --> sul diagramma non c'è, aggiunto per recuperare la candidatura in valutaProgettisti() -luca
     public Candidatura getCandidatura(String idProgetto, String idProgettista) {
         for (Candidatura candidatura : db.candidature) {
             if (candidatura.getIdProgetto().equals(idProgetto) && candidatura.getIdProgettista().equals(idProgettista))
@@ -95,6 +96,7 @@ public class GestoreCandidature {
         return nuovaCandidatura;
     }
 
+
     // aggiunge a liste temporanee di candidature consigliate o meno
     public void addCandidatura(Candidatura candidatura, Set<Candidatura> set) {
         set.add(candidatura);
@@ -113,5 +115,6 @@ public class GestoreCandidature {
             }
         }
     }
+
 
 }

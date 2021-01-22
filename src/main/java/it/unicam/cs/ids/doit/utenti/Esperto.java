@@ -5,16 +5,24 @@ import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.*;
+
+import org.springframework.lang.NonNull;
+
+@Entity
 
 public class Esperto extends Utente {
-
+    @NonNull
     private String nome;
+    @NonNull
     private String cognome;
     private Set<Specializzazione> specializzazioni = new HashSet<>();
 
 
     public Esperto() {
     }
+
+  
 
     public Esperto(String id, String mailAddress, String nome, String cognome) {
         super(id, mailAddress);

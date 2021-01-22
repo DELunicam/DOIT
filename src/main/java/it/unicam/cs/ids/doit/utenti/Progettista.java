@@ -5,10 +5,20 @@ import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Progettista extends Utente {
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
+import org.springframework.lang.NonNull;
+@Entity
+public class Progettista extends Utente {
+    @NonNull    
     private String nome;
+    @NonNull
     private String cognome;
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
     private Set<Specializzazione> specializzazioni = new HashSet<>();
 
     public Progettista() {

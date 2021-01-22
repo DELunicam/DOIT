@@ -93,6 +93,7 @@ public class IEsperto {
         Set<Candidatura> consigliate = new HashSet<Candidatura>();
         Set<Candidatura> sconsigliate = new HashSet<Candidatura>();
         // TODO controllare tutti gli input
+        // TODO check specializzioni dell'esperto
         System.out.println("Vuoi valutare i progettisti candidati ad un progetto? \n" +
                 "[Y] YES,    [N] NO");
         String input = sc.nextLine().toUpperCase();
