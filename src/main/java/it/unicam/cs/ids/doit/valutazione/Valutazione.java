@@ -1,17 +1,13 @@
-package it.unicam.cs.ids.valutazione;
+package it.unicam.cs.ids.doit.valutazione;
 
 import java.util.*;
 
-<<<<<<< Updated upstream:src/main/java/it/unicam/cs/ids/valutazione/Valutazione.java
-import it.unicam.cs.ids.progetto.Specializzazione;
-=======
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.springframework.lang.NonNull;
->>>>>>> Stashed changes:src/main/java/it/unicam/cs/ids/doit/valutazione/Valutazione.java
 
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 @Entity
