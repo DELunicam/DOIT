@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.candidatura;
+package it.unicam.cs.ids.doit.candidatura;
 
 import java.util.*;
 
@@ -74,7 +74,8 @@ public class Candidatura {
     }
 	
 	public String getInfoCandidatura() {
-		String info = "ID progetto: " + this.getIdProgetto() + "\n"
+		String info = "ID: " + this.getId() + "\n"
+		+ "ID progetto: " + this.getIdProgetto() + "\n"
 		+ "ID progettista: " + this.getIdProgettista() + "\n"
 		+ "Stato candidatura: " + this.getStatoCandidatura().toString() + "\n";
 		return info;

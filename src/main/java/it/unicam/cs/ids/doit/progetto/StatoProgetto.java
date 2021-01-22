@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.progetto;
+package it.unicam.cs.ids.doit.progetto;
 
 public enum StatoProgetto {
 	NEUTRO, // Progetto creato ma visibile solo al Proponente
