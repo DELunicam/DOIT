@@ -14,7 +14,7 @@ public class Candidatura {
 	@Column(name="id_candidatura")
 	private String id;
 	@NonNull
-	private String idProgetto;
+	private Long idProgetto;
 	@NonNull
 	private String idProgettista;
 	private StatoCandidatura stato;
@@ -25,7 +25,7 @@ public class Candidatura {
 
 	}
 
-	public Candidatura(String idProgetto, String idProgettista) {
+	public Candidatura(Long idProgetto, String idProgettista) {
 		this.idProgetto = idProgetto;
 		this.idProgettista = idProgettista;
     }
@@ -38,11 +38,11 @@ public class Candidatura {
 		this.id = id;
 	}
 	
-	public String getIdProgetto() {
+	public Long getIdProgetto() {
 		return this.idProgetto;
 	}
 	
-	public void setIdProgetto(String idProgetto) {
+	public void setIdProgetto(Long idProgetto) {
 		this.idProgetto = idProgetto;
 	}
 	

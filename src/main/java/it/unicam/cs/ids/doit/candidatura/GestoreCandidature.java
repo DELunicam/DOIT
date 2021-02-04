@@ -25,7 +25,7 @@ public class GestoreCandidature {
 
     // --> sul diagramma sta in Candidatura, ma credo vada qui -luca
     // ritorna lista di tutte le candidature ad un progetto
-    public Set<Candidatura> getCandidature(String idProgetto) {
+    public Set<Candidatura> getCandidature(Long idProgetto) {
         Set<Candidatura> candidature = new HashSet<Candidatura>();
         for (Candidatura candidatura : db.candidature) {
             if (candidatura.getIdProgetto().equals(idProgetto))
@@ -35,7 +35,7 @@ public class GestoreCandidature {
     }
     
     // ritorna lista delle candidature ad un progetto che sono in un determinato stato
-    public Set<Candidatura> getCandidature(String idProgetto, StatoCandidatura statoCandidatura) {
+    public Set<Candidatura> getCandidature(Long idProgetto, StatoCandidatura statoCandidatura) {
         Set<Candidatura> candidature = new HashSet<Candidatura>();
         for (Candidatura candidatura : db.candidature) {
             if (candidatura.getIdProgetto().equals(idProgetto) && candidatura.getStatoCandidatura().equals(statoCandidatura))
@@ -53,7 +53,7 @@ public class GestoreCandidature {
         return null;
     }
 
-    public Candidatura getCandidatura(String idProgetto, String idProgettista) {
+    public Candidatura getCandidatura(Long idProgetto, String idProgettista) {
         for (Candidatura candidatura : db.candidature) {
             if (candidatura.getIdProgetto().equals(idProgetto) && candidatura.getIdProgettista().equals(idProgettista))
             return candidatura;
@@ -90,7 +90,7 @@ public class GestoreCandidature {
 
     // --> modificato tipo di ritorno da void a Candidatura -luca
     // crea una nuova candidatura ad un progetto
-    public Candidatura creaCandidatura(String idProgettista, String idProgetto) {
+    public Candidatura creaCandidatura(String idProgettista, Long idProgetto) {
         Candidatura nuovaCandidatura = new Candidatura(idProgetto, idProgettista);
         this.db.addCandidatura(nuovaCandidatura);
         return nuovaCandidatura;

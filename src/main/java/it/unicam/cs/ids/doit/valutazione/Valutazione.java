@@ -18,7 +18,7 @@ public class Valutazione {
     @NonNull
     private String idEsperto;
     @NonNull
-    private String idProgetto;
+    private Long idProgetto;
     @NonNull
     private Boolean fattibilità;
     @ElementCollection
@@ -29,13 +29,13 @@ public class Valutazione {
 
     }
 
-    public Valutazione(String idProgetto, String idEsperto) {
+    public Valutazione(Long idProgetto, String idEsperto) {
         this.idProgetto = idProgetto;
         this.idEsperto = idEsperto;
         this.fattibilità = false;
     }
 
-    public Valutazione(String idProgetto, String idEsperto, Map<Specializzazione, Integer> lavoratoriConsigliati) {
+    public Valutazione(Long idProgetto, String idEsperto, Map<Specializzazione, Integer> lavoratoriConsigliati) {
         this.idProgetto = idProgetto;
         this.idEsperto = idEsperto;
         this.fattibilità = true;
@@ -58,11 +58,11 @@ public class Valutazione {
         this.idEsperto = idEsperto;
     }
 
-    public String getIdProgetto() {
+    public Long getIdProgetto() {
         return this.idProgetto;
     }
 
-    public void setIdProgetto(String idProgetto) {
+    public void setIdProgetto(Long idProgetto) {
         this.idProgetto = idProgetto;
     }
 
