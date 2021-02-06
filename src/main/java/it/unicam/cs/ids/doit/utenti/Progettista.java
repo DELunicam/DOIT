@@ -7,18 +7,15 @@ import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 import org.springframework.lang.NonNull;
 @Entity
 public class Progettista extends Utente {
-    @NonNull    
+    @NonNull
     private String nome;
     @NonNull
     private String cognome;
     @ElementCollection
-    @Enumerated(EnumType.STRING)
     private Set<Specializzazione> specializzazioni = new HashSet<>();
 
     public Progettista() {

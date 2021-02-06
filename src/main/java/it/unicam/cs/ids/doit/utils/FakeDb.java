@@ -24,38 +24,38 @@ public class FakeDb {
 
 		// PROPONENTI
 		Proponente mario = new Proponente();
-		mario.setId("PROP1");
+		//mario.setId("PROP1");
 
 		Proponente dario = new Proponente();
-		dario.setId("PROP2");
-		
+		//dario.setId("PROP2");
+
         this.proponenti.add(mario);
         this.proponenti.add(dario);
 
 
         // PROGETTISTI
 		Progettista luca = new Progettista();
-		luca.setId("PROG1");
+		luca.setUsername("PROG1");
 		luca.setNome("luca");
 
 		Progettista enzo = new Progettista();
-		enzo.setId("PROG2");
+		enzo.setUsername("PROG2");
 		enzo.setNome("enzo");
 		enzo.addSpecializzazione(Specializzazione.INGEGNERIA);
 
 		Progettista daniele = new Progettista();
-		daniele.setId("PROG3");
+		daniele.setUsername("PROG3");
 		daniele.setNome("daniele");
 		daniele.addSpecializzazione(Specializzazione.CHIMICA);
 
 		Progettista marco = new Progettista();
-		marco.setId("PROG4");
+		marco.setUsername("PROG4");
 		marco.setNome("marco");
 
 		Progettista paolo = new Progettista();
-		paolo.setId("PROG5");
+		paolo.setUsername("PROG5");
 		paolo.setNome("paolo");
-		
+
 		this.progettisti.add(luca);
 		this.progettisti.add(enzo);
 		this.progettisti.add(daniele);
@@ -72,32 +72,32 @@ public class FakeDb {
 
 
 		// PROGETTI
-		Progetto uno = new Progetto(mario.getId(), "progettoA", "descrizione banale");
-		uno.setId("p1");
+		Progetto uno = new Progetto(mario.getUsername(), "progettoA", "descrizione banale");
+//		uno.setId("p1");
 		uno.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
 		uno.addSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
 		uno.addSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 
-		Progetto due = new Progetto(mario.getId(), "progettoB", "descrizione banale");
-		due.setId("p2");
+		Progetto due = new Progetto(mario.getUsername(), "progettoB", "descrizione banale");
+//		due.setId("p2");
 		due.setStatoProgetto(StatoProgetto.INATTIVO);
 		due.addSingleInfoProgettistiRichiesti(Specializzazione.MATEMATICA, 4);
 		due.addSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 5);
 
-		Progetto tre = new Progetto(mario.getId(), "progettoC", "descrizione banale");
-		tre.setId("p3");
+		Progetto tre = new Progetto(mario.getUsername(), "progettoC", "descrizione banale");
+//		tre.setId("p3");
 		tre.setStatoProgetto(StatoProgetto.PUBBLICO);
 		tre.addSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
 		tre.addSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
-		
-		Progetto quattro = new Progetto(mario.getId(), "progettoD", "descrizione banale");
-		quattro.setId("p4");
+
+		Progetto quattro = new Progetto(mario.getUsername(), "progettoD", "descrizione banale");
+//		quattro.setId("p4");
 		quattro.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
 		quattro.addSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
 		quattro.addSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
 
-		Progetto cinque = new Progetto(mario.getId(), "progettoE", "descrizione banale");
-		cinque.setId("p5");
+		Progetto cinque = new Progetto(mario.getUsername(), "progettoE", "descrizione banale");
+//		cinque.setId("p5");
 		cinque.setStatoProgetto(StatoProgetto.NEUTRO);
 		cinque.addSingleInfoProgettistiRichiesti(Specializzazione.INGEGNERIA, 1);
 		cinque.addSingleInfoProgettistiRichiesti(Specializzazione.CHIMICA, 1);
@@ -111,52 +111,52 @@ public class FakeDb {
 		// CANDIDATURE
 		Candidatura foo = new Candidatura();
 		foo.setId("CAND1");
-		foo.setIdProgettista(luca.getId());
-		foo.setIdProgetto(uno.getId());
+		foo.setIdProgettista(luca.getUsername());
+//		foo.setIdProgetto(uno.getId());
 		foo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
 		Candidatura bar = new Candidatura();
 		bar.setId("CAND2");
-		bar.setIdProgettista(marco.getId());
-		bar.setIdProgetto(uno.getId());
+		bar.setIdProgettista(marco.getUsername());
+//		bar.setIdProgetto(uno.getId());
 		bar.setStatoCandidatura(StatoCandidatura.ACCETTATA);
 
 		Candidatura sad = new Candidatura();
 		sad.setId("CAND3");
-		sad.setIdProgettista(paolo.getId());
-		sad.setIdProgetto(uno.getId());
+		sad.setIdProgettista(paolo.getUsername());
+//		sad.setIdProgetto(uno.getId());
 		sad.setStatoCandidatura(StatoCandidatura.RIFIUTATA);
 
 		Candidatura zoo = new Candidatura();
 		zoo.setId("CAND4");
-		zoo.setIdProgettista(daniele.getId());
-		zoo.setIdProgetto(due.getId());
+		zoo.setIdProgettista(daniele.getUsername());
+//		zoo.setIdProgetto(due.getId());
 		zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
 		Candidatura ciao = new Candidatura();
 		ciao.setId("CAND5");
-		ciao.setIdProgettista(daniele.getId());
-		ciao.setIdProgetto(tre.getId());
+		ciao.setIdProgettista(daniele.getUsername());
+//		ciao.setIdProgetto(tre.getId());
 		ciao.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
 		Candidatura puffo = new Candidatura();
 		puffo.setId("CAND6");
-		puffo.setIdProgettista(enzo.getId());
-		puffo.setIdProgetto(tre.getId());
+		puffo.setIdProgettista(enzo.getUsername());
+//		puffo.setIdProgetto(tre.getId());
 		puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
 		Candidatura bee = new Candidatura();
 		bee.setId("CAND7");
-		bee.setIdProgettista(daniele.getId());
-		bee.setIdProgetto(uno.getId());
+		bee.setIdProgettista(daniele.getUsername());
+//		bee.setIdProgetto(uno.getId());
 		bee.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
 
 		Candidatura poi = new Candidatura();
 		poi.setId("CAND8");
-		poi.setIdProgettista(enzo.getId());
-		poi.setIdProgetto(uno.getId());
+		poi.setIdProgettista(enzo.getUsername());
+//		poi.setIdProgetto(uno.getId());
 		poi.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
-	
+
 		this.candidature.add(foo);
 		this.candidature.add(bar);
 		this.candidature.add(sad);
@@ -183,7 +183,7 @@ public class FakeDb {
 	// aggiunto per completare metodo getProgettisti() in GestoreCandidature -luca
 	public Progettista selectProgettista(String idProgettista) {
 		for (Progettista progettista : this.progettisti) {
-            if (progettista.getId().equals(idProgettista))
+            if (progettista.getUsername().equals(idProgettista))
             return progettista;
         }
         return null;

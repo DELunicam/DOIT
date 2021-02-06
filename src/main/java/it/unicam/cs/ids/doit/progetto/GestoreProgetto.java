@@ -1,19 +1,25 @@
 package it.unicam.cs.ids.doit.progetto;
 
+import it.unicam.cs.ids.doit.ProgettoRepository;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import it.unicam.cs.ids.doit.utils.FakeDb;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GestoreProgetto {
     private static GestoreProgetto instance;
     private final FakeDb db = new FakeDb(); // fake db
+    @Autowired
+    ProgettoRepository progettoRepository;
 
     public GestoreProgetto() {
     }
@@ -24,6 +30,14 @@ public class GestoreProgetto {
             instance = new GestoreProgetto();
         }
         return instance;
+    }
+
+    public List<Progetto> findAllProgetti(){
+        return progettoRepository.findAll();
+    }
+
+    public Progetto findProgetto(Long id){
+        return progettoRepository.findById(id).get();
     }
 
     public Progetto createProgetto(String idProponente, String nome, String descrizione) {
@@ -44,7 +58,7 @@ public class GestoreProgetto {
      * @param idProgetto
      * @return Progetto con id uguale a idProgetto, null se non esiste
      */
-    public Progetto getProgetto(String idProgetto) {
+    public Progetto getProgetto(Long idProgetto) {
         for (Progetto progetto : db.progetti) {
             if (progetto.getId().equals(idProgetto))
                 return progetto;
@@ -113,7 +127,7 @@ public class GestoreProgetto {
     public Set<Progetto> getListaProgettiSvolti(Progettista progettista) {
         Set<Progetto> progettiSvolti = new HashSet<>();
         for (Candidatura candidatura : db.candidature) {
-            if (candidatura.getIdProgettista().equals(progettista.getId()) && candidatura.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)) {
+            if (candidatura.getIdProgettista().equals(progettista.getUsername()) && candidatura.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)) {
                 progettiSvolti.add(this.getProgetto(candidatura.getIdProgetto()));
             }
         }
@@ -134,7 +148,7 @@ public class GestoreProgetto {
         //TODO notificaEsito
     }
 
-    public String getInfoProgetto(String idProgetto) {
+    public String getInfoProgetto(Long idProgetto) {
         return this.getProgetto(idProgetto).getInfo();
     }
 
@@ -142,7 +156,7 @@ public class GestoreProgetto {
         progetto.setStatoProgetto(statoProgetto);
     }
 
-    public void modificaStatoProgetto(String idProgetto, StatoProgetto statoProgetto){
+    public void modificaStatoProgetto(Long idProgetto, StatoProgetto statoProgetto){
         Progetto progetto = this.getProgetto(idProgetto);
         progetto.setStatoProgetto(statoProgetto);
     }

@@ -36,7 +36,7 @@ public class IVisitatore {
             if (idProgetto.toUpperCase().equals("EXIT")) {
                 break;
             }
-            PrinterProgetti.printInfoProgetto(idProgetto);
+            PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
         }
     }
 

@@ -9,7 +9,7 @@ import java.util.Set;
 public abstract class PrinterCandidature {
     private static final GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
 
-    public static void printListaCandidature(String idProgetto, StatoCandidatura statoCandidatura){
+    public static void printListaCandidature(Long idProgetto, StatoCandidatura statoCandidatura){
         Set<Candidatura> candidature = gestoreCandidature.getCandidature(idProgetto, statoCandidatura);
         printBasicCandidature(candidature);
     }

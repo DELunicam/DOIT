@@ -16,6 +16,7 @@ public class Esperto extends Utente {
     private String nome;
     @NonNull
     private String cognome;
+    @ElementCollection
     private Set<Specializzazione> specializzazioni = new HashSet<>();
 
 

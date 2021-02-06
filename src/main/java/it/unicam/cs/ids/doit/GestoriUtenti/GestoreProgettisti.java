@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.doit.GestoriUtenti;
 
+import it.unicam.cs.ids.doit.ProgettistaRepository;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utenti.Progettista;
@@ -7,11 +8,15 @@ import it.unicam.cs.ids.doit.utils.FakeDb;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
 public class GestoreProgettisti {
     public static GestoreProgettisti instance;
     private final FakeDb db = new FakeDb();
+    @Autowired
+    ProgettistaRepository progettistaRepository;
 
     public GestoreProgettisti() {
     }
@@ -26,7 +31,7 @@ public class GestoreProgettisti {
 
     public Progettista getProgettista(String idProgettista) {
         for (Progettista progettista : db.progettisti) {
-            if (progettista.getId().equals(idProgettista))
+            if (progettista.getUsername().equals(idProgettista))
                 return progettista;
         }
         return null;
@@ -34,7 +39,7 @@ public class GestoreProgettisti {
 
     public Set<Specializzazione> getSpecializzazioni(String idProgettista) {
         for (Progettista progettista : db.progettisti) {
-            if (progettista.getId().equals(idProgettista))
+            if (progettista.getUsername().equals(idProgettista))
                 return progettista.getSpecializzazioni();
         }
         return null;
