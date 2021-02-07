@@ -90,8 +90,8 @@ public class IEsperto {
 
     // CASO D'USO
     public void valutaProgettisti() {
-        Set<Candidatura> consigliate = new HashSet<Candidatura>();
-        Set<Candidatura> sconsigliate = new HashSet<Candidatura>();
+        Set<Long> idsConsigliate = new HashSet<Long>();
+        Set<Long> idsSconsigliate = new HashSet<Long>();
         // TODO controllare tutti gli input
         // TODO check specializzioni dell'esperto
         System.out.println("Vuoi valutare i progettisti candidati ad un progetto? \n" +
@@ -119,10 +119,10 @@ public class IEsperto {
                     String conferma = sc.nextLine().toUpperCase();
                     if (conferma.equals("Y")) {
                         Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), idInput);
-                        gestoreCandidature.addCandidatura(candidatura, consigliate);
+                        gestoreCandidature.addCandidatura(candidatura.getId(), idsConsigliate);
                     } else if (conferma.equals("N")) {
                         Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), idInput);
-                        gestoreCandidature.addCandidatura(candidatura, sconsigliate);
+                        gestoreCandidature.addCandidatura(candidatura.getId(), idsSconsigliate);
                     } else {
                         System.out.println("Impossibile eseguire l'operazione");
                     }
@@ -133,7 +133,7 @@ public class IEsperto {
                         "[Y] YES,    [N] NO");
                 String scelta = sc.nextLine().toUpperCase();
                 if (scelta.equals("Y")) {
-                    gestoreCandidature.confermaSelezione(idEsperto, consigliate, sconsigliate);
+                    gestoreCandidature.confermaSelezione(idEsperto, idsConsigliate, idsSconsigliate);
                     System.out.println("Valutazioni inviate");
                 } else if (scelta.equals("N")) {
                     System.out.println("Valutazioni non inviate");

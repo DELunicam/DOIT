@@ -1,7 +1,11 @@
 package it.unicam.cs.ids.doit;
 
+import it.unicam.cs.ids.doit.candidatura.Candidatura;
+import it.unicam.cs.ids.doit.candidatura.CandidatureRepository;
+import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
+import it.unicam.cs.ids.doit.utenti.Esperto;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,4 +60,77 @@ public class LoadDatabase {
 
         };
     }
+
+
+    @Bean
+    CommandLineRunner loadCandidature(CandidatureRepository repository) {
+        Candidatura foo = new Candidatura();
+		//foo.setId("CAND1");
+		foo.setIdProgettista("PROG1");
+		foo.setIdProgetto(Long.valueOf(1));
+		foo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+
+		Candidatura bar = new Candidatura();
+		//bar.setId("CAND2");
+		bar.setIdProgettista("PROG4");
+		bar.setIdProgetto(Long.valueOf(1));
+		bar.setStatoCandidatura(StatoCandidatura.ACCETTATA);
+
+		Candidatura sad = new Candidatura();
+		//sad.setId("CAND3");
+		sad.setIdProgettista("PROG5");
+		sad.setIdProgetto(Long.valueOf(1));
+		sad.setStatoCandidatura(StatoCandidatura.RIFIUTATA);
+
+		Candidatura zoo = new Candidatura();
+		//zoo.setId("CAND4");
+		zoo.setIdProgettista("PROG3");
+		zoo.setIdProgetto(Long.valueOf(2));
+		zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+
+		Candidatura ciao = new Candidatura();
+		//ciao.setId("CAND5");
+		ciao.setIdProgettista("PROG3");
+//		ciao.setIdProgetto(tre.getId());
+		ciao.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+
+		Candidatura puffo = new Candidatura();
+		//puffo.setId("CAND6");
+		puffo.setIdProgettista("PROG2");
+//		puffo.setIdProgetto(tre.getId());
+		puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+
+		Candidatura bee = new Candidatura();
+		//bee.setId("CAND7");
+		bee.setIdProgettista("PROG3");
+		bee.setIdProgetto(Long.valueOf(1));
+		bee.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
+
+		Candidatura poi = new Candidatura();
+		//poi.setId("CAND8");
+		poi.setIdProgettista("PROG2");
+		poi.setIdProgetto(Long.valueOf(1));
+		poi.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+
+
+        return args -> {
+            log.info("Preloading " + repository.save(foo));
+            log.info("Preloading " + repository.save(bar));
+            log.info("Preloading " + repository.save(sad));
+            log.info("Preloading " + repository.save(zoo));
+            log.info("Preloading " + repository.save(ciao));
+            log.info("Preloading " + repository.save(puffo));
+            log.info("Preloading " + repository.save(bee));
+            log.info("Preloading " + repository.save(poi));
+        };
+    }
+
+    @Bean
+    CommandLineRunner loadEsperto(EspertoRepository repository) {
+        return args -> {
+            log.info("Preloading " + repository.save(new Esperto()));
+            log.info("Preloading " + repository.save(new Esperto()));
+        };
+    }
+
 }

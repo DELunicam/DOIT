@@ -2,21 +2,27 @@ package it.unicam.cs.ids.doit.candidatura;
 
 import java.util.*;
 
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import org.springframework.lang.NonNull;
+
 @Entity
 public class Candidatura {
+//	@GenericGenerator(name = "sequence_cand_id", strategy = "it.unicam.cs.ids.doit.candidatura.CandidaturaIdGenerator")
+//	@GeneratedValue(generator = "sequence_cand_id")
 	@Id
-	@Column(name="id_candidatura")
-	private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	@NonNull
 	private Long idProgetto;
 	@NonNull
 	private String idProgettista;
+	@Enumerated(EnumType.STRING)
 	private StatoCandidatura stato;
 	@ElementCollection
     private Map<String, Boolean> pareriEsperti = new HashMap<String, Boolean>(); // idesperto, valutazione pos o neg
@@ -28,13 +34,14 @@ public class Candidatura {
 	public Candidatura(Long idProgetto, String idProgettista) {
 		this.idProgetto = idProgetto;
 		this.idProgettista = idProgettista;
+		this.stato = StatoCandidatura.DA_VALUTARE;
     }
 
-    public String getId() {
+    public Long getId() {
 		return this.id;
 	}
 	
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

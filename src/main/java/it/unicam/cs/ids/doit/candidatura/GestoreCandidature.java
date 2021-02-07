@@ -2,6 +2,7 @@ package it.unicam.cs.ids.doit.candidatura;
 
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.doit.utenti.Progettista;
@@ -10,6 +11,9 @@ import it.unicam.cs.ids.doit.utils.FakeDb;
 public class GestoreCandidature {
     private static GestoreCandidature instance;
     private FakeDb db = new FakeDb(); // fake db
+
+    @Autowired
+    CandidatureRepository repository;
 
     public GestoreCandidature() {
 
@@ -23,95 +27,77 @@ public class GestoreCandidature {
         return instance;
     }
 
-    // --> sul diagramma sta in Candidatura, ma credo vada qui -luca
+
     // ritorna lista di tutte le candidature ad un progetto
     public Set<Candidatura> getCandidature(Long idProgetto) {
-        Set<Candidatura> candidature = new HashSet<Candidatura>();
-        for (Candidatura candidatura : db.candidature) {
-            if (candidatura.getIdProgetto().equals(idProgetto))
-                candidature.add(candidatura);
-        }
-        return candidature;
+        return repository.findCandidatureByIdProgetto(idProgetto);
     }
-    
+
     // ritorna lista delle candidature ad un progetto che sono in un determinato stato
     public Set<Candidatura> getCandidature(Long idProgetto, StatoCandidatura statoCandidatura) {
-        Set<Candidatura> candidature = new HashSet<Candidatura>();
-        for (Candidatura candidatura : db.candidature) {
-            if (candidatura.getIdProgetto().equals(idProgetto) && candidatura.getStatoCandidatura().equals(statoCandidatura))
-                candidature.add(candidatura);
-        }
-        return candidature;
+        return repository.findCandidatureByIdProgettoAndStato(idProgetto, statoCandidatura);
     }
 
-    // --> sul diagramma non c'è, aggiunto per praticità, sarebbe il select dal db -luca
-    public Candidatura getCandidatura(String idCandidatura) {
-        for (Candidatura candidatura : db.candidature) {
-            if (candidatura.getId().equals(idCandidatura))
-            return candidatura;
-        }
-        return null;
+    // ottiene candidatura da id
+    public Candidatura getCandidatura(Long idCandidatura) {
+        return repository.findCandidaturaById(idCandidatura);
     }
 
+    // ottiene candidatura da id del progetto e id del progettista
     public Candidatura getCandidatura(Long idProgetto, String idProgettista) {
-        for (Candidatura candidatura : db.candidature) {
-            if (candidatura.getIdProgetto().equals(idProgetto) && candidatura.getIdProgettista().equals(idProgettista))
-            return candidatura;
-        }
-        return null;
+        return repository.findCandidaturaByIdProgettoAndIdProgettista(idProgetto, idProgettista);
     }
 
     // modifica lo stato di una candidatura
-    public void modificaStatoCandidatura(String idCandidatura, StatoCandidatura statoCandidatura) {
-        this.getCandidatura(idCandidatura).setStatoCandidatura(statoCandidatura);
+    public void modificaStatoCandidatura(Long idCandidatura, StatoCandidatura statoCandidatura) {
+        Candidatura candInDB = repository.findCandidaturaById(idCandidatura);//.get();
+        candInDB.setStatoCandidatura(statoCandidatura);
+        repository.save(candInDB);
     }
 
-    // aggiunta, stava in gestore progettto come:
-    // public void modificaStatoCandidatura(StatoCandidatura stato)
-    public void modificaStatoCandidature(StatoCandidatura statoCandidatura, Set<Candidatura> candidature) {
-        for (Candidatura candidatura : candidature) {
-            candidatura.setStatoCandidatura(statoCandidatura);
+    // modifica lo stato di un gruppo di candidature
+    public void modificaStatoCandidature(StatoCandidatura statoCandidatura, Set<Long> idCandidature) {
+        //TODO
+        for (Long idCandidatura : idCandidature) { // set di candidature passate
+            Candidatura candidatura = repository.findCandidaturaById(idCandidatura);
+            candidatura.setStatoCandidatura(statoCandidatura); 
+            repository.save(candidatura); // modifica candidatura in db
         }
     }
 
-    // ottieni una lista di progettisti data una lista di candidature
-    public Set<Progettista> getProgettisti(Set<Candidatura> candidature) {
-        Set<Progettista> progettisti = new HashSet<Progettista>();
-        for (Candidatura candidatura : db.candidature) {
-            progettisti.add(db.selectProgettista(candidatura.getIdProgettista()));
-            /*
-            Progettista progettista = db.selectProgettista(candidatura.getIdProgettista()); 
-            if (!progettista.equals(null))
-                progettisti.add(progettista);
-                */
-        }
-        return progettisti;
+    // TODO RIMUOVERE? DOVE SERVE?
+    // ottieni una lista di progettisti data una lista di candidature (o meglio idCandidature)
+    public Set<Progettista> getProgettisti(Set<Long> idsCandidature) {
+        //return repository.findProgettistiByIdsCandidatureInCandidature(candidature);
+        return null;
     }
 
-    // --> modificato tipo di ritorno da void a Candidatura -luca
     // crea una nuova candidatura ad un progetto
     public Candidatura creaCandidatura(String idProgettista, Long idProgetto) {
         Candidatura nuovaCandidatura = new Candidatura(idProgetto, idProgettista);
-        this.db.addCandidatura(nuovaCandidatura);
+        repository.save(nuovaCandidatura);
         return nuovaCandidatura;
     }
 
-
     // aggiunge a liste temporanee di candidature consigliate o meno
-    public void addCandidatura(Candidatura candidatura, Set<Candidatura> set) {
-        set.add(candidatura);
+    public void addCandidatura(Long idCandidatura, Set<Long> idsCandidature) {
+        idsCandidature.add(idCandidatura); // non va sul db -> no repository
     }
 
-    // aggiunge l'id dell'esperto che le ha approvato alle candidature e il parete positivo o negativo
-    public void confermaSelezione(String idEsperto, Set<Candidatura> consigliate, Set<Candidatura> sconsigliate) {
+    // aggiunge alle candidature l'id dell'esperto che le ha valutate e il parete positivo o negativo
+    public void confermaSelezione(String idEsperto, Set<Long> consigliate, Set<Long> sconsigliate) {
         if (!consigliate.isEmpty()) {
-            for (Candidatura candidatura : consigliate) {
+            for (Long id : consigliate) {
+                Candidatura candidatura = repository.findCandidaturaById(id);
                 candidatura.addParereEsperto(idEsperto, true);
+                repository.save(candidatura); // modifica candidatura in db
             }
         }
         if (!sconsigliate.isEmpty()) {
-            for (Candidatura candidatura : sconsigliate) {
+            for (Long id : sconsigliate) {
+                Candidatura candidatura = repository.findCandidaturaById(id);
                 candidatura.addParereEsperto(idEsperto, false);
+                repository.save(candidatura); // modifica candidatura in db
             }
         }
     }
