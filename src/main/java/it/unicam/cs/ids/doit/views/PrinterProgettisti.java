@@ -21,7 +21,8 @@ public abstract class PrinterProgettisti {
     }
 
     public static void printInfoProgettista(String idProgettista) {
-        Progettista progettista = gestoreProgettisti.getProgettista(idProgettista);
+        
+        Progettista progettista = gestoreProgettisti.getProgettista(gestoreProgettisti.getIdProgettistaByUsername(idProgettista));
         printInfoProgettista(progettista);
 
     }

@@ -22,6 +22,10 @@ public class Utente {
         this.id = id;
         this.mailAddress = mailAddress;
     }
+    public Long getId()
+    {
+        return id;
+    }
 
     public String getId() {
         return id;

@@ -51,7 +51,7 @@ public class IProgettista {
 
     public void viewProgettiCandidabili() {
         System.out.println("Puoi candidarti ai seguenti progetti \n");
-        PrinterProgetti.printListaProgetti(gestoreProgetto.getSpecializzazioni(idProgettista), StatoProgetto.PUBBLICO);
+        PrinterProgetti.printListaProgetti(gestoreProgetto.getSpecializzazioni(gestoreProgetto.getIdProgettistaByUsername(idProgettista)), StatoProgetto.PUBBLICO);
         selezionaProgetto();
     }
 
