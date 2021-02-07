@@ -29,6 +29,7 @@ public class GestoreProgettisti {
         return instance;
     }
 
+<<<<<<< Updated upstream
     public Progettista getProgettista(String idProgettista) {
         for (Progettista progettista : db.progettisti) {
             if (progettista.getUsername().equals(idProgettista))
@@ -43,13 +44,35 @@ public class GestoreProgettisti {
                 return progettista.getSpecializzazioni();
         }
         return null;
+=======
+    public Progettista getProgettista(Long idProgettista) 
+    {
+       return progettistaRepository.findById(idProgettista).get();
     }
+    public Progettista getProgettistaByNome(String nome)
+    {
+        return progettistaRepository.findProgettistaByNome(nome);
+    }
+    public Progettista getProgettistaByUsername(String username)
+    {
+        return progettistaRepository.findProgettistaByUsername(username);
+    }
+    
+    public Long getIdProgettistaByUsername(String username)
+    {
+        return progettistaRepository.findProgettistaByUsername(username).getId();
+    }
+    public Set<Specializzazione> getSpecializzazioni(Long idProgettista)
+     {
+         return  progettistaRepository.findById(idProgettista).get().getSpecializzazioni();
+>>>>>>> Stashed changes
+    }
+
+   
 
     public Set<Progettista> getListaProgettisti() {
         Set<Progettista> progettisti = new HashSet<Progettista>();
-        for (Progettista progettista : db.progettisti) {
-            progettisti.add(progettista);
-        }
+        progettistaRepository.findAll().forEach(progettisti :: add);
         return progettisti;
     }
 
@@ -86,7 +109,7 @@ public class GestoreProgettisti {
     public Set<Progettista> getListaProgettisti(Set<Candidatura> candidatura) {
         Set<Progettista> progettisti = new HashSet<Progettista>();
         for (Candidatura cand : candidatura) {
-            progettisti.add(getProgettista(cand.getIdProgettista()));
+            progettisti.add(getProgettista(getIdProgettistaByUsername(cand.getIdProgettista())));
         }
         return progettisti;
     }
