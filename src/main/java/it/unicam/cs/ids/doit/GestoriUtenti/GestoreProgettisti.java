@@ -29,22 +29,6 @@ public class GestoreProgettisti {
         return instance;
     }
 
-<<<<<<< Updated upstream
-    public Progettista getProgettista(String idProgettista) {
-        for (Progettista progettista : db.progettisti) {
-            if (progettista.getUsername().equals(idProgettista))
-                return progettista;
-        }
-        return null;
-    }
-
-    public Set<Specializzazione> getSpecializzazioni(String idProgettista) {
-        for (Progettista progettista : db.progettisti) {
-            if (progettista.getUsername().equals(idProgettista))
-                return progettista.getSpecializzazioni();
-        }
-        return null;
-=======
     public Progettista getProgettista(Long idProgettista) 
     {
        return progettistaRepository.findById(idProgettista).get();
@@ -65,7 +49,6 @@ public class GestoreProgettisti {
     public Set<Specializzazione> getSpecializzazioni(Long idProgettista)
      {
          return  progettistaRepository.findById(idProgettista).get().getSpecializzazioni();
->>>>>>> Stashed changes
     }
 
    
@@ -106,6 +89,7 @@ public class GestoreProgettisti {
 //        return info;
 //    }
 
+    // TODO NON USATO? ELIMINARE?
     public Set<Progettista> getListaProgettisti(Set<Candidatura> candidatura) {
         Set<Progettista> progettisti = new HashSet<Progettista>();
         for (Candidatura cand : candidatura) {

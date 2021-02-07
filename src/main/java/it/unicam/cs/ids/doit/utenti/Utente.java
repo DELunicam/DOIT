@@ -18,8 +18,8 @@ public class Utente {
     public Utente() {
     }
 
-    public Utente(String id, String mailAddress) {
-        this.username = id;
+    public Utente(String username, String mailAddress) {
+        this.username = username;
         this.mailAddress = mailAddress;
     }
     public Long getId()
