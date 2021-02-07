@@ -1,12 +1,11 @@
 package it.unicam.cs.ids.doit.progetto;
 
+import org.springframework.lang.NonNull;
+
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.*;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.lang.NonNull;
 @Entity
 public class Progetto {
     @Id
@@ -15,19 +14,20 @@ public class Progetto {
     @NonNull
     private String nome;
     private String descrizione;
-    private StatoProgetto stato;
+    private StatoProgetto statoProgetto;
     @NonNull
-    private String idProponente;
-    @ElementCollection
+    private Long idProponente;
+    @ElementCollection()
     private Map<Specializzazione, Integer> infoProgettistiRichiesti = new HashMap<>();
 
-    public Progetto(){}
+    public Progetto() {
+    }
 
-    public Progetto(String idProponente, String nome, String descrizione) {
+    public Progetto(Long idProponente, String nome, String descrizione) {
         this.idProponente = idProponente;
         this.nome = nome;
         this.descrizione = descrizione;
-        this.stato = StatoProgetto.NEUTRO;
+        this.statoProgetto = StatoProgetto.NEUTRO;
     }
 
     public Long getId() {
@@ -55,18 +55,18 @@ public class Progetto {
     }
 
     public StatoProgetto getStatoProgetto() {
-        return this.stato;
+        return this.statoProgetto;
     }
 
     public void setStatoProgetto(StatoProgetto statoProgetto) {
-        this.stato = statoProgetto;
+        this.statoProgetto = statoProgetto;
     }
 
-    public String getIdProponente() {
+    public Long getIdProponente() {
         return this.idProponente;
     }
 
-    public void setIdProponente(String idProponente) {
+    public void setIdProponente(Long idProponente) {
         this.idProponente = idProponente;
     }
 
@@ -91,28 +91,26 @@ public class Progetto {
     }
 
     public void addMultipleInfoProgettistiRichiesti(Map<Specializzazione, Integer> in) {
-//        for (Specializzazione i : in.keySet()) {
-//            addSingleInfoProgettistiRichiesti(i, in.get(i));
-//        }
         this.infoProgettistiRichiesti.putAll(in);
     }
 
-    public String getInfo() {
-        return "ID: " + this.getId() + "\n"
-                + "Nome: " + this.getNome() + "\n"
-                + "Descrizione: " + this.getDescrizione() + "\n"
-                + "Stato: " + this.getStatoProgetto() + "\n"
-                + "Progettisti richiesti: \n" + this.progettistiString();
-    }
-
-    private String progettistiString() {
-        StringBuilder output = new StringBuilder();
-        output.append("Specializzazione, numero richiesti\n");
-        this.infoProgettistiRichiesti.forEach((spec, num) -> {
-            output.append(spec).append(", ").append(num).append("\n");
-        });
-        return output.toString();
-    }
+    // TODO check se potrebbero servire
+//    public String getInfo() {
+//        return "ID: " + this.getId() + "\n"
+//                + "Nome: " + this.getNome() + "\n"
+//                + "Descrizione: " + this.getDescrizione() + "\n"
+//                + "Stato: " + this.getStatoProgetto() + "\n"
+//                + "Progettisti richiesti: \n" + this.progettistiString();
+//    }
+//
+//    private String progettistiString() {
+//        StringBuilder output = new StringBuilder();
+//        output.append("Specializzazione, numero richiesti\n");
+//        this.infoProgettistiRichiesti.forEach((spec, num) -> {
+//            output.append(spec).append(", ").append(num).append("\n");
+//        });
+//        return output.toString();
+//    }
 //        private String progettistiString() {
 //        String out = new String();
 //        for (String i : this.infoProgettistiRichiesti.keySet()) {
