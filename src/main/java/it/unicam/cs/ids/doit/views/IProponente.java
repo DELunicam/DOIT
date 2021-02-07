@@ -115,7 +115,7 @@ public class IProponente {
         System.out.println("Richiesta effettuata, sarai notificato quando almeno un esperto valuterà il progetto");
     }
 
-    public void requestEsperto(String idProgetto, Set<Candidatura> listaCandidature) {
+    public void requestEsperto(Long idProgetto, Set<Candidatura> listaCandidature) {
         gestoreProgetto.modificaStatoProgetto(idProgetto, StatoProgetto.IN_VALUTAZIONE_PROGETTO);
         gestoreCandidature.modificaStatoCandidature(StatoCandidatura.DA_VALUTARE, listaCandidature);
         System.out.println("Richiesta effettuata, sarai notificato quando almeno un esperto valuterà le progettistiCandidati");
@@ -155,7 +155,7 @@ public class IProponente {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
         if (!idProgetto.equals("EXIT")) {
-            Progetto progetto = gestoreProgetto.getProgetto(idProgetto);
+            Progetto progetto = gestoreProgetto.getProgetto(Long.valueOf(idProgetto));
             PrinterProgetti.printInfoProgetto(progetto);
 
             switch (progetto.getStatoProgetto()) {
@@ -163,11 +163,11 @@ public class IProponente {
                     this.pubblicaProgetto(progetto);
                     break;
                 case PUBBLICO:
-                    this.selezionaProgettisti(idProgetto);
+                    this.selezionaProgettisti(Long.valueOf(idProgetto));
                     break;
                 case IN_VALUTAZIONE_CANDIDATURE:
-                    PrinterCandidature.printListaCandidature(idProgetto, StatoCandidatura.PRESELEZIONATA);
-                    selezionaTeam(idProgetto);
+                    PrinterCandidature.printListaCandidature(Long.valueOf(idProgetto), StatoCandidatura.PRESELEZIONATA);
+                    selezionaTeam(Long.valueOf(idProgetto));
                     break;
                 default:
                     System.out.println("Impossibile processare l'operazione");
@@ -176,7 +176,7 @@ public class IProponente {
         }
     }
 
-    public void selezionaProgettisti(String idProgetto) {
+    public void selezionaProgettisti(Long idProgetto) {
         System.out.println("Desideri che un esperto valuti le candidature?");
         System.out.println("[Y] YES,    [N] NO");
         String yN = sc.nextLine().toUpperCase();
@@ -208,7 +208,7 @@ public class IProponente {
     }
 
     // PRESELEZIONE ILLIMITATA
-    public void selezionaCandidati(String idProgetto) {
+    public void selezionaCandidati(Long idProgetto) {
         System.out.println("Si desidera preselezionare i progettisti?\n" +
                 "[Y] YES,    [N] NO");
         String input = sc.nextLine().toUpperCase();
@@ -255,7 +255,7 @@ public class IProponente {
     }
 
     // SELEZIONE DEFINITIVA
-    public void selezionaTeam(String idProgetto) {
+    public void selezionaTeam(Long idProgetto) {
         System.out.println("Si desidera selezionare un team definitivo di progettisti?\n" +
                 "[Y] YES,    [N] NO");
         String input = sc.nextLine().toUpperCase();

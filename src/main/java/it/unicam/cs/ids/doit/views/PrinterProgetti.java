@@ -61,7 +61,7 @@ public abstract class PrinterProgetti {
         }
     }
 
-    public static void printInfoProgetto(String idProgetto) {
+    public static void printInfoProgetto(Long idProgetto) {
         Progetto progetto = gestoreProgetto.getProgetto(idProgetto);
         printInfoProgetto(progetto);
     }

@@ -14,7 +14,7 @@ public abstract class PrinterProgettisti {
         Set<Progettista> progettisti = gestoreProgettisti.getListaProgettisti();
         System.out.println("ID, NOME, COGNOME");
         for (Progettista progettista : progettisti) {
-            System.out.println(progettista.getId() + ", " + progettista.getNome() + ", " + progettista.getCognome());
+            System.out.println(progettista.getUsername() + ", " + progettista.getNome() + ", " + progettista.getCognome());
 
 
         }
@@ -28,7 +28,7 @@ public abstract class PrinterProgettisti {
     }
 
     public static void printInfoProgettista(Progettista progettista){
-        System.out.println("ID: " + progettista.getId() +
+        System.out.println("ID: " + progettista.getUsername() +
                 "\nEmail: " + progettista.getMailAddress() +
                 "\nNome: " + progettista.getNome() +
                 "\nCognome: " + progettista.getCognome() +

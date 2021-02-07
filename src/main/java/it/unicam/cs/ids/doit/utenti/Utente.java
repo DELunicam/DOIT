@@ -1,8 +1,6 @@
 package it.unicam.cs.ids.doit.utenti;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import org.springframework.lang.NonNull;
 
@@ -10,8 +8,10 @@ import org.springframework.lang.NonNull;
 public class Utente {
 
     @Id
-    @Column(name="member_id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String username;
     @NonNull
     private String mailAddress;
 
@@ -19,7 +19,7 @@ public class Utente {
     }
 
     public Utente(String id, String mailAddress) {
-        this.id = id;
+        this.username = id;
         this.mailAddress = mailAddress;
     }
     public Long getId()
@@ -27,12 +27,12 @@ public class Utente {
         return id;
     }
 
-    public String getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUsername(String id) {
+        this.username = id;
     }
 
     public String getMailAddress() {

@@ -57,7 +57,7 @@ public class IEsperto {
             System.out.println("Digitare l'id del progetto per selezionarlo e visualizzare i dettagli, [EXIT] per uscire");
             String idProgetto = sc.nextLine();
             if (!idProgetto.equals("EXIT")) {
-                PrinterProgetti.printInfoProgetto(idProgetto);
+                PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
                 System.out.println("Si vuole valutare questa proposta di progetto? \n" +
                         "[Y] YES,    [N] NO");
                 String conferma = sc.nextLine().toUpperCase();
@@ -67,10 +67,10 @@ public class IEsperto {
                             "[Y] YES,    [N] NO");
                     String fattibile = sc.nextLine().toUpperCase();
                     if (fattibile.equals("Y")) {
-                        gestoreValutazioni.createValutazione(idProgetto, idEsperto, this.requestProgettistiECompetenze());
+                        gestoreValutazioni.createValutazione(Long.valueOf(idProgetto), idEsperto, this.requestProgettistiECompetenze());
                         System.out.println("Valutazione completa inviata \n");
                     } else {
-                        gestoreValutazioni.createValutazione(idProgetto, idEsperto);
+                        gestoreValutazioni.createValutazione(Long.valueOf(idProgetto), idEsperto);
                         System.out.println("Valutazione negativa inviata \n");
                     }
                 } else {
@@ -104,9 +104,9 @@ public class IEsperto {
             String idProgetto = sc.nextLine();
             if (!idProgetto.equals("EXIT")) {
                 System.out.println("Dettagli progetto " + idProgetto + ":");
-                PrinterProgetti.printInfoProgetto(idProgetto);
+                PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
                 System.out.println("Candidature al progetto " + idProgetto + ":");
-                PrinterCandidature.printListaCandidature(idProgetto, StatoCandidatura.DA_VALUTARE);
+                PrinterCandidature.printListaCandidature(Long.valueOf(idProgetto), StatoCandidatura.DA_VALUTARE);
                 System.out.println("Digitare l'id del progettista di cui si vogliono visualizzare i dettagli, [DONE] per uscire");
                 while (true) {
                     String idInput = sc.nextLine();
@@ -118,10 +118,10 @@ public class IEsperto {
                             "[Y] YES,    [N] NO");
                     String conferma = sc.nextLine().toUpperCase();
                     if (conferma.equals("Y")) {
-                        Candidatura candidatura = gestoreCandidature.getCandidatura(idProgetto, idInput);
+                        Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), idInput);
                         gestoreCandidature.addCandidatura(candidatura, consigliate);
                     } else if (conferma.equals("N")) {
-                        Candidatura candidatura = gestoreCandidature.getCandidatura(idProgetto, idInput);
+                        Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), idInput);
                         gestoreCandidature.addCandidatura(candidatura, sconsigliate);
                     } else {
                         System.out.println("Impossibile eseguire l'operazione");

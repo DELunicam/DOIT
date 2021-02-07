@@ -59,11 +59,11 @@ public class IProgettista {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
         if (!idProgetto.equals("EXIT")) {
-            PrinterProgetti.printInfoProgetto(idProgetto);
+            PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
             System.out.println("Desideri candidarti a questo progetto?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
             if (input.equals("Y")) {
-                gestoreCandidature.creaCandidatura(idProgettista, idProgetto);
+                gestoreCandidature.creaCandidatura(idProgettista, Long.valueOf(idProgetto));
                 System.out.println("Congratulazioni, ti sei candidato al progetto " + idProgetto);
 
             } else if (input.equals("N")) {

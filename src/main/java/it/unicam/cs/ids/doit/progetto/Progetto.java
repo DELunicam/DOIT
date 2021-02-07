@@ -3,19 +3,15 @@ package it.unicam.cs.ids.doit.progetto;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.NonNull;
 @Entity
 public class Progetto {
     @Id
-    @Column(name="project_id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @NonNull
     private String nome;
     private String descrizione;
@@ -25,6 +21,8 @@ public class Progetto {
     @ElementCollection
     private Map<Specializzazione, Integer> infoProgettistiRichiesti = new HashMap<>();
 
+    public Progetto(){}
+
     public Progetto(String idProponente, String nome, String descrizione) {
         this.idProponente = idProponente;
         this.nome = nome;
@@ -32,11 +30,11 @@ public class Progetto {
         this.stato = StatoProgetto.NEUTRO;
     }
 
-    public String getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
