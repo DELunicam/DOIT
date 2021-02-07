@@ -6,51 +6,52 @@ import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 
+import java.util.List;
 import java.util.Set;
 
 public abstract class PrinterProgetti {
     private static final GestoreProgetto gestoreProgetto = GestoreProgetto.getInstance();
 
     public static void printListaProgetti() {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti();
+        List<Progetto> progetti = gestoreProgetto.getListaProgetti();
         printBasicProgetti(progetti);
     }
 
-    public static void printListaProgetti(String idProponente) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti(idProponente);
+    public static void printListaProgetti(Long idProponente) {
+        List<Progetto> progetti = gestoreProgetto.getListaProgetti(idProponente);
         printBasicProgetti(progetti);
     }
 
     public static void printListaProgetti(StatoProgetto statoProgetto) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti(statoProgetto);
+        List<Progetto> progetti = gestoreProgetto.getListaProgetti(statoProgetto);
         printBasicProgetti(progetti);
     }
 
-    public static void printListaProgetti(String idProponente, StatoProgetto statoProgetto) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti(idProponente, statoProgetto);
+    public static void printListaProgetti(Long idProponente, StatoProgetto statoProgetto) {
+        List<Progetto> progetti = gestoreProgetto.getListaProgetti(idProponente, statoProgetto);
         printBasicProgetti(progetti);
     }
 
     public static void printListaProgetti(Set<Specializzazione> specializzazioni, StatoProgetto statoProgetto) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti(specializzazioni, statoProgetto);
+        List<Progetto> progetti = gestoreProgetto.getListaProgetti(specializzazioni, statoProgetto);
         printBasicProgetti(progetti);
     }
 
-    public static void printListaProgetti(Set<Progetto> progetti) {
+    public static void printListaProgetti(List<Progetto> progetti) {
         printBasicProgetti(progetti);
     }
 
-    public static void printListaProgettiSvolti(String idProgettista) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgettiSvolti(idProgettista);
+    public static void printListaProgettiSvolti(Long idProgettista) {
+        List<Progetto> progetti = gestoreProgetto.getListaProgettiSvolti(idProgettista);
         printBasicProgetti(progetti);
     }
 
     public static void printListaProgettiSvolti(Progettista progettista) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgettiSvolti(progettista);
+        List<Progetto> progetti = gestoreProgetto.getListaProgettiSvolti(progettista);
         printBasicProgetti(progetti);
     }
 
-    private static void printBasicProgetti(Set<Progetto> progetti) {
+    private static void printBasicProgetti(List<Progetto> progetti) {
         if (progetti.size() == 0) {
             System.out.println("Non sono stati trovati progetti");
         } else {
@@ -80,7 +81,7 @@ public abstract class PrinterProgetti {
     }
 
     public static void printInfoProgetto(Set<Specializzazione> specializzazioni, StatoProgetto statoProgetto) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti(specializzazioni, statoProgetto);
+        List<Progetto> progetti = gestoreProgetto.getListaProgetti(specializzazioni, statoProgetto);
         progetti.forEach(PrinterProgetti::printInfoProgetto);
     }
 }

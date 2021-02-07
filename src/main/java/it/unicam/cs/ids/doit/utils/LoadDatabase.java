@@ -1,9 +1,13 @@
-package it.unicam.cs.ids.doit;
+package it.unicam.cs.ids.doit.utils;
 
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.candidatura.CandidatureRepository;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
+import it.unicam.cs.ids.doit.gestori_utenti.EspertoRepository;
+import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaRepository;
+import it.unicam.cs.ids.doit.gestori_utenti.ProponenteRepository;
 import it.unicam.cs.ids.doit.progetto.Progetto;
+import it.unicam.cs.ids.doit.progetto.ProgettoRepository;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utenti.Esperto;
 import it.unicam.cs.ids.doit.utenti.Progettista;

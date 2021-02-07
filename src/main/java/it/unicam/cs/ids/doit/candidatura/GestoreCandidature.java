@@ -1,16 +1,14 @@
 package it.unicam.cs.ids.doit.candidatura;
 
-import java.util.*;
-
+import it.unicam.cs.ids.doit.utenti.Progettista;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.unicam.cs.ids.doit.utenti.Progettista;
-import it.unicam.cs.ids.doit.utils.FakeDb;
+import java.util.Set;
+
 @Service
 public class GestoreCandidature {
     private static GestoreCandidature instance;
-    private FakeDb db = new FakeDb(); // fake db
 
     @Autowired
     CandidatureRepository repository;

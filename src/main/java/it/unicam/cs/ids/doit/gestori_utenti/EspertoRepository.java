@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.doit;
+package it.unicam.cs.ids.doit.gestori_utenti;
 
 import it.unicam.cs.ids.doit.utenti.Esperto;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,7 +1,5 @@
-package it.unicam.cs.ids.doit;
+package it.unicam.cs.ids.doit.progetto;
 
-import it.unicam.cs.ids.doit.progetto.Progetto;
-import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

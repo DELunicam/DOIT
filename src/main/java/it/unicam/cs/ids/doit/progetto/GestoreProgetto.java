@@ -1,10 +1,6 @@
 package it.unicam.cs.ids.doit.progetto;
 
-import it.unicam.cs.ids.doit.ProgettoRepository;
-import it.unicam.cs.ids.doit.candidatura.Candidatura;
-import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.doit.utenti.Progettista;
-import it.unicam.cs.ids.doit.utils.FakeDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +10,6 @@ import java.util.stream.Collectors;
 @Service
 public class GestoreProgetto {
     private static GestoreProgetto instance;
-    private final FakeDb db = new FakeDb(); // fake db
     @Autowired
     ProgettoRepository progettoRepository;
 
@@ -30,9 +25,10 @@ public class GestoreProgetto {
     }
 
 
-    public void createProgetto(Long idProponente, String nome, String descrizione) {
+    public Progetto createProgetto(Long idProponente, String nome, String descrizione) {
         Progetto progettoNeutro = new Progetto(idProponente, nome, descrizione);
         progettoRepository.save(progettoNeutro);
+        return progettoNeutro;
     }
 
     // TODO
@@ -109,24 +105,14 @@ public class GestoreProgetto {
     }
 
     // TODO
-    public Set<Progetto> getListaProgettiSvolti(Progettista progettista) {
-        Set<Progetto> progettiSvolti = new HashSet<>();
-        for (Candidatura candidatura : db.candidature) {
-            if (candidatura.getIdProgettista().equals(progettista.getUsername()) && candidatura.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)) {
-                progettiSvolti.add(this.getProgetto(candidatura.getIdProgetto()));
-            }
-        }
+    public List<Progetto> getListaProgettiSvolti(Progettista progettista) {
+        List<Progetto> progettiSvolti = new ArrayList<>();
         return progettiSvolti;
     }
 
     // TODO
-    public Set<Progetto> getListaProgettiSvolti(String idProgettista) {
-        Set<Progetto> progettiSvolti = new HashSet<>();
-        for (Candidatura candidatura : db.candidature) {
-            if (candidatura.getIdProgettista().equals(idProgettista) && candidatura.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)) {
-                progettiSvolti.add(this.getProgetto(candidatura.getIdProgetto()));
-            }
-        }
+    public List<Progetto> getListaProgettiSvolti(Long idProgettista) {
+        List<Progetto> progettiSvolti = new ArrayList<>();
         return progettiSvolti;
     }
 

@@ -1,6 +1,5 @@
-package it.unicam.cs.ids.doit;
+package it.unicam.cs.ids.doit.gestori_utenti;
 
-import it.unicam.cs.ids.doit.GestoriUtenti.GestoreProgettisti;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

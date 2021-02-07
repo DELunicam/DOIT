@@ -4,7 +4,6 @@ import it.unicam.cs.ids.doit.views.IEsperto;
 import it.unicam.cs.ids.doit.views.IProgettista;
 import it.unicam.cs.ids.doit.views.IProponente;
 import it.unicam.cs.ids.doit.views.IVisitatore;
-import it.unicam.cs.ids.doit.views.*;
 
 import java.util.Scanner;
 
@@ -18,7 +17,7 @@ public class DOIT {
         switch (input) {
             case "PROP": {
                 String idProponente = digitaID(sc);
-                IProponente proponente = new IProponente(idProponente);
+                IProponente proponente = new IProponente(2L);
                 proponente.opzioniDisponibili();
                 break;
             }

@@ -9,7 +9,6 @@ import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 
-
 import java.util.*;
 
 
@@ -18,9 +17,9 @@ public class IProponente {
     Scanner sc;
     GestoreProgetto gestoreProgetto = GestoreProgetto.getInstance();
     GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
-    String idProponente;
+    Long idProponente;
 
-    public IProponente(String idProponente) {
+    public IProponente(Long idProponente) {
         this.sc = new Scanner(System.in);
         this.idProponente = idProponente;
     }
@@ -40,7 +39,7 @@ public class IProponente {
                     break;
 
                 case "PUBBLICA":
-                    Set<Progetto> progettiNeutri = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.NEUTRO);
+                    List<Progetto> progettiNeutri = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.NEUTRO);
                     if(progettiNeutri.size()>0){
                         PrinterProgetti.printListaProgetti(progettiNeutri);
                         selezionaProgetto();
@@ -48,7 +47,7 @@ public class IProponente {
                     break;
 
                 case "SELEZIONA PROGETTISTI":
-                    Set<Progetto> progettiPubblici = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.PUBBLICO);
+                    List<Progetto> progettiPubblici = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.PUBBLICO);
                     if(progettiPubblici.size()>0){
                         PrinterProgetti.printListaProgetti(progettiPubblici);
                         selezionaProgetto();
@@ -56,7 +55,7 @@ public class IProponente {
                     break;
 
                 case "CONFERMA PROGETTISTI":
-                    Set<Progetto> progettiInValutazione = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
+                    List<Progetto> progettiInValutazione = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
                     if(progettiInValutazione.size()>0){
                         PrinterProgetti.printListaProgetti(progettiInValutazione);
                         selezionaProgetto();

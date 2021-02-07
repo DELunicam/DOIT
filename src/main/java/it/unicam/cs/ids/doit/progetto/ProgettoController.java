@@ -1,9 +1,5 @@
-package it.unicam.cs.ids.doit;
+package it.unicam.cs.ids.doit.progetto;
 
-import it.unicam.cs.ids.doit.progetto.GestoreProgetto;
-import it.unicam.cs.ids.doit.progetto.Progetto;
-import it.unicam.cs.ids.doit.progetto.Specializzazione;
-import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

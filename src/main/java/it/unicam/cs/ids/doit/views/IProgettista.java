@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.doit.views;
 
-import it.unicam.cs.ids.doit.GestoriUtenti.GestoreProgettisti;
 import it.unicam.cs.ids.doit.candidatura.GestoreCandidature;
+import it.unicam.cs.ids.doit.gestori_utenti.GestoreProgettisti;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 
 import java.util.Scanner;
