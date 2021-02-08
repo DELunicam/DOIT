@@ -29,7 +29,7 @@ public class DOIT {
             }
             case "ES": {
                 String idEsperto = digitaID(sc);
-                IEsperto iEsperto = new IEsperto("ESP1");
+                IEsperto iEsperto = new IEsperto(3L);
                 iEsperto.opzioniDisponibili();
                 break;
             }

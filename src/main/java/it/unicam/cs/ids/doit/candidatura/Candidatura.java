@@ -25,7 +25,7 @@ public class Candidatura {
 	@Enumerated(EnumType.STRING)
 	private StatoCandidatura stato;
 	@ElementCollection
-    private Map<String, Boolean> pareriEsperti = new HashMap<String, Boolean>(); // idesperto, valutazione pos o neg
+    private Map<Long, Boolean> pareriEsperti = new HashMap<Long, Boolean>(); // idesperto, valutazione pos o neg
 
 	public Candidatura() {
 
@@ -69,14 +69,14 @@ public class Candidatura {
 		this.stato = stato;
 	}
 
-	public Map<String, Boolean> getPareriEsperti() {
+	public Map<Long, Boolean> getPareriEsperti() {
 		return this.pareriEsperti;
 	}
-	public void setPareriEsperti(Map<String, Boolean> parereEsperti) {
+	public void setPareriEsperti(Map<Long, Boolean> parereEsperti) {
 		this.pareriEsperti = parereEsperti;
 	}
 	
-    public void addParereEsperto(String idEsperto, Boolean posNeg) {
+    public void addParereEsperto(Long idEsperto, Boolean posNeg) {
         this.pareriEsperti.put(idEsperto, posNeg);
     }
 	

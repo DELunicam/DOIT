@@ -62,7 +62,7 @@ public class CandidatureController {
     }
 
     @PostMapping(value="/candidature", params = {"idEsperto", "idsConsigliate", "idsSconsigliate"})
-    void aggiungiPareriEsperto(@RequestParam String idEsperto, @RequestParam Set<Long> idsConsigliate, @RequestParam Set<Long> idsSconsigliate) {
+    void aggiungiPareriEsperto(@RequestParam Long idEsperto, @RequestParam Set<Long> idsConsigliate, @RequestParam Set<Long> idsSconsigliate) {
         gestoreCandidature.confermaSelezione(idEsperto, idsConsigliate, idsSconsigliate);
 
     }

@@ -4,9 +4,7 @@ import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import it.unicam.cs.ids.doit.utenti.Progettista;
-
-public interface CandidatureRepository extends JpaRepository<Candidatura, String> {
+public interface CandidatureRepository extends JpaRepository<Candidatura, Long> {
 
     Set<Candidatura> findCandidatureByIdProgetto(Long idProgetto);
 

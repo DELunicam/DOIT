@@ -1,14 +1,16 @@
 package it.unicam.cs.ids.doit.valutazione;
 
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Map;
 
 @Service
 public class GestoreValutazioni {
     private static GestoreValutazioni instance;
-//    private FakeDb db = new FakeDb(); // fake db
+
+    @Autowired
+    ValutazioniRepository repository;
 
     public GestoreValutazioni() {
 
@@ -21,20 +23,18 @@ public class GestoreValutazioni {
         }
         return instance;
     }
-
-    // --> aggiunto idEsperto fra i parametri dei create -luca
     
     // crea valutazione positiva
-    public Valutazione createValutazione(Long idProgetto, String idEsperto, Map<Specializzazione, Integer> infoLavoratori) {
+    public Valutazione createValutazione(Long idProgetto, Long idEsperto, Map<Specializzazione, Integer> infoLavoratori) {
         Valutazione nuovaValutazione = new Valutazione(idProgetto, idEsperto, infoLavoratori);
-//        this.db.addValutazione(nuovaValutazione);
+        repository.save(nuovaValutazione);
         return nuovaValutazione;
     }
 
     // crea valutazione negativa
-    public Valutazione createValutazione(Long idProgetto, String idEsperto) {
+    public Valutazione createValutazione(Long idProgetto, Long idEsperto) {
         Valutazione nuovaValutazione = new Valutazione(idProgetto, idEsperto);
-//        this.db.addValutazione(nuovaValutazione);
+        repository.save(nuovaValutazione);
         return nuovaValutazione;
     }
     
