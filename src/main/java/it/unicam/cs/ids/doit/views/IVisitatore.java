@@ -33,7 +33,7 @@ public class IVisitatore {
                 "EXIT per uscire");
         while (true) {
             String idProgetto = sc.nextLine();
-            if (idProgetto.toUpperCase().equals("EXIT")) {
+            if (idProgetto.equalsIgnoreCase("EXIT")) {
                 break;
             }
             PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
@@ -46,10 +46,10 @@ public class IVisitatore {
                 "EXIT per uscire");
         while (true) {
             String idProgettista = sc.nextLine();
-            if (idProgettista.toUpperCase().equals("EXIT")) {
+            if (idProgettista.equalsIgnoreCase("EXIT")) {
                 break;
             }
-            PrinterProgettisti.printInfoProgettista(idProgettista);
+            PrinterProgettisti.printInfoProgettista(Long.valueOf(idProgettista));
         }
     }
 }

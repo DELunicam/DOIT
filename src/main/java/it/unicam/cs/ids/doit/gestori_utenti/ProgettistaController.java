@@ -21,18 +21,18 @@ public class ProgettistaController {
         return gestore.getListaProgettisti();
     }
 
-    @GetMapping(value="/progettisti/{id}")
-    Progettista one(@PathVariable Long id){
+    @GetMapping(value = "/progettisti/{id}")
+    Progettista one(@PathVariable Long id) {
         return gestore.getProgettista(id);
     }
-    
-    @GetMapping(value="/progettisti", params = {"nome"})
-    Progettista oneByNome(@RequestParam String nome){
+
+    @GetMapping(value = "/progettisti", params = {"nome"})
+    Progettista oneByNome(@RequestParam String nome) {
         return gestore.getProgettistaByNome(nome);
     }
 
-    @GetMapping(value="/progettisti", params = {"username"})
-    Progettista oneByUsername(@RequestParam String username){
+    @GetMapping(value = "/progettisti", params = {"username"})
+    Progettista oneByUsername(@RequestParam Long username) {
         return gestore.getProgettistaByUsername(username);
     }
 

@@ -11,10 +11,10 @@ public class IProgettista {
     Scanner sc;
     GestoreProgettisti gestoreProgetto = GestoreProgettisti.getInstance();
     GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
-    String idProgettista;
+    Long idProgettista;
 
 
-    public IProgettista(String idProgettista) {
+    public IProgettista(Long idProgettista) {
         this.sc = new Scanner(System.in);
         this.idProgettista = idProgettista;
     }

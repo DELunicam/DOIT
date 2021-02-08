@@ -19,22 +19,22 @@ class ProgettoController {
     // GET /progetti
 
     @GetMapping(value = "/progetti")
-    List<Progetto> all() {
+    Set<Progetto> all() {
         return gestoreProgetto.getListaProgetti();
     }
 
     @GetMapping(value = "/progetti", params = {"statoProgetto"})
-    List<Progetto> allByStato(@RequestParam StatoProgetto statoProgetto) {
+    Set<Progetto> allByStato(@RequestParam StatoProgetto statoProgetto) {
         return gestoreProgetto.getListaProgetti(statoProgetto);
     }
 
     @GetMapping(value = "/progetti", params = {"idProponente"})
-    List<Progetto> allByIdProponente(@RequestParam Long idProponente) {
+    Set<Progetto> allByIdProponente(@RequestParam Long idProponente) {
         return gestoreProgetto.getListaProgetti(idProponente);
     }
 
     @GetMapping(value = "/progetti", params = {"idProponente", "statoProgetto"})
-    List<Progetto> allByIdProponenteAndStato(@RequestParam Long idProponente, @RequestParam StatoProgetto statoProgetto) {
+    Set<Progetto> allByIdProponenteAndStato(@RequestParam Long idProponente, @RequestParam StatoProgetto statoProgetto) {
         return gestoreProgetto.getListaProgetti(idProponente, statoProgetto);
     }
 
@@ -44,7 +44,7 @@ class ProgettoController {
     }
 
     @GetMapping(value = "/progetti", params = {"specializzazioni", "statoProgetto"})
-    List<Progetto> allByStatoProgettoAndSpecializzazione(@RequestParam Set<Specializzazione> specializzazioni, @RequestParam StatoProgetto statoProgetto) {
+    Set<Progetto> allByStatoProgettoAndSpecializzazione(@RequestParam Set<Specializzazione> specializzazioni, @RequestParam StatoProgetto statoProgetto) {
         return gestoreProgetto.getListaProgetti(specializzazioni, statoProgetto);
     }
 
@@ -75,8 +75,13 @@ class ProgettoController {
     // PUT /progetti/{idProgetto}
 
     @PutMapping(value = "/progetti/{idProgetto}")
-    void insertInfoProgettistiRichiesti2(@PathVariable Long idProgetto, @RequestBody Map<Specializzazione, Integer> specializzazioni) {
+    void insertInfoProgettistiRichiesti(@PathVariable Long idProgetto, @RequestBody Map<Specializzazione, Integer> specializzazioni) {
         gestoreProgetto.insertInfoProgettisti(idProgetto, specializzazioni);
+    }
+
+    @GetMapping(value = "/progettisti/{idProgettista}/progetti_svolti")
+    void getListaProgettiSvolti(@PathVariable Long idProgettista) {
+        gestoreProgetto.getListaProgettiSvolti(idProgettista);
     }
 
 }

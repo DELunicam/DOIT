@@ -113,15 +113,15 @@ public class IEsperto {
                     if (idInput.equals("DONE")) {
                         break;
                     }
-                    PrinterProgettisti.printInfoProgettista(idInput);
+                    PrinterProgettisti.printInfoProgettista(Long.valueOf(idInput));
                     System.out.println("Si vuole consigliare questo progettista per lavorare al progetto? \n" +
                             "[Y] YES,    [N] NO");
                     String conferma = sc.nextLine().toUpperCase();
                     if (conferma.equals("Y")) {
-                        Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), idInput);
+                        Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), Long.valueOf(idInput));
                         gestoreCandidature.addCandidatura(candidatura.getId(), idsConsigliate);
                     } else if (conferma.equals("N")) {
-                        Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), idInput);
+                        Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), Long.valueOf(idInput));
                         gestoreCandidature.addCandidatura(candidatura.getId(), idsSconsigliate);
                     } else {
                         System.out.println("Impossibile eseguire l'operazione");

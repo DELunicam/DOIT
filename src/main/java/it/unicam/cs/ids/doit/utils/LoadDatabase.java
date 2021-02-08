@@ -93,52 +93,52 @@ public class LoadDatabase {
     @Bean
     CommandLineRunner loadCandidature(CandidatureRepository repository) {
         Candidatura foo = new Candidatura();
-		//foo.setId("CAND1");
-		foo.setIdProgettista("PROG1");
-		foo.setIdProgetto(Long.valueOf(1));
-		foo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+        //foo.setId("CAND1");
+        foo.setIdProgettista(7L);
+        foo.setIdProgetto(5L);
+        foo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
-		Candidatura bar = new Candidatura();
-		//bar.setId("CAND2");
-		bar.setIdProgettista("PROG4");
-		bar.setIdProgetto(Long.valueOf(1));
-		bar.setStatoCandidatura(StatoCandidatura.ACCETTATA);
+        Candidatura bar = new Candidatura();
+        //bar.setId("CAND2");
+        bar.setIdProgettista(7L);
+        bar.setIdProgetto(4L);
+        bar.setStatoCandidatura(StatoCandidatura.ACCETTATA);
 
-		Candidatura sad = new Candidatura();
-		//sad.setId("CAND3");
-		sad.setIdProgettista("PROG5");
-		sad.setIdProgetto(Long.valueOf(1));
-		sad.setStatoCandidatura(StatoCandidatura.RIFIUTATA);
+        Candidatura sad = new Candidatura();
+        //sad.setId("CAND3");
+        sad.setIdProgettista(7L);
+        sad.setIdProgetto(Long.valueOf(1));
+        sad.setStatoCandidatura(StatoCandidatura.RIFIUTATA);
 
-		Candidatura zoo = new Candidatura();
-		//zoo.setId("CAND4");
-		zoo.setIdProgettista("PROG3");
-		zoo.setIdProgetto(Long.valueOf(2));
-		zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+        Candidatura zoo = new Candidatura();
+        //zoo.setId("CAND4");
+        zoo.setIdProgettista(7L);
+        zoo.setIdProgetto(Long.valueOf(2));
+        zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
-		Candidatura ciao = new Candidatura();
-		//ciao.setId("CAND5");
-		ciao.setIdProgettista("PROG3");
+        Candidatura ciao = new Candidatura();
+        //ciao.setId("CAND5");
+        ciao.setIdProgettista(7L);
 //		ciao.setIdProgetto(tre.getId());
-		ciao.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+        ciao.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
-		Candidatura puffo = new Candidatura();
-		//puffo.setId("CAND6");
-		puffo.setIdProgettista("PROG2");
+        Candidatura puffo = new Candidatura();
+        //puffo.setId("CAND6");
+        puffo.setIdProgettista(7L);
 //		puffo.setIdProgetto(tre.getId());
-		puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+        puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
-		Candidatura bee = new Candidatura();
-		//bee.setId("CAND7");
-		bee.setIdProgettista("PROG3");
-		bee.setIdProgetto(Long.valueOf(1));
-		bee.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
+        Candidatura bee = new Candidatura();
+        //bee.setId("CAND7");
+        bee.setIdProgettista(7L);
+        bee.setIdProgetto(Long.valueOf(1));
+        bee.setStatoCandidatura(StatoCandidatura.PRESELEZIONATA);
 
-		Candidatura poi = new Candidatura();
-		//poi.setId("CAND8");
-		poi.setIdProgettista("PROG2");
-		poi.setIdProgetto(Long.valueOf(1));
-		poi.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
+        Candidatura poi = new Candidatura();
+        //poi.setId("CAND8");
+        poi.setIdProgettista(7L);
+        poi.setIdProgetto(Long.valueOf(1));
+        poi.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
 
         return args -> {

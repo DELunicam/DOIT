@@ -34,11 +34,11 @@ public class GestoreProgettisti {
         return progettistaRepository.findProgettistaByNome(nome);
     }
 
-    public Progettista getProgettistaByUsername(String username) {
+    public Progettista getProgettistaByUsername(Long username) {
         return progettistaRepository.findProgettistaByUsername(username);
     }
 
-    public Long getIdProgettistaByUsername(String username) {
+    public Long getIdProgettistaByUsername(Long username) {
         return progettistaRepository.findProgettistaByUsername(username).getId();
     }
 

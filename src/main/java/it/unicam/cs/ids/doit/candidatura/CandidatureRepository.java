@@ -1,10 +1,8 @@
 package it.unicam.cs.ids.doit.candidatura;
 
-import java.util.Set;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import it.unicam.cs.ids.doit.utenti.Progettista;
+import java.util.Set;
 
 public interface CandidatureRepository extends JpaRepository<Candidatura, String> {
 
@@ -12,10 +10,13 @@ public interface CandidatureRepository extends JpaRepository<Candidatura, String
 
     Set<Candidatura> findCandidatureByIdProgettoAndStato(Long idProgetto, StatoCandidatura statoCandidatura);
 
+    Set<Candidatura> findAllByIdProgettista(Long idProgettista);
+
     Candidatura findCandidaturaById(Long id);
 
-    Candidatura findCandidaturaByIdProgettoAndIdProgettista(Long idProgetto, String idProgettista);
-    
+    Candidatura findCandidaturaByIdProgettoAndIdProgettista(Long idProgetto, Long idProgettista);
+
+
     //Set<Progettista> findProgettistiByIdsCandidatureInCandidature(Set<Long> idsCandidature);
-    
+
 }

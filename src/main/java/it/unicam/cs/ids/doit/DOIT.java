@@ -23,7 +23,7 @@ public class DOIT {
             }
             case "PROG": {
                 String idProgettista = digitaID(sc);
-                IProgettista progettista = new IProgettista("PROG2");
+                IProgettista progettista = new IProgettista(7L);
                 progettista.opzioniDisponibili();
                 break;
             }

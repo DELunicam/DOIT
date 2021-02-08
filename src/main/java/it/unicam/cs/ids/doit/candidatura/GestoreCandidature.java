@@ -42,7 +42,7 @@ public class GestoreCandidature {
     }
 
     // ottiene candidatura da id del progetto e id del progettista
-    public Candidatura getCandidatura(Long idProgetto, String idProgettista) {
+    public Candidatura getCandidatura(Long idProgetto, Long idProgettista) {
         return repository.findCandidaturaByIdProgettoAndIdProgettista(idProgetto, idProgettista);
     }
 
@@ -71,7 +71,7 @@ public class GestoreCandidature {
     }
 
     // crea una nuova candidatura ad un progetto
-    public Candidatura creaCandidatura(String idProgettista, Long idProgetto) {
+    public Candidatura creaCandidatura(Long idProgettista, Long idProgetto) {
         Candidatura nuovaCandidatura = new Candidatura(idProgetto, idProgettista);
         repository.save(nuovaCandidatura);
         return nuovaCandidatura;

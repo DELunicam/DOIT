@@ -1,13 +1,12 @@
 package it.unicam.cs.ids.doit.utenti;
 
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
+import org.springframework.lang.NonNull;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.*;
-
-import org.springframework.lang.NonNull;
 
 @Entity
 
@@ -23,16 +22,15 @@ public class Esperto extends Utente {
     public Esperto() {
     }
 
-  
 
-    public Esperto(String id, String mailAddress, String nome, String cognome) {
-        super(id, mailAddress);
+    public Esperto(String username, String mailAddress, String nome, String cognome) {
+        super(username, mailAddress);
         this.nome = nome;
         this.cognome = cognome;
     }
 
-    public Esperto(String id, String mailAddress, String nome, String cognome, Set<Specializzazione> specializzazioni) {
-        this(id, mailAddress, nome, cognome);
+    public Esperto(String username, String mailAddress, String nome, String cognome, Set<Specializzazione> specializzazioni) {
+        this(username, mailAddress, nome, cognome);
         this.specializzazioni = specializzazioni;
     }
 

@@ -20,14 +20,14 @@ public abstract class PrinterProgettisti {
         }
     }
 
-    public static void printInfoProgettista(String idProgettista) {
-        
+    public static void printInfoProgettista(Long idProgettista) {
+
         Progettista progettista = gestoreProgettisti.getProgettista(gestoreProgettisti.getIdProgettistaByUsername(idProgettista));
         printInfoProgettista(progettista);
 
     }
 
-    public static void printInfoProgettista(Progettista progettista){
+    public static void printInfoProgettista(Progettista progettista) {
         System.out.println("ID: " + progettista.getUsername() +
                 "\nEmail: " + progettista.getMailAddress() +
                 "\nNome: " + progettista.getNome() +

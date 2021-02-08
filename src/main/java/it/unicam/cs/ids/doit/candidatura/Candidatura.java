@@ -1,15 +1,10 @@
 package it.unicam.cs.ids.doit.candidatura;
 
-import java.util.*;
-
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import org.springframework.lang.NonNull;
+
+import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 public class Candidatura {
@@ -21,50 +16,50 @@ public class Candidatura {
 	@NonNull
 	private Long idProgetto;
 	@NonNull
-	private String idProgettista;
+	private Long idProgettista;
 	@Enumerated(EnumType.STRING)
 	private StatoCandidatura stato;
 	@ElementCollection
-    private Map<String, Boolean> pareriEsperti = new HashMap<String, Boolean>(); // idesperto, valutazione pos o neg
+	private Map<String, Boolean> pareriEsperti = new HashMap<String, Boolean>(); // idesperto, valutazione pos o neg
 
 	public Candidatura() {
 
 	}
 
-	public Candidatura(Long idProgetto, String idProgettista) {
+	public Candidatura(Long idProgetto, Long idProgettista) {
 		this.idProgetto = idProgetto;
 		this.idProgettista = idProgettista;
 		this.stato = StatoCandidatura.DA_VALUTARE;
-    }
+	}
 
-    public Long getId() {
+	public Long getId() {
 		return this.id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public Long getIdProgetto() {
 		return this.idProgetto;
 	}
-	
+
 	public void setIdProgetto(Long idProgetto) {
 		this.idProgetto = idProgetto;
 	}
-	
-	public String getIdProgettista() {
+
+	public Long getIdProgettista() {
 		return this.idProgettista;
 	}
-	
-	public void setIdProgettista(String idProgettista) {
+
+	public void setIdProgettista(Long idProgettista) {
 		this.idProgettista = idProgettista;
 	}
-	
+
 	public StatoCandidatura getStatoCandidatura() {
 		return this.stato;
 	}
-	
+
 	public void setStatoCandidatura(StatoCandidatura stato) {
 		this.stato = stato;
 	}

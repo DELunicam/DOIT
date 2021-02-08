@@ -39,7 +39,7 @@ public class IProponente {
                     break;
 
                 case "PUBBLICA":
-                    List<Progetto> progettiNeutri = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.NEUTRO);
+                    Set<Progetto> progettiNeutri = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.NEUTRO);
                     if(progettiNeutri.size()>0){
                         PrinterProgetti.printListaProgetti(progettiNeutri);
                         selezionaProgetto();
@@ -47,7 +47,7 @@ public class IProponente {
                     break;
 
                 case "SELEZIONA PROGETTISTI":
-                    List<Progetto> progettiPubblici = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.PUBBLICO);
+                    Set<Progetto> progettiPubblici = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.PUBBLICO);
                     if(progettiPubblici.size()>0){
                         PrinterProgetti.printListaProgetti(progettiPubblici);
                         selezionaProgetto();
@@ -55,7 +55,7 @@ public class IProponente {
                     break;
 
                 case "CONFERMA PROGETTISTI":
-                    List<Progetto> progettiInValutazione = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
+                    Set<Progetto> progettiInValutazione = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
                     if(progettiInValutazione.size()>0){
                         PrinterProgetti.printListaProgetti(progettiInValutazione);
                         selezionaProgetto();
