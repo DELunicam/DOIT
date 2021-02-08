@@ -83,7 +83,7 @@ public class GestoreCandidature {
     }
 
     // aggiunge alle candidature l'id dell'esperto che le ha valutate e il parete positivo o negativo
-    public void confermaSelezione(String idEsperto, Set<Long> consigliate, Set<Long> sconsigliate) {
+    public void confermaSelezione(Long idEsperto, Set<Long> consigliate, Set<Long> sconsigliate) {
         if (!consigliate.isEmpty()) {
             for (Long id : consigliate) {
                 Candidatura candidatura = repository.findCandidaturaById(id);

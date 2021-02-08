@@ -2,21 +2,22 @@ package it.unicam.cs.ids.doit.valutazione;
 
 import java.util.*;
 
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import org.springframework.lang.NonNull;
 
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
+
 @Entity
 public class Valutazione {
-    @Id
-    @Column(name ="id_valutazione")
-    private String id; 
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id; 
     @NonNull
-    private String idEsperto;
+    private Long idEsperto;
     @NonNull
     private Long idProgetto;
     @NonNull
@@ -29,32 +30,32 @@ public class Valutazione {
 
     }
 
-    public Valutazione(Long idProgetto, String idEsperto) {
+    public Valutazione(Long idProgetto, Long idEsperto) {
         this.idProgetto = idProgetto;
         this.idEsperto = idEsperto;
         this.fattibilità = false;
     }
 
-    public Valutazione(Long idProgetto, String idEsperto, Map<Specializzazione, Integer> lavoratoriConsigliati) {
+    public Valutazione(Long idProgetto, Long idEsperto, Map<Specializzazione, Integer> lavoratoriConsigliati) {
         this.idProgetto = idProgetto;
         this.idEsperto = idEsperto;
         this.fattibilità = true;
         this.lavoratoriConsigliati = lavoratoriConsigliati;
     }
 
-    public String getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getIdEsperto() {
+    public Long getIdEsperto() {
         return this.idEsperto;
     }
 
-    public void setIdEsperto(String idEsperto) {
+    public void setIdEsperto(Long idEsperto) {
         this.idEsperto = idEsperto;
     }
 

@@ -19,9 +19,9 @@ public class IEsperto {
     Scanner sc;
     GestoreValutazioni gestoreValutazioni = GestoreValutazioni.getInstance();
     GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
-    String idEsperto;
+    Long idEsperto;
 
-    public IEsperto(String idEsperto) {
+    public IEsperto(Long idEsperto) {
         this.sc = new Scanner(System.in);
         this.idEsperto = idEsperto;
     }
