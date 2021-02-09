@@ -1,17 +1,19 @@
 package it.unicam.cs.ids.doit.utils;
 
+import it.unicam.cs.ids.doit.associazione.Associazione;
+import it.unicam.cs.ids.doit.associazione.AssociazioneRepository;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
-import it.unicam.cs.ids.doit.candidatura.CandidatureRepository;
+import it.unicam.cs.ids.doit.candidatura.CandidaturaRepository;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
+import it.unicam.cs.ids.doit.gestori_utenti.EnteRepository;
 import it.unicam.cs.ids.doit.gestori_utenti.EspertoRepository;
+import it.unicam.cs.ids.doit.gestori_utenti.LavoratoreRepository;
 import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaRepository;
 import it.unicam.cs.ids.doit.gestori_utenti.ProponenteRepository;
 import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.ProgettoRepository;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
-import it.unicam.cs.ids.doit.utenti.Esperto;
-import it.unicam.cs.ids.doit.utenti.Progettista;
-import it.unicam.cs.ids.doit.utenti.Proponente;
+import it.unicam.cs.ids.doit.utenti.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +21,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 public class LoadDatabase {
@@ -91,7 +95,7 @@ public class LoadDatabase {
 
 
     @Bean
-    CommandLineRunner loadCandidature(CandidatureRepository repository) {
+    CommandLineRunner loadCandidature(CandidaturaRepository repository) {
         Candidatura foo = new Candidatura();
         //foo.setId("CAND1");
         foo.setIdProgettista(7L);
@@ -158,6 +162,49 @@ public class LoadDatabase {
         return args -> {
             log.info("Preloading " + repository.save(new Esperto()));
             log.info("Preloading " + repository.save(new Esperto()));
+        };
+    }
+
+    @Bean
+    CommandLineRunner loadEnti(EnteRepository repository) {
+        return args -> {
+            log.info("Preloading " + repository.save(new Ente("Apple")));
+            log.info("Preloading " + repository.save(new Ente("Microsoft")));
+            log.info("Preloading " + repository.save(new Ente("Governo")));
+        };
+    }
+
+    @Bean
+    CommandLineRunner loadAssociazioni(AssociazioneRepository repository) {
+        return args -> {
+            log.info("Preloading " + repository.save(new Associazione(21L,6L,3L)));
+            log.info("Preloading " + repository.save(new Associazione(21L,7L,3L)));
+            log.info("Preloading " + repository.save(new Associazione(22L,8L,4L)));
+            log.info("Preloading " + repository.save(new Associazione(22L,9L,5L)));
+            log.info("Preloading " + repository.save(new Associazione(23L,10L,5L)));
+            log.info("Preloading " + repository.save(new Associazione(23L,6L,5L)));
+        };
+    }
+
+    @Bean
+    CommandLineRunner loadLavoratori(LavoratoreRepository repository) {
+        Set<Specializzazione> set1 = new HashSet<Specializzazione>();
+        set1.add(Specializzazione.CHIMICA);
+        set1.add(Specializzazione.INGEGNERIA);
+        Set<Specializzazione> set2 = new HashSet<Specializzazione>();
+        set2.add(Specializzazione.CHIMICA);
+        set2.add(Specializzazione.MATEMATICA);
+        Set<Specializzazione> set3 = new HashSet<Specializzazione>();
+        set3.add(Specializzazione.MATEMATICA);
+        set3.add(Specializzazione.INGEGNERIA);
+        set3.add(Specializzazione.INFORMATICA);
+        return args -> {
+            log.info("Preloading " + repository.save(new Lavoratore("Mario", "Rossi", 21L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Paolo", "Verdi", 21L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Giuseppe", "Bianchi", 21L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Franco", "Neri", set1, 22L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Augusto", "Viola", set2, 22L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Mauro", "Rosa", set3, 21L)));
         };
     }
 

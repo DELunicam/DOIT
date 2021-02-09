@@ -6,11 +6,11 @@ import java.util.Set;
 
 
 @RestController
-public class CandidatureController {
+public class CandidaturaController {
 
     private final GestoreCandidature gestoreCandidature;
 
-    CandidatureController(GestoreCandidature gestoreCandidature) {
+    CandidaturaController(GestoreCandidature gestoreCandidature) {
         this.gestoreCandidature = gestoreCandidature;
     }
 

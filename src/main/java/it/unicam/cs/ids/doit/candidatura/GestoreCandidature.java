@@ -11,7 +11,7 @@ public class GestoreCandidature {
     private static GestoreCandidature instance;
 
     @Autowired
-    CandidatureRepository repository;
+    CandidaturaRepository repository;
 
     public GestoreCandidature() {
 

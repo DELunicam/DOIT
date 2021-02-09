@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.doit.progetto;
 
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
-import it.unicam.cs.ids.doit.candidatura.CandidatureRepository;
+import it.unicam.cs.ids.doit.candidatura.CandidaturaRepository;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class GestoreProgetto {
     ProgettoRepository progettoRepository;
     // TODO candidatureRepository non dovrebbe essere qui
     @Autowired
-    CandidatureRepository candidatureRepository;
+    CandidaturaRepository candidatureRepository;
 
     public GestoreProgetto() {
     }
