@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.doit.progetto;
 
 import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +16,7 @@ public class Progetto {
     private StatoProgetto statoProgetto;
     @NonNull
     private Long idProponente;
-    @ElementCollection()
+    @ElementCollection
     private Map<Specializzazione, Integer> infoProgettistiRichiesti = new HashMap<>();
 
     public Progetto() {

@@ -3,6 +3,7 @@ package it.unicam.cs.ids.doit.gestori_utenti;
 import java.util.Set;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,10 +36,10 @@ public class EnteController {
     }
 
     // TODO
-    //@PostMapping
-    //void assegnaProgetto() {
-    //    gestoreEnti.assegnaProgetto(lavoratore, progetto);
-    //}
+    @PutMapping(value = "lavoratori/{idLavoratore}")
+    void assegnaProgetto(@PathVariable Long idLavoratore, @RequestParam Long idProgetto) {
+        gestoreEnti.assegnaProgetto(idLavoratore, idProgetto);
+    }
 
     @GetMapping(value = "enti/{id}/lavoratori/{specializzazione}")
     Set<Lavoratore> getLavoratori(@PathVariable Long id, @PathVariable Specializzazione specializzazione) {

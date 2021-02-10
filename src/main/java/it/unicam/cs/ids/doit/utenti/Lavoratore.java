@@ -24,6 +24,8 @@ public class Lavoratore {
     private Set<Specializzazione> specializzazioni = new HashSet<>();
     @NonNull
     private Long idEnte;
+    @ElementCollection
+    private Set<Long> idProgettiSvolti = new HashSet<>();
 
     public Lavoratore() {
     }
@@ -83,6 +85,14 @@ public class Lavoratore {
 
 	public void setIdEnte(Long idEnte) {
 		this.idEnte = idEnte;
+	}
+
+    public void setIdProgettiSvolti(Set<Long> idProgettiSvolti) {
+		this.idProgettiSvolti = idProgettiSvolti;
+	}
+
+	public Set<Long> getIdProgettiSvolti() {
+		return this.idProgettiSvolti;
 	}
 
 }

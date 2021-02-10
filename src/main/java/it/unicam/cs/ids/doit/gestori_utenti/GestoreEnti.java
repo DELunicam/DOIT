@@ -1,13 +1,11 @@
 package it.unicam.cs.ids.doit.gestori_utenti;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utenti.Ente;
 import it.unicam.cs.ids.doit.utenti.Lavoratore;
@@ -46,19 +44,15 @@ public class GestoreEnti {
         return lavoratoreRepository.findLavoratoriByIdEnte(idEnte);
     }
 
-    // TODO
-    // usare id invece di oggetti? metodo di gestoreAssociazioni?
-    // crea associazione con stato ACCCETTATA_ENTE fra lavoratore dell'ente e progetto
-    // modifica associazione con stato ACCCETTATA_ENTE progettista associato all'ente e progetto
-    public void assegnaProgetto(Lavoratore lavoratore, Progetto progetto) {
-        
+    // usati id invece di oggetti
+    public void assegnaProgetto(Long idLavoratore, Long idProgetto) {
+        Lavoratore lavoratore = lavoratoreRepository.findById(idLavoratore).get();
+        lavoratore.getIdProgettiSvolti().add(idProgetto);
+        lavoratoreRepository.save(lavoratore);
     }
 
-    // TODO metodo migliore?
     public Set<Lavoratore> getLavoratori(Long idEnte, Specializzazione specializzazione) {
-        Set<Specializzazione> setDiUno = new HashSet<>();
-        setDiUno.add(specializzazione);
-        return lavoratoreRepository.findLavoratoriByIdEnteAndSpecializzazioniIn(idEnte, setDiUno);
+        return lavoratoreRepository.findLavoratoriByIdEnteAndSpecializzazioniIn(idEnte, Collections.singleton(specializzazione));
     }
 
 }
