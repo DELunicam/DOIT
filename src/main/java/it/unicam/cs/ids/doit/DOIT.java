@@ -4,7 +4,6 @@ import it.unicam.cs.ids.doit.views.IEsperto;
 import it.unicam.cs.ids.doit.views.IProgettista;
 import it.unicam.cs.ids.doit.views.IProponente;
 import it.unicam.cs.ids.doit.views.IVisitatore;
-import it.unicam.cs.ids.doit.views.*;
 
 import java.util.Scanner;
 
@@ -18,19 +17,19 @@ public class DOIT {
         switch (input) {
             case "PROP": {
                 String idProponente = digitaID(sc);
-                IProponente proponente = new IProponente(idProponente);
+                IProponente proponente = new IProponente(2L);
                 proponente.opzioniDisponibili();
                 break;
             }
             case "PROG": {
                 String idProgettista = digitaID(sc);
-                IProgettista progettista = new IProgettista("PROG2");
+                IProgettista progettista = new IProgettista(7L);
                 progettista.opzioniDisponibili();
                 break;
             }
             case "ES": {
                 String idEsperto = digitaID(sc);
-                IEsperto iEsperto = new IEsperto("ESP1");
+                IEsperto iEsperto = new IEsperto(3L);
                 iEsperto.opzioniDisponibili();
                 break;
             }

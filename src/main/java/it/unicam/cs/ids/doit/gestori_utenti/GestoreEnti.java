@@ -51,10 +51,8 @@ public class GestoreEnti {
         lavoratoreRepository.save(lavoratore);
     }
 
-    public Set<Lavoratore> getLavoratori(Long idEnte, Specializzazione specializzazione) 
-    {
+    public Set<Lavoratore> getLavoratori(Long idEnte, Specializzazione specializzazione) {
         return lavoratoreRepository.findLavoratoriByIdEnteAndSpecializzazioniIn(idEnte, Collections.singleton(specializzazione));
     }
-    
 
 }

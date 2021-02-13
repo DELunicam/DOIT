@@ -9,7 +9,6 @@ import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 
-
 import java.util.*;
 
 
@@ -18,9 +17,9 @@ public class IProponente {
     Scanner sc;
     GestoreProgetto gestoreProgetto = GestoreProgetto.getInstance();
     GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
-    String idProponente;
+    Long idProponente;
 
-    public IProponente(String idProponente) {
+    public IProponente(Long idProponente) {
         this.sc = new Scanner(System.in);
         this.idProponente = idProponente;
     }
@@ -116,8 +115,12 @@ public class IProponente {
     }
 
     public void requestEsperto(Long idProgetto, Set<Candidatura> listaCandidature) {
+        Set<Long> idsCandidature = new HashSet<Long>();
         gestoreProgetto.modificaStatoProgetto(idProgetto, StatoProgetto.IN_VALUTAZIONE_PROGETTO);
-        gestoreCandidature.modificaStatoCandidature(StatoCandidatura.DA_VALUTARE, listaCandidature);
+        for (Candidatura candidatura : listaCandidature) {
+            idsCandidature.add(candidatura.getId());
+         }
+        gestoreCandidature.modificaStatoCandidature(StatoCandidatura.DA_VALUTARE, idsCandidature);
         System.out.println("Richiesta effettuata, sarai notificato quando almeno un esperto valuterà le progettistiCandidati");
     }
 
@@ -217,7 +220,7 @@ public class IProponente {
             System.out.println("Digita l'id della candidatura per visualizzare le informazioni del progettista desiderato,    [DONE] per terminare");
 
             while (true) {
-                String idCandidaturaScelta = sc.nextLine();
+                Long idCandidaturaScelta = Long.valueOf(sc.nextLine());
                 if (idCandidaturaScelta.equals("DONE")) {
                     System.out.println("Selezione terminata \n");
                     break;
@@ -263,15 +266,15 @@ public class IProponente {
         if (input.equals("Y")) {
             PrinterCandidature.printListaCandidature(idProgetto, StatoCandidatura.PRESELEZIONATA);
             System.out.println("Digita l'id delle candidature da confermare");
-            Set<Candidatura> candidatureSelezionate = new HashSet<>();
+            Set<Long> idsCandidatureSelezionate = new HashSet<>();
             int numSelezionati = 0;
             int numMassimo = gestoreProgetto.getProgetto(idProgetto).getNumeroProgettistiRichiesti();
 
             while (numSelezionati < numMassimo) {
-                String idCandidatura = sc.nextLine();
+                Long idCandidatura = Long.valueOf(sc.nextLine());
                 Candidatura scelto = gestoreCandidature.getCandidatura(idCandidatura);
                 if (scelto != null) {
-                    candidatureSelezionate.add(scelto);
+                    idsCandidatureSelezionate.add(scelto.getId());
                     numSelezionati++;
                     System.out.println("Progettista " + scelto.getIdProgettista() + " confermato\n");
                 } else {
@@ -283,10 +286,15 @@ public class IProponente {
             String yN = sc.nextLine().toUpperCase();
             if (yN.equals("Y")) {
                 // selezione definitiva team di progettisti
-                gestoreCandidature.modificaStatoCandidature(StatoCandidatura.ACCETTATA, candidatureSelezionate);
+                gestoreCandidature.modificaStatoCandidature(StatoCandidatura.ACCETTATA, idsCandidatureSelezionate);
                 gestoreProgetto.modificaStatoProgetto(idProgetto, StatoProgetto.FINALIZZATO);
                 System.out.println("Complimenti hai trovato un team per il progetto!");
                 // stampa le info di tutti i progettisti
+                Set<Candidatura> candidatureSelezionate = new HashSet<Candidatura>();
+                for(Long id : idsCandidatureSelezionate) {
+                    Candidatura candidaturaTrovata = gestoreCandidature.getCandidatura(id);
+                    candidatureSelezionate.add(candidaturaTrovata);
+                }
                 candidatureSelezionate.forEach(PrinterProgettisti::printInfoProgettista);
             } else if (yN.equals("N")) {
                 System.out.println("Team non confermato");

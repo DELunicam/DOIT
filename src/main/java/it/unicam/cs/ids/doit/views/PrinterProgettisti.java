@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.doit.views;
 
-import it.unicam.cs.ids.doit.GestoriUtenti.GestoreProgettisti;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
+import it.unicam.cs.ids.doit.gestori_utenti.GestoreProgettisti;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 
 import java.util.Set;
@@ -20,14 +20,14 @@ public abstract class PrinterProgettisti {
         }
     }
 
-    public static void printInfoProgettista(String idProgettista) {
-        
+    public static void printInfoProgettista(Long idProgettista) {
+
         Progettista progettista = gestoreProgettisti.getProgettista(gestoreProgettisti.getIdProgettistaByUsername(idProgettista));
         printInfoProgettista(progettista);
 
     }
 
-    public static void printInfoProgettista(Progettista progettista){
+    public static void printInfoProgettista(Progettista progettista) {
         System.out.println("ID: " + progettista.getUsername() +
                 "\nEmail: " + progettista.getMailAddress() +
                 "\nNome: " + progettista.getNome() +

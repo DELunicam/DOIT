@@ -17,7 +17,7 @@ public abstract class PrinterProgetti {
         printBasicProgetti(progetti);
     }
 
-    public static void printListaProgetti(String idProponente) {
+    public static void printListaProgetti(Long idProponente) {
         Set<Progetto> progetti = gestoreProgetto.getListaProgetti(idProponente);
         printBasicProgetti(progetti);
     }
@@ -27,7 +27,7 @@ public abstract class PrinterProgetti {
         printBasicProgetti(progetti);
     }
 
-    public static void printListaProgetti(String idProponente, StatoProgetto statoProgetto) {
+    public static void printListaProgetti(Long idProponente, StatoProgetto statoProgetto) {
         Set<Progetto> progetti = gestoreProgetto.getListaProgetti(idProponente, statoProgetto);
         printBasicProgetti(progetti);
     }
@@ -41,7 +41,7 @@ public abstract class PrinterProgetti {
         printBasicProgetti(progetti);
     }
 
-    public static void printListaProgettiSvolti(String idProgettista) {
+    public static void printListaProgettiSvolti(Long idProgettista) {
         Set<Progetto> progetti = gestoreProgetto.getListaProgettiSvolti(idProgettista);
         printBasicProgetti(progetti);
     }

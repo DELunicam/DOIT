@@ -1,20 +1,17 @@
-package it.unicam.cs.ids.doit.GestoriUtenti;
+package it.unicam.cs.ids.doit.gestori_utenti;
 
-import it.unicam.cs.ids.doit.ProgettistaRepository;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utenti.Progettista;
-import it.unicam.cs.ids.doit.utils.FakeDb;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 @Service
 public class GestoreProgettisti {
     public static GestoreProgettisti instance;
-    private final FakeDb db = new FakeDb();
     @Autowired
     ProgettistaRepository progettistaRepository;
 
@@ -29,53 +26,32 @@ public class GestoreProgettisti {
         return instance;
     }
 
-<<<<<<< Updated upstream
-    public Progettista getProgettista(String idProgettista) {
-        for (Progettista progettista : db.progettisti) {
-            if (progettista.getUsername().equals(idProgettista))
-                return progettista;
-        }
-        return null;
+    public Progettista getProgettista(Long idProgettista) {
+        return progettistaRepository.findById(idProgettista).get();
     }
 
-    public Set<Specializzazione> getSpecializzazioni(String idProgettista) {
-        for (Progettista progettista : db.progettisti) {
-            if (progettista.getUsername().equals(idProgettista))
-                return progettista.getSpecializzazioni();
-        }
-        return null;
-=======
-    public Progettista getProgettista(Long idProgettista) 
-    {
-       return progettistaRepository.findById(idProgettista).get();
-    }
-    public Progettista getProgettistaByNome(String nome)
-    {
+    public Progettista getProgettistaByNome(String nome) {
         return progettistaRepository.findProgettistaByNome(nome);
     }
-    public Progettista getProgettistaByUsername(String username)
-    {
+
+    public Progettista getProgettistaByUsername(Long username) {
         return progettistaRepository.findProgettistaByUsername(username);
     }
-    
-    public Long getIdProgettistaByUsername(String username)
-    {
+
+    public Long getIdProgettistaByUsername(Long username) {
         return progettistaRepository.findProgettistaByUsername(username).getId();
     }
-    public Set<Specializzazione> getSpecializzazioni(Long idProgettista)
-     {
-         return  progettistaRepository.findById(idProgettista).get().getSpecializzazioni();
->>>>>>> Stashed changes
+
+    public Set<Specializzazione> getSpecializzazioni(Long idProgettista) {
+        return progettistaRepository.findById(idProgettista).get().getSpecializzazioni();
     }
 
-   
 
     public Set<Progettista> getListaProgettisti() {
         Set<Progettista> progettisti = new HashSet<Progettista>();
-        progettistaRepository.findAll().forEach(progettisti :: add);
+        progettistaRepository.findAll().forEach(progettisti::add);
         return progettisti;
     }
- 
 
     // Probabilmente andra' spostato in GestoreProgetti
 //    public Set<Progetto> getProgettiSvolti(String idProgettista) {
@@ -107,7 +83,7 @@ public class GestoreProgettisti {
 //        return info;
 //    }
 
-<<<<<<< Updated upstream:src/main/java/it/unicam/cs/ids/doit/GestoriUtenti/GestoreProgettisti.java
+    // TODO NON USATO? ELIMINARE?
     public Set<Progettista> getListaProgettisti(Set<Candidatura> candidatura) {
         Set<Progettista> progettisti = new HashSet<Progettista>();
         for (Candidatura cand : candidatura) {
@@ -115,8 +91,6 @@ public class GestoreProgettisti {
         }
         return progettisti;
     }
-=======
->>>>>>> Stashed changes:src/main/java/it/unicam/cs/ids/doit/gestori_utenti/GestoreProgettisti.java
 
 //    public String getInfoProgettisti(Set<Progettista> progettisti) {
 //        String info = "INFO PROGETTISTI:\n";

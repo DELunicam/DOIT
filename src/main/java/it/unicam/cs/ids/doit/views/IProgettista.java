@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.doit.views;
 
-import it.unicam.cs.ids.doit.GestoriUtenti.GestoreProgettisti;
 import it.unicam.cs.ids.doit.candidatura.GestoreCandidature;
+import it.unicam.cs.ids.doit.gestori_utenti.GestoreProgettisti;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 
 import java.util.Scanner;
@@ -11,10 +11,10 @@ public class IProgettista {
     Scanner sc;
     GestoreProgettisti gestoreProgetto = GestoreProgettisti.getInstance();
     GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
-    String idProgettista;
+    Long idProgettista;
 
 
-    public IProgettista(String idProgettista) {
+    public IProgettista(Long idProgettista) {
         this.sc = new Scanner(System.in);
         this.idProgettista = idProgettista;
     }

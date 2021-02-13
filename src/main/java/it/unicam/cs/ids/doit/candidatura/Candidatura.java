@@ -1,75 +1,77 @@
 package it.unicam.cs.ids.doit.candidatura;
 
-import java.util.*;
-
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 import org.springframework.lang.NonNull;
+
+import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity
 public class Candidatura {
+//	@GenericGenerator(name = "sequence_cand_id", strategy = "it.unicam.cs.ids.doit.candidatura.CandidaturaIdGenerator")
+//	@GeneratedValue(generator = "sequence_cand_id")
 	@Id
-	@Column(name="id_candidatura")
-	private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	@NonNull
 	private Long idProgetto;
 	@NonNull
-	private String idProgettista;
+	private Long idProgettista;
+	@Enumerated(EnumType.STRING)
 	private StatoCandidatura stato;
 	@ElementCollection
-    private Map<String, Boolean> pareriEsperti = new HashMap<String, Boolean>(); // idesperto, valutazione pos o neg
+    private Map<Long, Boolean> pareriEsperti = new HashMap<Long, Boolean>(); // idesperto, valutazione pos o neg
 
 	public Candidatura() {
 
 	}
 
-	public Candidatura(Long idProgetto, String idProgettista) {
+	public Candidatura(Long idProgetto, Long idProgettista) {
 		this.idProgetto = idProgetto;
 		this.idProgettista = idProgettista;
-    }
+		this.stato = StatoCandidatura.DA_VALUTARE;
+	}
 
-    public String getId() {
+	public Long getId() {
 		return this.id;
 	}
-	
-	public void setId(String id) {
+
+	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public Long getIdProgetto() {
 		return this.idProgetto;
 	}
-	
+
 	public void setIdProgetto(Long idProgetto) {
 		this.idProgetto = idProgetto;
 	}
-	
-	public String getIdProgettista() {
+
+	public Long getIdProgettista() {
 		return this.idProgettista;
 	}
-	
-	public void setIdProgettista(String idProgettista) {
+
+	public void setIdProgettista(Long idProgettista) {
 		this.idProgettista = idProgettista;
 	}
-	
+
 	public StatoCandidatura getStatoCandidatura() {
 		return this.stato;
 	}
-	
+
 	public void setStatoCandidatura(StatoCandidatura stato) {
 		this.stato = stato;
 	}
 
-	public Map<String, Boolean> getPareriEsperti() {
+	public Map<Long, Boolean> getPareriEsperti() {
 		return this.pareriEsperti;
 	}
-	public void setPareriEsperti(Map<String, Boolean> parereEsperti) {
+	public void setPareriEsperti(Map<Long, Boolean> parereEsperti) {
 		this.pareriEsperti = parereEsperti;
 	}
 	
-    public void addParereEsperto(String idEsperto, Boolean posNeg) {
+    public void addParereEsperto(Long idEsperto, Boolean posNeg) {
         this.pareriEsperti.put(idEsperto, posNeg);
     }
 	

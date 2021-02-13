@@ -1,25 +1,26 @@
 package it.unicam.cs.ids.doit.progetto;
 
-import it.unicam.cs.ids.doit.ProgettoRepository;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
+import it.unicam.cs.ids.doit.candidatura.CandidaturaRepository;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.doit.utenti.Progettista;
-import it.unicam.cs.ids.doit.utils.FakeDb;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.stream.Collectors;
 
 @Service
 public class GestoreProgetto {
     private static GestoreProgetto instance;
-    private final FakeDb db = new FakeDb(); // fake db
     @Autowired
     ProgettoRepository progettoRepository;
+    // TODO candidatureRepository non dovrebbe essere qui
+    @Autowired
+    CandidaturaRepository candidatureRepository;
 
     public GestoreProgetto() {
     }
@@ -32,26 +33,27 @@ public class GestoreProgetto {
         return instance;
     }
 
-    public List<Progetto> findAllProgetti(){
-        return progettoRepository.findAll();
-    }
 
-    public Progetto findProgetto(Long id){
-        return progettoRepository.findById(id).get();
-    }
-
-    public Progetto createProgetto(String idProponente, String nome, String descrizione) {
+    public Progetto createProgetto(Long idProponente, String nome, String descrizione) {
         Progetto progettoNeutro = new Progetto(idProponente, nome, descrizione);
-        db.addProgetto(progettoNeutro);
+        progettoRepository.save(progettoNeutro);
         return progettoNeutro;
     }
 
+    // TODO
     public void requestEsperto(Progetto progettoNeutro) {
         progettoNeutro.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
+        progettoRepository.save(progettoNeutro);
     }
 
     public void insertInfoProgettisti(Progetto progetto, Map<Specializzazione, Integer> in) {
         progetto.setInfoProgettistiRichiesti(in);
+        progettoRepository.save(progetto);
+    }
+
+    public void insertInfoProgettisti(Long idProgetto, Map<Specializzazione, Integer> in) {
+        Progetto progetto = progettoRepository.findById(idProgetto).get();
+        this.insertInfoProgettisti(progetto, in);
     }
 
     /**
@@ -59,98 +61,73 @@ public class GestoreProgetto {
      * @return Progetto con id uguale a idProgetto, null se non esiste
      */
     public Progetto getProgetto(Long idProgetto) {
-        for (Progetto progetto : db.progetti) {
-            if (progetto.getId().equals(idProgetto))
-                return progetto;
-        }
-        return null;
+        return progettoRepository.findById(idProgetto).get();
     }
 
+    // TODO
     public void pubblicaProgetto(Progetto progetto) {
         progetto.setStatoProgetto(StatoProgetto.PUBBLICO);
+        progettoRepository.save(progetto);
     }
 
     public Set<Progetto> getListaProgetti() {
-        return db.progetti;
+        return new HashSet<>(progettoRepository.findAll());
     }
 
-    public Set<Progetto> getListaProgetti(String idProponente) {
-        Set<Progetto> progettiCercati = new HashSet<>();
-        for (Progetto progetto : db.progetti) {
-            if (progetto.getIdProponente().equals(idProponente))
-                progettiCercati.add(progetto);
-        }
-        return progettiCercati;
+    public Set<Progetto> getListaProgetti(Long idProponente) {
+        return progettoRepository.findAllByIdProponente(idProponente);
     }
-   
 
-    public Set<Progetto> getListaProgetti(String idProponente, StatoProgetto stato) {
-        Set<Progetto> progettiCercati = new HashSet<>();
-        for (Progetto progetto : db.progetti) {
-            if (progetto.getIdProponente().equals(idProponente) && progetto.getStatoProgetto().equals(stato))
-                progettiCercati.add(progetto);
-        }
-        return progettiCercati;
+    public Set<Progetto> getListaProgetti(Long idProponente, StatoProgetto stato) {
+        return progettoRepository.findAllByIdProponenteAndStatoProgetto(idProponente, stato);
     }
-<<<<<<< Updated upstream
 
-=======
-   
     // TODO check implementazione migliore
->>>>>>> Stashed changes
     // Restituisce tutti i progetti aventi stato che richiedono una delle specializzazioni passate
-
     public Set<Progetto> getListaProgetti(Set<Specializzazione> specializzazioni, StatoProgetto statoProgetto) {
+        Set<Progetto> progettiConStato = progettoRepository.findAllByStatoProgetto(statoProgetto);
         Set<Progetto> progettiCercati = new HashSet<>();
         for (Specializzazione specializzazione : specializzazioni) {
-            progettiCercati.addAll(getListaProgetti(specializzazione, statoProgetto));
+            progettiCercati.addAll(progettiConStato.stream().
+                    filter(p -> p.getInfoProgettistiRichiesti().containsKey(specializzazione))
+                    .collect(Collectors.toSet()));
         }
+//        for (Progetto p : progettiConStato) {
+//            for (Specializzazione s : specializzazioni) {
+//                if (p.getInfoProgettistiRichiesti().containsKey(s)) {
+//                    progettiCercati.add(p);
+//                }
+//            }
+//        }
         return progettiCercati;
     }
 
     // Restituisce tutti i progetti aventi stato che richiedono la specializzazione passata
+    public List<Progetto> getListaProgetti(Specializzazione specializzazione, StatoProgetto statoProgetto) {
 
-    private Set<Progetto> getListaProgetti(Specializzazione specializzazione, StatoProgetto statoProgetto) {
-        Set<Progetto> progettiCercati = new HashSet<>();
-        for (Progetto progetto : db.progetti) {
-            if (progetto.getStatoProgetto().equals(statoProgetto) &&
-                    progetto.getInfoProgettistiRichiesti().containsKey(specializzazione)) {
-                progettiCercati.add(progetto);
-            }
-        }
-        return progettiCercati;
+        Set<Progetto> progettiConStato = progettoRepository.findAllByStatoProgetto(statoProgetto);
+        return progettiConStato.stream().filter(p -> p.getInfoProgettistiRichiesti().containsKey(specializzazione)).collect(Collectors.toList());
     }
 
     public Set<Progetto> getListaProgetti(StatoProgetto statoProgetto) {
-        Set<Progetto> progettiCercati = new HashSet<>();
-        for (Progetto progetto : db.progetti) {
-            if (progetto.getStatoProgetto().equals(statoProgetto))
-                progettiCercati.add(progetto);
-        }
-        return progettiCercati;
+        return progettoRepository.findAllByStatoProgetto(statoProgetto);
     }
 
+    // TODO check
     public Set<Progetto> getListaProgettiSvolti(Progettista progettista) {
-        Set<Progetto> progettiSvolti = new HashSet<>();
-        for (Candidatura candidatura : db.candidature) {
-            if (candidatura.getIdProgettista().equals(progettista.getUsername()) && candidatura.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)) {
-                progettiSvolti.add(this.getProgetto(candidatura.getIdProgetto()));
-            }
-        }
-        return progettiSvolti;
-    }
-    public Set<Progetto> getProgettiByIdIn(Set<Long> id)
-    {
-        return getProgettiByIdIn(id);
+        return getListaProgettiSvolti(progettista.getId());
     }
 
-    public Set<Progetto> getListaProgettiSvolti(String idProgettista) {
+    // TODO check
+    public Set<Progetto> getListaProgettiSvolti(Long idProgettista) {
         Set<Progetto> progettiSvolti = new HashSet<>();
-        for (Candidatura candidatura : db.candidature) {
-            if (candidatura.getIdProgettista().equals(idProgettista) && candidatura.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)) {
-                progettiSvolti.add(this.getProgetto(candidatura.getIdProgetto()));
-            }
+        Set<Candidatura> candidatureAccettate = candidatureRepository.findAllByIdProgettista(idProgettista);
+        candidatureAccettate = candidatureAccettate.stream().filter(c -> c.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)).collect(Collectors.toSet());
+
+        for (Candidatura candidatura : candidatureAccettate) {
+            progettiSvolti.add(progettoRepository.getOne(candidatura.getIdProgetto()));
         }
+
         return progettiSvolti;
     }
 
@@ -158,17 +135,19 @@ public class GestoreProgetto {
         //TODO notificaEsito
     }
 
-    public String getInfoProgetto(Long idProgetto) {
-        return this.getProgetto(idProgetto).getInfo();
+    // TODO check se serve
+//    public String getInfoProgetto(Long idProgetto) {
+//        return this.getProgetto(idProgetto).getInfo();
+//    }
+
+    public void modificaStatoProgetto(Progetto progetto, StatoProgetto statoProgetto) {
+        progetto.setStatoProgetto(statoProgetto);
+        progettoRepository.save(progetto);
     }
 
-    public void modificaStatoProgetto(Progetto progetto, StatoProgetto statoProgetto){
-        progetto.setStatoProgetto(statoProgetto);
-    }
-
-    public void modificaStatoProgetto(Long idProgetto, StatoProgetto statoProgetto){
-        Progetto progetto = this.getProgetto(idProgetto);
-        progetto.setStatoProgetto(statoProgetto);
+    public void modificaStatoProgetto(Long idProgetto, StatoProgetto statoProgetto) {
+        Progetto progetto = progettoRepository.findById(idProgetto).get();
+        this.modificaStatoProgetto(progetto, statoProgetto);
     }
 
 }

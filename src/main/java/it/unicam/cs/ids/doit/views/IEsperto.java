@@ -19,9 +19,9 @@ public class IEsperto {
     Scanner sc;
     GestoreValutazioni gestoreValutazioni = GestoreValutazioni.getInstance();
     GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
-    String idEsperto;
+    Long idEsperto;
 
-    public IEsperto(String idEsperto) {
+    public IEsperto(Long idEsperto) {
         this.sc = new Scanner(System.in);
         this.idEsperto = idEsperto;
     }
@@ -90,8 +90,8 @@ public class IEsperto {
 
     // CASO D'USO
     public void valutaProgettisti() {
-        Set<Candidatura> consigliate = new HashSet<Candidatura>();
-        Set<Candidatura> sconsigliate = new HashSet<Candidatura>();
+        Set<Long> idsConsigliate = new HashSet<Long>();
+        Set<Long> idsSconsigliate = new HashSet<Long>();
         // TODO controllare tutti gli input
         // TODO check specializzioni dell'esperto
         System.out.println("Vuoi valutare i progettisti candidati ad un progetto? \n" +
@@ -113,16 +113,16 @@ public class IEsperto {
                     if (idInput.equals("DONE")) {
                         break;
                     }
-                    PrinterProgettisti.printInfoProgettista(idInput);
+                    PrinterProgettisti.printInfoProgettista(Long.valueOf(idInput));
                     System.out.println("Si vuole consigliare questo progettista per lavorare al progetto? \n" +
                             "[Y] YES,    [N] NO");
                     String conferma = sc.nextLine().toUpperCase();
                     if (conferma.equals("Y")) {
-                        Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), idInput);
-                        gestoreCandidature.addCandidatura(candidatura, consigliate);
+                        Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), Long.valueOf(idInput));
+                        gestoreCandidature.addCandidatura(candidatura.getId(), idsConsigliate);
                     } else if (conferma.equals("N")) {
-                        Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), idInput);
-                        gestoreCandidature.addCandidatura(candidatura, sconsigliate);
+                        Candidatura candidatura = gestoreCandidature.getCandidatura(Long.valueOf(idProgetto), Long.valueOf(idInput));
+                        gestoreCandidature.addCandidatura(candidatura.getId(), idsSconsigliate);
                     } else {
                         System.out.println("Impossibile eseguire l'operazione");
                     }
@@ -133,7 +133,7 @@ public class IEsperto {
                         "[Y] YES,    [N] NO");
                 String scelta = sc.nextLine().toUpperCase();
                 if (scelta.equals("Y")) {
-                    gestoreCandidature.confermaSelezione(idEsperto, consigliate, sconsigliate);
+                    gestoreCandidature.confermaSelezione(idEsperto, idsConsigliate, idsSconsigliate);
                     System.out.println("Valutazioni inviate");
                 } else if (scelta.equals("N")) {
                     System.out.println("Valutazioni non inviate");

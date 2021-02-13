@@ -61,11 +61,6 @@ public class CandidaturaController {
         gestoreCandidature.confermaSelezione(idEsperto, idsConsigliate, idsSconsigliate);
 
     }
-    @GetMapping(value = "/candidature/{idProgettista}/candidature/{stato}")
-    Set<Long> getId(@PathVariable Long idProgettista, @PathVariable StatoCandidatura stato) 
-    {
-        return gestoreCandidature.getIdProgetti(idProgettista, stato);
-    }
 
 }
 

@@ -84,10 +84,4 @@ class ProgettoController {
         gestoreProgetto.getListaProgettiSvolti(idProgettista);
     }
 
-    @GetMapping(value = "idProgetti/{id}}")
-    Set<Progetto> getProgettiCandidati(@PathVariable Set<Long> id) {
-        return gestoreProgetto.getProgettiByIdIn(id);
-    }
-
-
 }
