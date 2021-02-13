@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.doit.views;
 
-
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.candidatura.GestoreCandidature;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
@@ -10,7 +9,6 @@ import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 
 import java.util.*;
-
 
 
 public class IProponente {

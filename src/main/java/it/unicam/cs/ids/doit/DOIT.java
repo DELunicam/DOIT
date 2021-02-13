@@ -5,12 +5,16 @@ import it.unicam.cs.ids.doit.views.IProgettista;
 import it.unicam.cs.ids.doit.views.IProponente;
 import it.unicam.cs.ids.doit.views.IVisitatore;
 import it.unicam.cs.ids.doit.views.IEnte;
+
 import java.util.Scanner;
+import org.springframework.stereotype.Controller;
 
-
+@Controller
 public class DOIT {
 
-    public static void main(String[] args) {
+    //public static void main(String[] args) {
+    //@RequestMapping("/")
+    public static void runApp() {
        
         Scanner sc = new Scanner(System.in);
         System.out.println("BENVENUTO IN DOIT, [PROP] PER L'INTERFACCIA PROPONENTE, [PROG] PER L'INTERFACCIA PROGETTISTA, [ES] PER L'INTERFACCIA ESPERTO, [VIS] PER L'INTERFACCIA VISITATORE \n");

@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.doit.utils;
 
+import it.unicam.cs.ids.doit.DOIT;
 import it.unicam.cs.ids.doit.associazione.Associazione;
 import it.unicam.cs.ids.doit.associazione.AssociazioneRepository;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
@@ -92,20 +93,20 @@ public class LoadDatabase {
 
         };
     }
-    @Bean
-    CommandLineRunner loadCandidature(EnteRepository repository)
-    {
-        Ente bar = new Ente();
-        bar.setNome("ente1");
-        bar.setDescrizione("Ente generico");
-        
-        return args -> {
-           
-            log.info("Preloading " + repository.save(bar));
-            
-        };
-
-    }
+    //@Bean
+    //CommandLineRunner loadCandidature(EnteRepository repository)
+    //{
+    //    Ente bar = new Ente();
+    //    bar.setNome("ente1");
+    //    bar.setDescrizione("Ente generico");
+    //    
+    //    return args -> {
+    //       
+    //        log.info("Preloading " + repository.save(bar));
+    //        
+    //    };
+//
+    //}
 
     @Bean
     CommandLineRunner loadCandidature(CandidaturaRepository repository) {

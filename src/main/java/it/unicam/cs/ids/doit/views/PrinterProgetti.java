@@ -58,7 +58,7 @@ public abstract class PrinterProgetti {
         printBasicProgetti(progetti);
     }
 
-    private static void printBasicProgetti(Set<Progetto> progetti) {
+    public static void printBasicProgetti(Set<Progetto> progetti) {
         if (progetti.size() == 0) {
             System.out.println("Non sono stati trovati progetti");
         } else {

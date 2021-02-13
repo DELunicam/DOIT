@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.doit.progetto;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -7,19 +8,23 @@ import java.util.Map;
 import java.util.Set;
 
 @RestController
-class ProgettoController {
+public class ProgettoController {
 
-    private final GestoreProgetto gestoreProgetto;
-
-    ProgettoController(GestoreProgetto gestoreProgetto) {
-        this.gestoreProgetto = gestoreProgetto;
+    @Autowired
+    ProgettoRepository progettoRepository;
+    @Autowired
+    GestoreProgetto gestoreProgetto;
+    public ProgettoController() {
     }
+    //public ProgettoController(GestoreProgetto gestoreProgetto) {
+    //    this.gestoreProgetto = gestoreProgetto;
+    //}
 
 
     // GET /progetti
 
     @GetMapping(value = "/progetti")
-    Set<Progetto> all() {
+    public Set<Progetto> all() {
         return gestoreProgetto.getListaProgetti();
     }
 
@@ -67,7 +72,7 @@ class ProgettoController {
     // GET /progetti/{idProgetto}
 
     @GetMapping(value = "/progetti/{idProgetto}")
-    Progetto one(@PathVariable Long idProgetto) {
+    public Progetto one(@PathVariable Long idProgetto) {
         return gestoreProgetto.getProgetto(idProgetto);
     }
 
@@ -80,8 +85,8 @@ class ProgettoController {
     }
 
     @GetMapping(value = "/progettisti/{idProgettista}/progetti_svolti")
-    void getListaProgettiSvolti(@PathVariable Long idProgettista) {
-        gestoreProgetto.getListaProgettiSvolti(idProgettista);
+    public Set<Progetto> getListaProgettiSvolti(@PathVariable Long idProgettista) {
+        return gestoreProgetto.getListaProgettiSvolti(idProgettista);
     }
     @GetMapping(value = "/progetti/{id}")
     Set<Progetto> getProgettiCandidati(@PathVariable Set<Long> id)

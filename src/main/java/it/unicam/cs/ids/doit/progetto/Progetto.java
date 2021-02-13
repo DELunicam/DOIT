@@ -16,7 +16,7 @@ public class Progetto {
     private StatoProgetto statoProgetto;
     @NonNull
     private Long idProponente;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<Specializzazione, Integer> infoProgettistiRichiesti = new HashMap<>();
 
     public Progetto() {

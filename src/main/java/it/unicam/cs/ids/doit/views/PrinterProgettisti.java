@@ -20,6 +20,18 @@ public abstract class PrinterProgettisti {
         }
     }
 
+    public static void printBasicProgettisti(Set<Progettista> progettisti) {
+        if (progettisti.size() == 0) {
+            System.out.println("Non sono stati trovati progetti");
+        } else {
+            System.out.println("ID, NOME, COGNOME, SPECIALIZZAZIONI");
+            for (Progettista progettista : progettisti) {
+                System.out.println(progettista.getId() + ", " + progettista.getNome() + ", " + progettista.getCognome()
+                + ", " + progettista.getSpecializzazioni());
+            }
+        }
+    }
+
     public static void printInfoProgettista(Long idProgettista) {
 
         Progettista progettista = gestoreProgettisti.getProgettista(gestoreProgettisti.getIdProgettistaByUsername(idProgettista));
@@ -32,9 +44,9 @@ public abstract class PrinterProgettisti {
                 "\nEmail: " + progettista.getMailAddress() +
                 "\nNome: " + progettista.getNome() +
                 "\nCognome: " + progettista.getCognome() +
-                "\nSpecializzazioni: " + progettista.getInfoSpec() +
-                "\nProgetti Svolti: \n");
-        PrinterProgetti.printListaProgettiSvolti(progettista);
+                "\nSpecializzazioni: " + progettista.getSpecializzazioni());// +
+                //"\nProgetti Svolti: \n");
+        //PrinterProgetti.printListaProgettiSvolti(progettista);
     }
 
     public static void printInfoProgettisti(Set<Progettista> progettisti){
