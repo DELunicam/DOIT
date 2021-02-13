@@ -75,6 +75,7 @@ public class GestoreProgettisti {
         progettistaRepository.findAll().forEach(progettisti :: add);
         return progettisti;
     }
+ 
 
     // Probabilmente andra' spostato in GestoreProgetti
 //    public Set<Progetto> getProgettiSvolti(String idProgettista) {
@@ -106,6 +107,7 @@ public class GestoreProgettisti {
 //        return info;
 //    }
 
+<<<<<<< Updated upstream:src/main/java/it/unicam/cs/ids/doit/GestoriUtenti/GestoreProgettisti.java
     public Set<Progettista> getListaProgettisti(Set<Candidatura> candidatura) {
         Set<Progettista> progettisti = new HashSet<Progettista>();
         for (Candidatura cand : candidatura) {
@@ -113,6 +115,8 @@ public class GestoreProgettisti {
         }
         return progettisti;
     }
+=======
+>>>>>>> Stashed changes:src/main/java/it/unicam/cs/ids/doit/gestori_utenti/GestoreProgettisti.java
 
 //    public String getInfoProgettisti(Set<Progettista> progettisti) {
 //        String info = "INFO PROGETTISTI:\n";

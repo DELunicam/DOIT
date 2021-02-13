@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.doit.views;
 
+import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.doit.progetto.GestoreProgetto;
 import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
@@ -44,9 +45,16 @@ public abstract class PrinterProgetti {
         Set<Progetto> progetti = gestoreProgetto.getListaProgettiSvolti(idProgettista);
         printBasicProgetti(progetti);
     }
+    
 
     public static void printListaProgettiSvolti(Progettista progettista) {
         Set<Progetto> progetti = gestoreProgetto.getListaProgettiSvolti(progettista);
+        printBasicProgetti(progetti);
+    }
+
+    public static void printProgettiCandidati(Set<Long> id)
+    {
+        Set<Progetto> progetti = gestoreProgetto.getProgettiByIdIn(id);
         printBasicProgetti(progetti);
     }
 
@@ -65,6 +73,7 @@ public abstract class PrinterProgetti {
         Progetto progetto = gestoreProgetto.getProgetto(idProgetto);
         printInfoProgetto(progetto);
     }
+    
 
     public static void printInfoProgetto(Progetto progetto) {
         System.out.println("----------------------------");

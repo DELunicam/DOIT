@@ -17,6 +17,8 @@ public class Progettista extends Utente {
     private String cognome;
     @ElementCollection
     private Set<Specializzazione> specializzazioni = new HashSet<>();
+    @NonNull
+    private Long id;
 
     public Progettista() {
     }

@@ -2,7 +2,12 @@ package it.unicam.cs.ids.doit.candidatura;
 
 import java.util.*;
 
+<<<<<<< Updated upstream
 import org.springframework.stereotype.Service;
+=======
+import java.util.HashSet;
+import java.util.Set;
+>>>>>>> Stashed changes
 
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import it.unicam.cs.ids.doit.utils.FakeDb;
@@ -34,6 +39,10 @@ public class GestoreCandidature {
         return candidature;
     }
     
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     // ritorna lista delle candidature ad un progetto che sono in un determinato stato
     public Set<Candidatura> getCandidature(Long idProgetto, StatoCandidatura statoCandidatura) {
         Set<Candidatura> candidature = new HashSet<Candidatura>();
@@ -115,6 +124,9 @@ public class GestoreCandidature {
             }
         }
     }
-
+    public Set<Long> getIdProgetti(Long idProgettista, StatoCandidatura stato) 
+    {
+        return repository.findIdProgettiByIdProgettistaAndStatoCandidatura(idProgettista, stato);
+    }
 
 }

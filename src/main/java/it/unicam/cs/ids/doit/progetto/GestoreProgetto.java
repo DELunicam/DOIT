@@ -82,6 +82,7 @@ public class GestoreProgetto {
         }
         return progettiCercati;
     }
+   
 
     public Set<Progetto> getListaProgetti(String idProponente, StatoProgetto stato) {
         Set<Progetto> progettiCercati = new HashSet<>();
@@ -91,7 +92,12 @@ public class GestoreProgetto {
         }
         return progettiCercati;
     }
+<<<<<<< Updated upstream
 
+=======
+   
+    // TODO check implementazione migliore
+>>>>>>> Stashed changes
     // Restituisce tutti i progetti aventi stato che richiedono una delle specializzazioni passate
 
     public Set<Progetto> getListaProgetti(Set<Specializzazione> specializzazioni, StatoProgetto statoProgetto) {
@@ -132,6 +138,10 @@ public class GestoreProgetto {
             }
         }
         return progettiSvolti;
+    }
+    public Set<Progetto> getProgettiByIdIn(Set<Long> id)
+    {
+        return getProgettiByIdIn(id);
     }
 
     public Set<Progetto> getListaProgettiSvolti(String idProgettista) {
