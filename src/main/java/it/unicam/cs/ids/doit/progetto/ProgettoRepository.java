@@ -14,5 +14,7 @@ public interface ProgettoRepository extends JpaRepository<Progetto, Long> {
     Set<Progetto> findAllByIdProponenteAndStatoProgetto(Long idProponente, StatoProgetto statoProgetto);
 
     Set<Progetto> findAllByStatoProgetto(StatoProgetto statoProgetto);
+    
+    Set<Progetto> findProgettiByIdIn(Set<Long> id);
 
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.HashSet;
 
 @Service
 public class GestoreCandidature {
@@ -24,7 +25,15 @@ public class GestoreCandidature {
         }
         return instance;
     }
-
+    public Set<Long> getIdProgetti(Long idProgettista, StatoCandidatura stato) 
+    {   Set<Long> id = new HashSet<Long>();
+        Set<Candidatura> candidature = repository.findIdProgettiByIdProgettistaAndStatoCandidatura(idProgettista, stato);
+        for (Candidatura p : candidature)
+        {
+            id.add(p.getIdProgetto());
+        }
+        return id;
+    }
 
     // ritorna lista di tutte le candidature ad un progetto
     public Set<Candidatura> getCandidature(Long idProgetto) {

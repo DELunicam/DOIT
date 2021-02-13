@@ -54,7 +54,7 @@ public abstract class PrinterProgetti {
 
     public static void printProgettiCandidati(Set<Long> id)
     {
-        Set<Progetto> progetti = gestoreProgetto.getProgettiByIdIn(id);
+        Set<Progetto> progetti = gestoreProgetto.getProgettiCandidati(id);
         printBasicProgetti(progetti);
     }
 

@@ -83,5 +83,11 @@ class ProgettoController {
     void getListaProgettiSvolti(@PathVariable Long idProgettista) {
         gestoreProgetto.getListaProgettiSvolti(idProgettista);
     }
+    @GetMapping(value = "/progetti/{id}")
+    Set<Progetto> getProgettiCandidati(@PathVariable Set<Long> id)
+    {
+        return gestoreProgetto.getProgettiCandidati(id);
+
+    }
 
 }

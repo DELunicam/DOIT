@@ -117,7 +117,10 @@ public class GestoreProgetto {
     public Set<Progetto> getListaProgettiSvolti(Progettista progettista) {
         return getListaProgettiSvolti(progettista.getId());
     }
-
+    public Set<Progetto> getProgettiCandidati(Set<Long> id)
+    {
+        return progettoRepository.findProgettiByIdIn(id);
+    }
     // TODO check
     public Set<Progetto> getListaProgettiSvolti(Long idProgettista) {
         Set<Progetto> progettiSvolti = new HashSet<>();

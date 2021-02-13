@@ -16,6 +16,7 @@ public interface CandidaturaRepository extends JpaRepository<Candidatura, Long> 
 
     Candidatura findCandidaturaByIdProgettoAndIdProgettista(Long idProgetto, Long idProgettista);
 
+    Set<Candidatura> findIdProgettiByIdProgettistaAndStatoCandidatura(Long idProgettista ,StatoCandidatura statoCandidatura);
 
     //Set<Progettista> findProgettistiByIdsCandidatureInCandidature(Set<Long> idsCandidature);
     

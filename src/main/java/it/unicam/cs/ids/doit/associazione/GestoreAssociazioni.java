@@ -52,7 +52,7 @@ public class GestoreAssociazioni {
         return idsProgettisti;
     }
 
-    Associazione creaAssociazione(Long idEnte, Long idProgettista, Long idProgetto) {
+    public Associazione creaAssociazione(Long idEnte, Long idProgettista, Long idProgetto) {
         Associazione nuovaAssociazione = new Associazione(idEnte, idProgettista, idProgetto);
         repository.save(nuovaAssociazione);
         return nuovaAssociazione;
