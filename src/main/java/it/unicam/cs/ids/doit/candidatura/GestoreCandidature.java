@@ -27,7 +27,7 @@ public class GestoreCandidature {
     }
     public Set<Long> getIdProgetti(Long idProgettista, StatoCandidatura stato) 
     {   Set<Long> id = new HashSet<Long>();
-        Set<Candidatura> candidature = repository.findIdProgettiByIdProgettistaAndStatoCandidatura(idProgettista, stato);
+        Set<Candidatura> candidature = repository.findIdProgettiByIdProgettistaAndStato(idProgettista, stato);
         for (Candidatura p : candidature)
         {
             id.add(p.getIdProgetto());

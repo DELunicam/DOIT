@@ -43,7 +43,7 @@ public class LoadDatabase {
     @Bean
     CommandLineRunner loadProgetti(ProgettoRepository repository) {
 
-        Progetto prog3 = new Progetto(mario.getId(), "nome3", "desc3");
+        Progetto prog3 = new Progetto(1L,"nome3", "desc3");
         HashMap<Specializzazione, Integer> map = new HashMap<Specializzazione, Integer>();
         map.put(Specializzazione.CHIMICA, 2);
         map.put(Specializzazione.INFORMATICA, 5);
@@ -52,8 +52,8 @@ public class LoadDatabase {
         prog3.setInfoProgettistiRichiesti(map);
 
         return args -> {
-            log.info("Preloading " + repository.save(new Progetto(mario.getId(), "nome1", "desc1")));
-            log.info("Preloading " + repository.save(new Progetto(dario.getId(), "nome2", "desc2")));
+            log.info("Preloading " + repository.save(new Progetto(2L, "nome1", "desc1")));
+            log.info("Preloading " + repository.save(new Progetto(3L, "nome2", "desc2")));
             log.info("Preloading" + repository.save(prog3));
         };
     }
@@ -92,7 +92,20 @@ public class LoadDatabase {
 
         };
     }
+    @Bean
+    CommandLineRunner loadCandidature(EnteRepository repository)
+    {
+        Ente bar = new Ente();
+        bar.setNome("ente1");
+        bar.setDescrizione("Ente generico");
+        
+        return args -> {
+           
+            log.info("Preloading " + repository.save(bar));
+            
+        };
 
+    }
 
     @Bean
     CommandLineRunner loadCandidature(CandidaturaRepository repository) {

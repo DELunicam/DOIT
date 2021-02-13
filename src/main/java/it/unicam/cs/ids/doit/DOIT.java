@@ -4,13 +4,14 @@ import it.unicam.cs.ids.doit.views.IEsperto;
 import it.unicam.cs.ids.doit.views.IProgettista;
 import it.unicam.cs.ids.doit.views.IProponente;
 import it.unicam.cs.ids.doit.views.IVisitatore;
-
+import it.unicam.cs.ids.doit.views.IEnte;
 import java.util.Scanner;
+
 
 public class DOIT {
 
     public static void main(String[] args) {
-
+       
         Scanner sc = new Scanner(System.in);
         System.out.println("BENVENUTO IN DOIT, [PROP] PER L'INTERFACCIA PROPONENTE, [PROG] PER L'INTERFACCIA PROGETTISTA, [ES] PER L'INTERFACCIA ESPERTO, [VIS] PER L'INTERFACCIA VISITATORE \n");
         String input = sc.nextLine().toUpperCase();
@@ -37,6 +38,12 @@ public class DOIT {
                 IVisitatore iVisitatore = new IVisitatore();
                 iVisitatore.opzioniDisponibili();
                 break;
+            }
+            case "ENTE":
+            {
+                String idEnte = digitaID(sc);
+                IEnte iEnte = new IEnte(1L);
+                iEnte.opzioniDisponibili();
             }
         }
 

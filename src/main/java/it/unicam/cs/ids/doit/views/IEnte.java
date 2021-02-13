@@ -32,7 +32,7 @@ public class IEnte
         while(true)
         {
             System.out.println("Cosa vuoi fare \n"
-                +"[INSERISCI CANDIDATURA \n]"
+                +"[INSERISCI CANDIDATURA} \n"
                 +"[INVIA PROPOSTA DI ASSOCIAZIONE]\n");
                 String input = sc.nextLine().toUpperCase();
                 switch (input) 
