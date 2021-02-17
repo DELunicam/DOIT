@@ -1,23 +1,9 @@
 package it.unicam.cs.ids.doit.views;
 
 import java.util.Scanner;
-import java.util.Set;
-
-import it.unicam.cs.ids.doit.progetto.ProgettoController;
-import it.unicam.cs.ids.doit.utenti.Progettista;
-import it.unicam.cs.ids.doit.utils.SpringContext;
-import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
-import it.unicam.cs.ids.doit.progetto.Progetto;
 
 public class IVisitatore {
     Scanner sc;
-
-    private ProgettoController getProgettoController() {
-        return SpringContext.getBean(ProgettoController.class);
-    }
-    private ProgettistaController getProgettistaController() {
-        return SpringContext.getBean(ProgettistaController.class);
-    }
 
     public IVisitatore() {
         this.sc = new Scanner(System.in);
@@ -43,8 +29,7 @@ public class IVisitatore {
     }
 
     public void visualizzaListaProgetti() {
-        Set<Progetto> progetti = getProgettoController().all();
-        PrinterProgetti.printBasicProgetti(progetti);
+        PrinterProgetti.printListaProgetti();
         System.out.println("Digita l'id di un progetto per visualizzarne i dettagli, \n" +
                 "EXIT per uscire");
         while (true) {
@@ -52,14 +37,12 @@ public class IVisitatore {
             if (idProgetto.equalsIgnoreCase("EXIT")) {
                 break;
             }
-            Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
-            PrinterProgetti.printInfoProgetto(progetto);
+            PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
         }
     }
 
     public void visualizzaProgettisti() {
-        Set<Progettista> progettisti = getProgettistaController().all();
-        PrinterProgettisti.printBasicProgettisti(progettisti);
+        PrinterProgettisti.printListaProgettisti();
         System.out.println("Digita l'id di un progettista per visualizzarne i dettagli, \n" +
                 "EXIT per uscire");
         while (true) {
@@ -67,11 +50,9 @@ public class IVisitatore {
             if (idProgettista.equalsIgnoreCase("EXIT")) {
                 break;
             }
-            Progettista progettista = getProgettistaController().one(Long.valueOf(idProgettista));
-            PrinterProgettisti.printInfoProgettista(progettista);
+            PrinterProgettisti.printInfoProgettista(Long.valueOf(idProgettista));
             //TODO progetti svolti?
-            //Set<Progetto> progettiSvolti = getProgettoController().getListaProgettiSvolti(Long.valueOf(idProgettista));
-            //PrinterProgetti.printBasicProgetti(progettiSvolti);
+            //PrinterProgetti.printListaProgettiSvolti(Long.valueOf(idProgettista));
         }
     }
 }
