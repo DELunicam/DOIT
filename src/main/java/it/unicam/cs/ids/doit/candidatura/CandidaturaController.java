@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.doit.candidatura;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -8,10 +9,10 @@ import java.util.Set;
 @RestController
 public class CandidaturaController {
 
-    private final GestoreCandidature gestoreCandidature;
+    @Autowired
+    GestoreCandidature gestoreCandidature;
 
-    CandidaturaController(GestoreCandidature gestoreCandidature) {
-        this.gestoreCandidature = gestoreCandidature;
+    public CandidaturaController() {
     }
 
     @GetMapping(value="/candidature", params = {"idProgetto"})
@@ -20,7 +21,7 @@ public class CandidaturaController {
     }
 
     @GetMapping(value = "/candidature", params = {"idProgetto", "statoCandidatura"})
-    Set<Candidatura> getCandidatureByIdProgettoAndStato(@RequestParam Long idProgetto, @RequestParam StatoCandidatura statoCandidatura) {
+    public Set<Candidatura> getCandidatureByIdProgettoAndStato(@RequestParam Long idProgetto, @RequestParam StatoCandidatura statoCandidatura) {
         return gestoreCandidature.getCandidature(idProgetto, statoCandidatura);
     }
 
@@ -30,7 +31,7 @@ public class CandidaturaController {
     }
 
     @GetMapping(value = "/candidature", params = {"idProgetto", "idProgettista"})
-    Candidatura getCandidaturaByIdProgettoAndIdProgettista(@RequestParam Long idProgetto, @RequestParam Long idProgettista) {
+    public Candidatura getCandidaturaByIdProgettoAndIdProgettista(@RequestParam Long idProgetto, @RequestParam Long idProgettista) {
         return gestoreCandidature.getCandidatura(idProgetto, idProgettista);
     }
 
@@ -56,8 +57,13 @@ public class CandidaturaController {
         return gestoreCandidature.creaCandidatura(idProgettista, idProgetto);
     }
 
+    @PostMapping(value = "/candidature", params = {"id"})
+    public void aggiungiCandidatura(@RequestParam Long id, @RequestBody Set<Long> idsCandidature) {
+        gestoreCandidature.addCandidatura(id, idsCandidature);
+    }
+
     @PostMapping(value="/candidature", params = {"idEsperto", "idsConsigliate", "idsSconsigliate"})
-    void aggiungiPareriEsperto(@RequestParam Long idEsperto, @RequestParam Set<Long> idsConsigliate, @RequestParam Set<Long> idsSconsigliate) {
+    public void aggiungiPareriEsperto(@RequestParam Long idEsperto, @RequestParam Set<Long> idsConsigliate, @RequestParam Set<Long> idsSconsigliate) {
         gestoreCandidature.confermaSelezione(idEsperto, idsConsigliate, idsSconsigliate);
 
     }

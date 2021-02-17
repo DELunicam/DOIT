@@ -1,16 +1,19 @@
 package it.unicam.cs.ids.doit.views;
 
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
-import it.unicam.cs.ids.doit.candidatura.GestoreCandidature;
+import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
+import it.unicam.cs.ids.doit.utils.SpringContext;
 
 import java.util.Set;
 
 public abstract class PrinterCandidature {
-    private static final GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
+    private static CandidaturaController getCandidaturaController() {
+        return SpringContext.getBean(CandidaturaController.class);
+    }
 
     public static void printListaCandidature(Long idProgetto, StatoCandidatura statoCandidatura){
-        Set<Candidatura> candidature = gestoreCandidature.getCandidature(idProgetto, statoCandidatura);
+        Set<Candidatura> candidature = getCandidaturaController().getCandidatureByIdProgettoAndStato(idProgetto, statoCandidatura);
         printBasicCandidature(candidature);
     }
 

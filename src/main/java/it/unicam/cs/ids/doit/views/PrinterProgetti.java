@@ -1,39 +1,41 @@
 package it.unicam.cs.ids.doit.views;
 
-import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
-import it.unicam.cs.ids.doit.progetto.GestoreProgetto;
 import it.unicam.cs.ids.doit.progetto.Progetto;
+import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utenti.Progettista;
+import it.unicam.cs.ids.doit.utils.SpringContext;
 
 import java.util.Set;
 
 public abstract class PrinterProgetti {
-    private static final GestoreProgetto gestoreProgetto = GestoreProgetto.getInstance();
+    private static ProgettoController getProgettoController() {
+        return SpringContext.getBean(ProgettoController.class);
+    }
 
     public static void printListaProgetti() {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti();
+        Set<Progetto> progetti = getProgettoController().all();
         printBasicProgetti(progetti);
     }
 
     public static void printListaProgetti(Long idProponente) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti(idProponente);
+        Set<Progetto> progetti = getProgettoController().allByIdProponente(idProponente);
         printBasicProgetti(progetti);
     }
 
     public static void printListaProgetti(StatoProgetto statoProgetto) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti(statoProgetto);
+        Set<Progetto> progetti = getProgettoController().allByStato(statoProgetto);
         printBasicProgetti(progetti);
     }
 
     public static void printListaProgetti(Long idProponente, StatoProgetto statoProgetto) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti(idProponente, statoProgetto);
+        Set<Progetto> progetti = getProgettoController().allByIdProponenteAndStato(idProponente, statoProgetto);
         printBasicProgetti(progetti);
     }
 
     public static void printListaProgetti(Set<Specializzazione> specializzazioni, StatoProgetto statoProgetto) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti(specializzazioni, statoProgetto);
+        Set<Progetto> progetti = getProgettoController().allByStatoProgettoAndSpecializzazione(specializzazioni, statoProgetto);
         printBasicProgetti(progetti);
     }
 
@@ -42,19 +44,18 @@ public abstract class PrinterProgetti {
     }
 
     public static void printListaProgettiSvolti(Long idProgettista) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgettiSvolti(idProgettista);
+        Set<Progetto> progetti = getProgettoController().getListaProgettiSvolti(idProgettista);
         printBasicProgetti(progetti);
     }
     
 
     public static void printListaProgettiSvolti(Progettista progettista) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgettiSvolti(progettista);
+        Set<Progetto> progetti = getProgettoController().getListaProgettiSvolti(progettista);
         printBasicProgetti(progetti);
     }
 
-    public static void printProgettiCandidati(Set<Long> id)
-    {
-        Set<Progetto> progetti = gestoreProgetto.getProgettiCandidati(id);
+    public static void printProgettiCandidati(Set<Long> ids) {
+        Set<Progetto> progetti = getProgettoController().getProgettiCandidati(ids);
         printBasicProgetti(progetti);
     }
 
@@ -70,7 +71,7 @@ public abstract class PrinterProgetti {
     }
 
     public static void printInfoProgetto(Long idProgetto) {
-        Progetto progetto = gestoreProgetto.getProgetto(idProgetto);
+        Progetto progetto = getProgettoController().one(idProgetto);
         printInfoProgetto(progetto);
     }
     
@@ -88,8 +89,4 @@ public abstract class PrinterProgetti {
         System.out.println("----------------------------");
     }
 
-    public static void printInfoProgetto(Set<Specializzazione> specializzazioni, StatoProgetto statoProgetto) {
-        Set<Progetto> progetti = gestoreProgetto.getListaProgetti(specializzazioni, statoProgetto);
-        progetti.forEach(PrinterProgetti::printInfoProgetto);
-    }
 }

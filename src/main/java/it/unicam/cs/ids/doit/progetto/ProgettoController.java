@@ -3,6 +3,8 @@ package it.unicam.cs.ids.doit.progetto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import it.unicam.cs.ids.doit.utenti.Progettista;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,27 +31,27 @@ public class ProgettoController {
     }
 
     @GetMapping(value = "/progetti", params = {"statoProgetto"})
-    Set<Progetto> allByStato(@RequestParam StatoProgetto statoProgetto) {
+    public Set<Progetto> allByStato(@RequestParam StatoProgetto statoProgetto) {
         return gestoreProgetto.getListaProgetti(statoProgetto);
     }
 
     @GetMapping(value = "/progetti", params = {"idProponente"})
-    Set<Progetto> allByIdProponente(@RequestParam Long idProponente) {
+    public Set<Progetto> allByIdProponente(@RequestParam Long idProponente) {
         return gestoreProgetto.getListaProgetti(idProponente);
     }
 
     @GetMapping(value = "/progetti", params = {"idProponente", "statoProgetto"})
-    Set<Progetto> allByIdProponenteAndStato(@RequestParam Long idProponente, @RequestParam StatoProgetto statoProgetto) {
+    public Set<Progetto> allByIdProponenteAndStato(@RequestParam Long idProponente, @RequestParam StatoProgetto statoProgetto) {
         return gestoreProgetto.getListaProgetti(idProponente, statoProgetto);
     }
 
-    @GetMapping(value = "/progetti", params = {"specializzazione", "statoProgetto"})
-    List<Progetto> allByStatoProgettoAndSpecializzazione(@RequestParam Specializzazione specializzazione, @RequestParam StatoProgetto statoProgetto) {
-        return gestoreProgetto.getListaProgetti(specializzazione, statoProgetto);
-    }
+    //@GetMapping(value = "/progetti", params = {"specializzazione", "statoProgetto"})
+    //List<Progetto> allByStatoProgettoAndSpecializzazione(@RequestParam Specializzazione specializzazione, @RequestParam StatoProgetto statoProgetto) {
+    //    return gestoreProgetto.getListaProgetti(specializzazione, statoProgetto);
+    //}
 
     @GetMapping(value = "/progetti", params = {"specializzazioni", "statoProgetto"})
-    Set<Progetto> allByStatoProgettoAndSpecializzazione(@RequestParam Set<Specializzazione> specializzazioni, @RequestParam StatoProgetto statoProgetto) {
+    public Set<Progetto> allByStatoProgettoAndSpecializzazione(@RequestParam Set<Specializzazione> specializzazioni, @RequestParam StatoProgetto statoProgetto) {
         return gestoreProgetto.getListaProgetti(specializzazioni, statoProgetto);
     }
 
@@ -84,15 +86,19 @@ public class ProgettoController {
         gestoreProgetto.insertInfoProgettisti(idProgetto, specializzazioni);
     }
 
-    @GetMapping(value = "/progettisti/{idProgettista}/progetti_svolti")
+    @GetMapping(value = "/progetti/svolti/{idProgettista}")
     public Set<Progetto> getListaProgettiSvolti(@PathVariable Long idProgettista) {
         return gestoreProgetto.getListaProgettiSvolti(idProgettista);
     }
-    @GetMapping(value = "/progetti/{id}")
-    Set<Progetto> getProgettiCandidati(@PathVariable Set<Long> id)
-    {
-        return gestoreProgetto.getProgettiCandidati(id);
+    
+    @GetMapping(value = "/progetti/svolti")
+    public Set<Progetto> getListaProgettiSvolti(@RequestBody Progettista progettista) {
+        return gestoreProgetto.getListaProgettiSvolti(progettista);
+    }
 
+    @GetMapping(value = "/progetti/{id}")
+    public Set<Progetto> getProgettiCandidati(@PathVariable Set<Long> ids) {
+        return gestoreProgetto.getProgettiCandidati(ids);
     }
 
 }

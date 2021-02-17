@@ -18,7 +18,7 @@ public class ProgettistaController {
     @Autowired
     GestoreProgettisti gestoreProgettisti;
 
-    ProgettistaController(){
+    public ProgettistaController() {
     }
 
     @GetMapping(value="/progettisti")

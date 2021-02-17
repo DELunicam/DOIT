@@ -13,14 +13,14 @@ import it.unicam.cs.ids.doit.utenti.Lavoratore;
 @Service
 public class GestoreEnti {
 
-    public static GestoreEnti instance;
+    private static GestoreEnti instance;
 
     @Autowired
     EnteRepository enteRepository;
     @Autowired
     LavoratoreRepository lavoratoreRepository;
 
-    public GestoreEnti() {
+    private GestoreEnti() {
 
     }
 

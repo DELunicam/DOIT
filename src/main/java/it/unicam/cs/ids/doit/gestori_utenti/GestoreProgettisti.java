@@ -11,11 +11,11 @@ import java.util.Set;
 
 @Service
 public class GestoreProgettisti {
-    public static GestoreProgettisti instance;
+    private static GestoreProgettisti instance;
     @Autowired
     ProgettistaRepository progettistaRepository;
 
-    public GestoreProgettisti() {
+    private GestoreProgettisti() {
     }
 
     // Singleton

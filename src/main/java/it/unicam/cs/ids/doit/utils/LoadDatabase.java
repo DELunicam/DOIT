@@ -14,6 +14,7 @@ import it.unicam.cs.ids.doit.gestori_utenti.ProponenteRepository;
 import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.ProgettoRepository;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
+import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utenti.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,11 +52,17 @@ public class LoadDatabase {
         map.put(Specializzazione.INGEGNERIA, 1);
         map.put(Specializzazione.MATEMATICA, 3);
         prog3.setInfoProgettistiRichiesti(map);
+        prog3.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
+
+        Progetto prog4 = new Progetto(1L,"nome4", "desc4");
+        prog4.setInfoProgettistiRichiesti(map);
+        prog4.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
 
         return args -> {
             log.info("Preloading " + repository.save(new Progetto(2L, "nome1", "desc1")));
             log.info("Preloading " + repository.save(new Progetto(3L, "nome2", "desc2")));
             log.info("Preloading" + repository.save(prog3));
+            log.info("Preloading" + repository.save(prog4));
         };
     }
 

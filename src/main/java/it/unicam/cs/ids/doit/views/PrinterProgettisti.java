@@ -1,22 +1,23 @@
 package it.unicam.cs.ids.doit.views;
 
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
-import it.unicam.cs.ids.doit.gestori_utenti.GestoreProgettisti;
+import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
 import it.unicam.cs.ids.doit.utenti.Progettista;
+import it.unicam.cs.ids.doit.utils.SpringContext;
 
 import java.util.Set;
 
 public abstract class PrinterProgettisti {
-    private static final GestoreProgettisti gestoreProgettisti = GestoreProgettisti.getInstance();
+    private static ProgettistaController getProgettistaController() {
+        return SpringContext.getBean(ProgettistaController.class);
+    }
 
     public static void printListaProgettisti() {
         //TODO printListaProgetti
-        Set<Progettista> progettisti = gestoreProgettisti.getListaProgettisti();
+        Set<Progettista> progettisti = getProgettistaController().all();
         System.out.println("ID, NOME, COGNOME");
         for (Progettista progettista : progettisti) {
             System.out.println(progettista.getUsername() + ", " + progettista.getNome() + ", " + progettista.getCognome());
-
-
         }
     }
 
@@ -33,10 +34,8 @@ public abstract class PrinterProgettisti {
     }
 
     public static void printInfoProgettista(Long idProgettista) {
-
-        Progettista progettista = gestoreProgettisti.getProgettista(gestoreProgettisti.getIdProgettistaByUsername(idProgettista));
+        Progettista progettista = getProgettistaController().one(idProgettista);
         printInfoProgettista(progettista);
-
     }
 
     public static void printInfoProgettista(Progettista progettista) {
