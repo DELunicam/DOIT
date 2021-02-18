@@ -233,17 +233,17 @@ public class IProponente {
             System.out.println("Digita l'id della candidatura per visualizzare le informazioni del progettista desiderato,    [DONE] per terminare");
 
             while (true) {
-                Long idCandidaturaScelta = Long.valueOf(sc.nextLine());
+                String idCandidaturaScelta = sc.nextLine();
                 if (idCandidaturaScelta.equals("DONE")) {
                     System.out.println("Selezione terminata \n");
                     break;
                 }
-                Candidatura candidaturaScelta = getCandidaturaController().getCandidaturaById(idCandidaturaScelta);
+                Candidatura candidaturaScelta = getCandidaturaController().getCandidaturaById(Long.valueOf(idCandidaturaScelta));
                 if (candidaturaScelta != null) {
                     PrinterProgettisti.printInfoProgettista(candidaturaScelta);
                     System.out.println("[Y] per salvare la candidatura se ritenuta interessante");
                     if(sc.nextLine().equals("Y")){
-                        getCandidaturaController().modificaStatoCandidatura(idCandidaturaScelta, StatoCandidatura.PRESELEZIONATA);
+                        getCandidaturaController().modificaStatoCandidatura(Long.valueOf(idCandidaturaScelta), StatoCandidatura.PRESELEZIONATA);
                         System.out.println("Progettista " + candidaturaScelta.getIdProgettista() + " selezionato\n");
                     }
                 } else {

@@ -5,11 +5,7 @@ import it.unicam.cs.ids.doit.associazione.AssociazioneRepository;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaRepository;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
-import it.unicam.cs.ids.doit.gestori_utenti.EnteRepository;
-import it.unicam.cs.ids.doit.gestori_utenti.EspertoRepository;
-import it.unicam.cs.ids.doit.gestori_utenti.LavoratoreRepository;
-import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaRepository;
-import it.unicam.cs.ids.doit.gestori_utenti.ProponenteRepository;
+import it.unicam.cs.ids.doit.gestori_utenti.*;
 import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.ProgettoRepository;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
@@ -53,15 +49,20 @@ public class LoadDatabase {
         prog3.setInfoProgettistiRichiesti(map);
         prog3.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
 
-        Progetto prog4 = new Progetto(1L,"nome4", "desc4");
+        Progetto prog4 = new Progetto(1L, "nome4", "desc4");
         prog4.setInfoProgettistiRichiesti(map);
         prog4.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
+
+        Progetto prog5 = new Progetto(3L, "nome2", "desc2");
+        prog5.setInfoProgettistiRichiesti(map);
+        prog5.setStatoProgetto(StatoProgetto.PUBBLICO);
 
         return args -> {
             log.info("Preloading " + repository.save(new Progetto(2L, "nome1", "desc1")));
             log.info("Preloading " + repository.save(new Progetto(3L, "nome2", "desc2")));
             log.info("Preloading" + repository.save(prog3));
             log.info("Preloading" + repository.save(prog4));
+            log.info("Preloading " + repository.save(prog5));
         };
     }
 

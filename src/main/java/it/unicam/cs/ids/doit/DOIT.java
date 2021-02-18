@@ -1,37 +1,40 @@
 package it.unicam.cs.ids.doit;
 
-import it.unicam.cs.ids.doit.views.IEsperto;
-import it.unicam.cs.ids.doit.views.IProgettista;
-import it.unicam.cs.ids.doit.views.IProponente;
-import it.unicam.cs.ids.doit.views.IVisitatore;
-import it.unicam.cs.ids.doit.views.IEnte;
+import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
+import it.unicam.cs.ids.doit.utenti.Progettista;
+import it.unicam.cs.ids.doit.utils.SpringContext;
+import it.unicam.cs.ids.doit.views.*;
+import org.springframework.stereotype.Controller;
 
 import java.util.Scanner;
-import org.springframework.stereotype.Controller;
 
 @Controller
 public class DOIT {
 
+    private static ProgettistaController getProgettistaController() {
+        return SpringContext.getBean(ProgettistaController.class);
+    }
+
     public static void runApp() {
-       
+
         Scanner sc = new Scanner(System.in);
         System.out.println("BENVENUTO IN DOIT, [PROP] PER L'INTERFACCIA PROPONENTE, [PROG] PER L'INTERFACCIA PROGETTISTA, [ES] PER L'INTERFACCIA ESPERTO, [VIS] PER L'INTERFACCIA VISITATORE \n");
         String input = sc.nextLine().toUpperCase();
         switch (input) {
             case "PROP": {
-                String idProponente = digitaID(sc);
+                Long idProponente = digitaID(sc);
                 IProponente proponente = new IProponente(2L);
                 proponente.opzioniDisponibili();
                 break;
             }
             case "PROG": {
-                String idProgettista = digitaID(sc);
-                IProgettista progettista = new IProgettista(7L);
+                Long idProgettista = digitaID(sc);
+                IProgettista progettista = new IProgettista(idProgettistaModifi);
                 progettista.opzioniDisponibili();
                 break;
             }
             case "ES": {
-                String idEsperto = digitaID(sc);
+                Long idEsperto = digitaID(sc);
                 IEsperto iEsperto = new IEsperto(3L);
                 iEsperto.opzioniDisponibili();
                 break;
@@ -41,9 +44,8 @@ public class DOIT {
                 iVisitatore.opzioniDisponibili();
                 break;
             }
-            case "ENTE":
-            {
-                String idEnte = digitaID(sc);
+            case "ENTE": {
+                Long idEnte = digitaID(sc);
                 IEnte iEnte = new IEnte(1L);
                 iEnte.opzioniDisponibili();
             }
@@ -51,8 +53,10 @@ public class DOIT {
 
     }
 
-    private static String digitaID (Scanner sc){
-        System.out.println("DIGITA IL TUO ID");
-        return sc.nextLine().toUpperCase();
+    private static Long digitaID(Scanner sc) {
+        System.out.println("DIGITA IL TUO USERNAME");
+        String username = sc.nextLine();
+        Progettista prog = getProgettistaController().oneByUsername(username);
+        return prog.getId();
     }
 }

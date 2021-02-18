@@ -2,7 +2,6 @@ package it.unicam.cs.ids.doit.gestori_utenti;
 
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utenti.Progettista;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +37,7 @@ public class ProgettistaController {
     }
 
     @GetMapping(value = "/progettisti", params = {"username"})
-    Progettista oneByUsername(@RequestParam Long username) {
+    public Progettista oneByUsername(@RequestParam String username) {
         return gestoreProgettisti.getProgettistaByUsername(username);
     }
 

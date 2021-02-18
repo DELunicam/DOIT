@@ -9,7 +9,7 @@ public interface ProgettistaRepository extends JpaRepository<Progettista, Long> 
 
     Progettista findProgettistaByNome(String nome);
 
-    Progettista findProgettistaByUsername(Long username);
+    Progettista findProgettistaByUsername(String username);
     
     
 
