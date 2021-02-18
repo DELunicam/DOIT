@@ -5,6 +5,8 @@ import org.springframework.lang.NonNull;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +17,7 @@ public class Progettista extends Utente {
     @NonNull
     private String cognome;
     @ElementCollection(fetch = FetchType.EAGER)
+	@Enumerated(EnumType.STRING)
     private Set<Specializzazione> specializzazioni = new HashSet<>();
 
     public Progettista() {

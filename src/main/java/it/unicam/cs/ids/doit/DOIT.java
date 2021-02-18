@@ -29,7 +29,7 @@ public class DOIT {
             }
             case "PROG": {
                 Long idProgettista = digitaID(sc);
-                IProgettista progettista = new IProgettista(idProgettistaModifi);
+                IProgettista progettista = new IProgettista(idProgettista);
                 progettista.opzioniDisponibili();
                 break;
             }
