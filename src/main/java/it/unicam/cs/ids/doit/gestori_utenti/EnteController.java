@@ -21,7 +21,7 @@ public class EnteController {
     }
 
     @GetMapping(value = "/enti/{id}/info")
-    String getInfoEnte(@PathVariable Long id) {
+    public String getInfoEnte(@PathVariable Long id) {
         return gestoreEnti.getInfo(id);
     }
 

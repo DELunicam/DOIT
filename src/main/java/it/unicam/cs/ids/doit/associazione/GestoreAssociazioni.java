@@ -52,6 +52,11 @@ public class GestoreAssociazioni {
         return idsProgettisti;
     }
 
+    public Associazione getAssociazioneById(Long idAssociazione)
+    {
+        return repository.findAssociazioneById(idAssociazione);
+    }
+
     public Associazione creaAssociazione(Long idEnte, Long idProgettista, Long idProgetto) {
         Associazione nuovaAssociazione = new Associazione(idEnte, idProgettista, idProgetto);
         repository.save(nuovaAssociazione);

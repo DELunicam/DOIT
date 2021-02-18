@@ -2,6 +2,7 @@ package it.unicam.cs.ids.doit.utils;
 
 import it.unicam.cs.ids.doit.associazione.Associazione;
 import it.unicam.cs.ids.doit.associazione.AssociazioneRepository;
+import it.unicam.cs.ids.doit.associazione.StatoAssociazione;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaRepository;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
@@ -189,6 +190,11 @@ public class LoadDatabase {
 
     @Bean
     CommandLineRunner loadAssociazioni(AssociazioneRepository repository) {
+        Associazione a = new Associazione(21L,7l,3L);
+        a.setStatoAssociazione(StatoAssociazione.PROPOSTA);
+
+        Associazione b = new Associazione(21L,7l,3L);
+        b.setStatoAssociazione(StatoAssociazione.PROPOSTA);
         return args -> {
             log.info("Preloading " + repository.save(new Associazione(21L,6L,3L)));
             log.info("Preloading " + repository.save(new Associazione(21L,7L,3L)));
@@ -196,6 +202,8 @@ public class LoadDatabase {
             log.info("Preloading " + repository.save(new Associazione(22L,9L,5L)));
             log.info("Preloading " + repository.save(new Associazione(23L,10L,5L)));
             log.info("Preloading " + repository.save(new Associazione(23L,6L,5L)));
+            log.info("Preloading " + repository.save(a));
+            log.info("Preloading " + repository.save(b));
         };
     }
 

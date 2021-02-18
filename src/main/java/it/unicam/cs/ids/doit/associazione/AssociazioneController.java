@@ -18,8 +18,13 @@ public class AssociazioneController {
     }
 
     @GetMapping(value = "/associazioni", params = {"idProgettista", "stato"})
-    Set<Associazione> getAssociazioniByIdProgettistaAndStato(@RequestParam Long idProgettista, @RequestParam StatoAssociazione stato) {
+    public Set<Associazione> getAssociazioniByIdProgettistaAndStato(@RequestParam Long idProgettista, @RequestParam StatoAssociazione stato) {
         return gestoreAssociazioni.getAssociazioni(idProgettista, stato);
+    }
+    @GetMapping(value = "/associazioni", params = {"id"})
+    // TODO passare id invece che associazione?
+    public Associazione getAssociazioneById(@RequestParam Long idAssociazione) {
+        return gestoreAssociazioni.getAssociazione(idAssociazione);
     }
 
     @GetMapping(value = "/associazioni", params = {"idProgettista"})
@@ -34,7 +39,7 @@ public class AssociazioneController {
     }
 
     @PutMapping(value = "/associazioni", params = {"stato"})
-    void modificaStatoAssociazione(@RequestBody Associazione associazione, @RequestParam StatoAssociazione stato) {
+    public void modificaStatoAssociazione(@RequestBody Associazione associazione, @RequestParam StatoAssociazione stato) {
         gestoreAssociazioni.modificaStatoAssociazione(associazione, stato);
     }
 
