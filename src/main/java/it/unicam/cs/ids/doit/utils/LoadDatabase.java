@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.doit.utils;
 
-import it.unicam.cs.ids.doit.DOIT;
 import it.unicam.cs.ids.doit.associazione.Associazione;
 import it.unicam.cs.ids.doit.associazione.AssociazioneRepository;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;

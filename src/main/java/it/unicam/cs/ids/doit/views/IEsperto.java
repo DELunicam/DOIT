@@ -119,6 +119,8 @@ public class IEsperto {
                         break;
                     }
                     PrinterProgettisti.printInfoProgettista(Long.valueOf(idInput));
+                    // TODO session?
+                    //PrinterProgetti.printListaProgettiSvolti(Long.valueOf(idInput));
                     System.out.println("Si vuole consigliare questo progettista per lavorare al progetto? \n" +
                             "[Y] YES,    [N] NO");
                     String conferma = sc.nextLine().toUpperCase();

@@ -46,7 +46,7 @@ public class AssociazioneController {
     }
 
     @PostMapping(value = "/associazioni", params = {"idEnte", "idProgettista", "idProgetto"})
-    Associazione creaAssociazione(@RequestParam Long idEnte, @RequestParam Long idProgettista, @RequestParam Long idProgetto) {
+    public Associazione creaAssociazione(@RequestParam Long idEnte, @RequestParam Long idProgettista, @RequestParam Long idProgetto) {
         return gestoreAssociazioni.creaAssociazione(idEnte, idProgettista, idProgetto);
     }
 

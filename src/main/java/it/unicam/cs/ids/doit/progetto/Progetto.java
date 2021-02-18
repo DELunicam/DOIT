@@ -13,6 +13,7 @@ public class Progetto {
     @NonNull
     private String nome;
     private String descrizione;
+	@Enumerated(EnumType.STRING)
     private StatoProgetto statoProgetto;
     @NonNull
     private Long idProponente;

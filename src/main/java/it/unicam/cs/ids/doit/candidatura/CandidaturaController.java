@@ -26,7 +26,7 @@ public class CandidaturaController {
     }
 
     @GetMapping(value = "/candidature/{id}")
-    Candidatura getCandidaturaById(@PathVariable Long id) {
+    public Candidatura getCandidaturaById(@PathVariable Long id) {
         return gestoreCandidature.getCandidatura(id);
     }
 
@@ -36,12 +36,12 @@ public class CandidaturaController {
     }
 
     @PutMapping(value = "/candidature", params = {"id", "statoCandidatura"})
-    void modificaStatoCandidatura(@RequestParam Long id, @RequestParam StatoCandidatura statoCandidatura) {
+    public void modificaStatoCandidatura(@RequestParam Long id, @RequestParam StatoCandidatura statoCandidatura) {
         gestoreCandidature.modificaStatoCandidatura(id, statoCandidatura);
     }
 
     @PutMapping(value = "/candidature", params = {"ids", "statoCandidatura"})
-    void modificaStatoCandidature(@RequestParam Set<Long> ids, @RequestParam StatoCandidatura statoCandidatura) {
+    public void modificaStatoCandidature(@RequestParam Set<Long> ids, @RequestParam StatoCandidatura statoCandidatura) {
         gestoreCandidature.modificaStatoCandidature(statoCandidatura, ids);
     }
 
@@ -53,7 +53,7 @@ public class CandidaturaController {
     }
 */
     @PostMapping(value = "/candidature", params = {"idProgettista", "idProgetto"})
-    Candidatura creaCandidatura(@RequestParam Long idProgettista, @RequestParam Long idProgetto) {
+    public Candidatura creaCandidatura(@RequestParam Long idProgettista, @RequestParam Long idProgetto) {
         return gestoreCandidature.creaCandidatura(idProgettista, idProgetto);
     }
 
@@ -67,10 +67,9 @@ public class CandidaturaController {
         gestoreCandidature.confermaSelezione(idEsperto, idsConsigliate, idsSconsigliate);
 
     }
+
     @GetMapping(value ="/candidature/{idProgettista}/candidature/{stato}")
-    
-    Set<Long> getIdProgetti(Long idProgettista, StatoCandidatura stato)
-    {
+    public Set<Long> getIdProgetti(@PathVariable Long idProgettista, @PathVariable StatoCandidatura stato){
         return gestoreCandidature.getIdProgetti(idProgettista, stato);
     }
 

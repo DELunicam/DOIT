@@ -45,12 +45,14 @@ public abstract class PrinterProgetti {
 
     public static void printListaProgettiSvolti(Long idProgettista) {
         Set<Progetto> progetti = getProgettoController().getListaProgettiSvolti(idProgettista);
+        System.out.println("Progetti svolti: ");
         printBasicProgetti(progetti);
     }
     
 
     public static void printListaProgettiSvolti(Progettista progettista) {
         Set<Progetto> progetti = getProgettoController().getListaProgettiSvolti(progettista);
+        System.out.println("Progetti svolti: ");
         printBasicProgetti(progetti);
     }
 

@@ -43,9 +43,7 @@ public abstract class PrinterProgettisti {
                 "\nEmail: " + progettista.getMailAddress() +
                 "\nNome: " + progettista.getNome() +
                 "\nCognome: " + progettista.getCognome() +
-                "\nSpecializzazioni: " + progettista.getSpecializzazioni());// +
-                //"\nProgetti Svolti: \n");
-        //PrinterProgetti.printListaProgettiSvolti(progettista);
+                "\nSpecializzazioni: " + progettista.getSpecializzazioni());
     }
 
     public static void printInfoProgettisti(Set<Progettista> progettisti){

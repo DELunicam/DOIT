@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 
 import it.unicam.cs.ids.doit.utenti.Progettista;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -58,16 +57,26 @@ public class ProgettoController {
     // PUT /progetti
 
     @PutMapping(value = "/progetti", params = {"idProgetto", "statoProgetto"})
-    void setStatoProgetto(@RequestParam Long idProgetto, @RequestParam StatoProgetto statoProgetto) {
+    public void setStatoProgetto(@RequestParam Long idProgetto, @RequestParam StatoProgetto statoProgetto) {
         gestoreProgetto.modificaStatoProgetto(idProgetto, statoProgetto);
+    }
+
+    @PutMapping(value = "/progetti", params = {"statoProgetto"})
+    public void setStatoProgetto(@RequestBody Progetto progetto, @RequestParam StatoProgetto statoProgetto) {
+        gestoreProgetto.modificaStatoProgetto(progetto, statoProgetto);
+    }
+
+    @PutMapping(value = "/progetti/pubblica")
+    public void pubblicaProgetto(@RequestBody Progetto progetto) {
+        gestoreProgetto.pubblicaProgetto(progetto);
     }
 
 
     // POST /progetti
 
     @PostMapping(value = "/progetti", params = {"idProponente", "nome", "descrizione"})
-    void createProgetto(@RequestParam Long idProponente, @RequestParam String nome, @RequestParam String descrizione) {
-        gestoreProgetto.createProgetto(idProponente, nome, descrizione);
+    public Progetto createProgetto(@RequestParam Long idProponente, @RequestParam String nome, @RequestParam String descrizione) {
+        return gestoreProgetto.createProgetto(idProponente, nome, descrizione);
     }
 
 
@@ -84,6 +93,11 @@ public class ProgettoController {
     @PutMapping(value = "/progetti/{idProgetto}")
     void insertInfoProgettistiRichiesti(@PathVariable Long idProgetto, @RequestBody Map<Specializzazione, Integer> specializzazioni) {
         gestoreProgetto.insertInfoProgettisti(idProgetto, specializzazioni);
+    }
+
+    @PutMapping(value = "/progetti")
+    public void insertInfoProgettistiRichiesti(@RequestBody Progetto progetto, @RequestBody Map<Specializzazione, Integer> specializzazioni) {
+        gestoreProgetto.insertInfoProgettisti(progetto, specializzazioni);
     }
 
     @GetMapping(value = "/progetti/svolti/{idProgettista}")

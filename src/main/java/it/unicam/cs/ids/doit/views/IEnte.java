@@ -2,24 +2,22 @@ package it.unicam.cs.ids.doit.views;
 
 import java.util.Scanner;
 
-import it.unicam.cs.ids.doit.associazione.GestoreAssociazioni;
+import it.unicam.cs.ids.doit.associazione.AssociazioneController;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
-import it.unicam.cs.ids.doit.candidatura.GestoreCandidature;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
-import it.unicam.cs.ids.doit.gestori_utenti.GestoreEnti;
-import it.unicam.cs.ids.doit.gestori_utenti.GestoreProgettisti;
-import it.unicam.cs.ids.doit.progetto.GestoreProgetto;
-import it.unicam.cs.ids.doit.progetto.StatoProgetto;
+import it.unicam.cs.ids.doit.utils.SpringContext;
 
 public class IEnte 
     {
      Scanner sc;
      Long id;
-     GestoreEnti gestoreEnti = GestoreEnti.getInstance();
-     GestoreProgetto gestoreProgetto = GestoreProgetto.getInstance();
-     GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
-     GestoreAssociazioni gestoreAssociazioni = GestoreAssociazioni.getInstance();
-     GestoreProgettisti gestoreProgettisti = GestoreProgettisti.getInstance();
+
+    private CandidaturaController getCandidaturaController() {
+        return SpringContext.getBean(CandidaturaController.class);
+    }
+    private AssociazioneController getAssociazioneController() {
+        return SpringContext.getBean(AssociazioneController.class);
+    }
      
     public IEnte(Long id)
     {
@@ -48,6 +46,7 @@ public class IEnte
                 }
         }
    }
+
    public void inserisciCandidatura()
    {
     System.out.println("Vuoi visualizzare i progetti a cui puoi candidarti? \n[Y] YES,    [N] NO)\n");
@@ -67,6 +66,7 @@ public class IEnte
         PrinterProgetti.printListaProgetti();
         selezionaProgetto();
     }
+
     public void selezionaProgetto() {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
@@ -75,7 +75,7 @@ public class IEnte
             System.out.println("Desideri candidarti a questo progetto?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
             if (input.equals("Y")) {
-                gestoreCandidature.creaCandidatura(id, Long.valueOf(idProgetto));
+                getCandidaturaController().creaCandidatura(id, Long.valueOf(idProgetto));
                 System.out.println("Congratulazioni, ti sei candidato al progetto " + idProgetto);
 
             } else if (input.equals("N")) {
@@ -87,6 +87,7 @@ public class IEnte
 
         }
     }
+
     public void PropostaAssociazione()
     {
         System.out.println("Vuoi associare un progettista per un progetto? \n[Y] YES,    [N] NO)\n");
@@ -101,11 +102,13 @@ public class IEnte
             System.out.println("Impossibile processare l'operazione");
         }
     }
+
     public void viewProgettiCandidati() {
         System.out.println("Puoi candidarti ai seguenti progetti \n");
-        PrinterProgetti.printProgettiCandidati(gestoreCandidature.getIdProgetti(id, StatoCandidatura.ACCETTATA));
+        PrinterProgetti.printProgettiCandidati(getCandidaturaController().getIdProgetti(id, StatoCandidatura.ACCETTATA));
         selezionaProgettoAssociazione();
     }
+
      public void selezionaProgettoAssociazione()
      {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
@@ -127,6 +130,7 @@ public class IEnte
         }
         
      }
+
      public void selezionaProgettista(Long idProgetto)
      {  
         PrinterProgettisti.printListaProgettisti();
@@ -136,7 +140,7 @@ public class IEnte
             System.out.println("Desideri inviare una proposta di associazione a progettista"+idProgettista+"?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
             if (input.equals("Y")) {
-                gestoreAssociazioni.creaAssociazione(id, Long.valueOf(idProgettista), idProgetto);
+                getAssociazioneController().creaAssociazione(id, Long.valueOf(idProgettista), idProgetto);
                 System.out.println("Proposta di associazione inviata\n");
 
             } else if (input.equals("N")) {

@@ -12,8 +12,6 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class DOIT {
 
-    //public static void main(String[] args) {
-    //@RequestMapping("/")
     public static void runApp() {
        
         Scanner sc = new Scanner(System.in);

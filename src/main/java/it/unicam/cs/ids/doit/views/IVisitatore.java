@@ -51,7 +51,7 @@ public class IVisitatore {
                 break;
             }
             PrinterProgettisti.printInfoProgettista(Long.valueOf(idProgettista));
-            //TODO progetti svolti?
+            // TODO session?
             //PrinterProgetti.printListaProgettiSvolti(Long.valueOf(idProgettista));
         }
     }

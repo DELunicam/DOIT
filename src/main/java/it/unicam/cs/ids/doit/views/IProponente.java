@@ -1,21 +1,27 @@
 package it.unicam.cs.ids.doit.views;
 
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
-import it.unicam.cs.ids.doit.candidatura.GestoreCandidature;
+import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
-import it.unicam.cs.ids.doit.progetto.GestoreProgetto;
 import it.unicam.cs.ids.doit.progetto.Progetto;
+import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
+import it.unicam.cs.ids.doit.utils.SpringContext;
 
 import java.util.*;
 
 
 public class IProponente {
     Scanner sc;
-    GestoreProgetto gestoreProgetto = GestoreProgetto.getInstance();
-    GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
     Long idProponente;
+
+    private static ProgettoController getProgettoController() {
+        return SpringContext.getBean(ProgettoController.class);
+    }
+    private CandidaturaController getCandidaturaController() {
+        return SpringContext.getBean(CandidaturaController.class);
+    }
 
     public IProponente(Long idProponente) {
         this.sc = new Scanner(System.in);
@@ -37,26 +43,35 @@ public class IProponente {
                     break;
 
                 case "PUBBLICA":
-                    Set<Progetto> progettiNeutri = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.NEUTRO);
+                    Set<Progetto> progettiNeutri = getProgettoController().allByIdProponenteAndStato(idProponente, StatoProgetto.NEUTRO);
                     if(progettiNeutri.size()>0){
                         PrinterProgetti.printListaProgetti(progettiNeutri);
                         selezionaProgetto();
                     }
+                    else {
+                        System.out.println("Non ci sono progetti neutri");
+                    }
                     break;
 
                 case "SELEZIONA PROGETTISTI":
-                    Set<Progetto> progettiPubblici = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.PUBBLICO);
+                    Set<Progetto> progettiPubblici = getProgettoController().allByIdProponenteAndStato(idProponente, StatoProgetto.PUBBLICO);
                     if(progettiPubblici.size()>0){
                         PrinterProgetti.printListaProgetti(progettiPubblici);
                         selezionaProgetto();
                     }
+                    else {
+                        System.out.println("Non ci sono progetti pubblici");
+                    }
                     break;
 
                 case "CONFERMA PROGETTISTI":
-                    Set<Progetto> progettiInValutazione = gestoreProgetto.getListaProgetti(idProponente, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
+                    Set<Progetto> progettiInValutazione = getProgettoController().allByIdProponenteAndStato(idProponente, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
                     if(progettiInValutazione.size()>0){
                         PrinterProgetti.printListaProgetti(progettiInValutazione);
                         selezionaProgetto();
+                    }
+                    else {
+                        System.out.println("Non ci sono progetti in valutazione");
                     }
                     break;
 
@@ -87,7 +102,7 @@ public class IProponente {
         System.out.println("Inserire una descrizione per " + nome);
         String descrizione = sc.nextLine();
 
-        Progetto progettoNeutro = gestoreProgetto.createProgetto(idProponente, nome, descrizione);
+        Progetto progettoNeutro = getProgettoController().createProgetto(idProponente, nome, descrizione);
 
         System.out.println("Nuovo progetto creato: ");
         System.out.println("Nome: " + nome);
@@ -108,17 +123,17 @@ public class IProponente {
     }
 
     public void requestEsperto(Progetto progettoNeutro) {
-        gestoreProgetto.modificaStatoProgetto(progettoNeutro, StatoProgetto.IN_VALUTAZIONE_PROGETTO);
+        getProgettoController().setStatoProgetto(progettoNeutro, StatoProgetto.IN_VALUTAZIONE_PROGETTO);
         System.out.println("Richiesta effettuata, sarai notificato quando almeno un esperto valuterà il progetto");
     }
 
     public void requestEsperto(Long idProgetto, Set<Candidatura> listaCandidature) {
         Set<Long> idsCandidature = new HashSet<Long>();
-        gestoreProgetto.modificaStatoProgetto(idProgetto, StatoProgetto.IN_VALUTAZIONE_PROGETTO);
+        getProgettoController().setStatoProgetto(idProgetto, StatoProgetto.IN_VALUTAZIONE_PROGETTO);
         for (Candidatura candidatura : listaCandidature) {
             idsCandidature.add(candidatura.getId());
          }
-        gestoreCandidature.modificaStatoCandidature(StatoCandidatura.DA_VALUTARE, idsCandidature);
+        getCandidaturaController().modificaStatoCandidature(idsCandidature, StatoCandidatura.DA_VALUTARE);
         System.out.println("Richiesta effettuata, sarai notificato quando almeno un esperto valuterà le progettistiCandidati");
     }
 
@@ -145,7 +160,7 @@ public class IProponente {
             infoProgettistiRichiesti.put(specProgettisti, numProgettisti);
         }
 
-        gestoreProgetto.insertInfoProgettisti(progettoNeutro, infoProgettistiRichiesti);
+        getProgettoController().insertInfoProgettistiRichiesti(progettoNeutro, infoProgettistiRichiesti);
         System.out.println(progettoNeutro.getInfoProgettistiRichiesti().keySet());
 
         System.out.println("Il progetto " + progettoNeutro.getNome() + " è stato creato");
@@ -156,7 +171,7 @@ public class IProponente {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
         if (!idProgetto.equals("EXIT")) {
-            Progetto progetto = gestoreProgetto.getProgetto(Long.valueOf(idProgetto));
+            Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
             PrinterProgetti.printInfoProgetto(progetto);
 
             switch (progetto.getStatoProgetto()) {
@@ -184,7 +199,7 @@ public class IProponente {
         while (!yN.equals("EXIT")) {
 
             if (yN.equals("Y")) {
-                Set<Candidatura> progettistiCandidati = gestoreCandidature.getCandidature(idProgetto, StatoCandidatura.DA_VALUTARE);
+                Set<Candidatura> progettistiCandidati = getCandidaturaController().getCandidatureByIdProgettoAndStato(idProgetto, StatoCandidatura.DA_VALUTARE);
                 requestEsperto(idProgetto, progettistiCandidati);
                 return;
             } else if (yN.equals("N")) {
@@ -201,7 +216,7 @@ public class IProponente {
         System.out.println("[Y] YES,    [N] NO");
         String yN = sc.nextLine().toUpperCase();
         if (yN.equals("Y")) {
-            gestoreProgetto.pubblicaProgetto(progetto);
+            getProgettoController().pubblicaProgetto(progetto);
             System.out.println("Il progetto " + progetto.getId() + " è stato reso pubblico");
         } else if (yN.equals("N")) {
             System.out.println("Il progetto " + progetto.getId() + " non è stato reso pubblico");
@@ -223,12 +238,12 @@ public class IProponente {
                     System.out.println("Selezione terminata \n");
                     break;
                 }
-                Candidatura candidaturaScelta = gestoreCandidature.getCandidatura(idCandidaturaScelta);
+                Candidatura candidaturaScelta = getCandidaturaController().getCandidaturaById(idCandidaturaScelta);
                 if (candidaturaScelta != null) {
                     PrinterProgettisti.printInfoProgettista(candidaturaScelta);
                     System.out.println("[Y] per salvare la candidatura se ritenuta interessante");
                     if(sc.nextLine().equals("Y")){
-                        gestoreCandidature.modificaStatoCandidatura(idCandidaturaScelta, StatoCandidatura.PRESELEZIONATA);
+                        getCandidaturaController().modificaStatoCandidatura(idCandidaturaScelta, StatoCandidatura.PRESELEZIONATA);
                         System.out.println("Progettista " + candidaturaScelta.getIdProgettista() + " selezionato\n");
                     }
                 } else {
@@ -239,7 +254,7 @@ public class IProponente {
                     "[Y] YES,    [N] NO");
             String yN = sc.nextLine().toUpperCase();
             if (yN.equals("Y")) {
-                gestoreProgetto.modificaStatoProgetto(idProgetto, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
+                getProgettoController().setStatoProgetto(idProgetto, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
                 // selezione definitiva team di progettisti
                 selezionaTeam(idProgetto);
             } else if (yN.equals("N")) {
@@ -266,11 +281,11 @@ public class IProponente {
             System.out.println("Digita l'id delle candidature da confermare");
             Set<Long> idsCandidatureSelezionate = new HashSet<>();
             int numSelezionati = 0;
-            int numMassimo = gestoreProgetto.getProgetto(idProgetto).getNumeroProgettistiRichiesti();
+            int numMassimo = getProgettoController().one(idProgetto).getNumeroProgettistiRichiesti();
 
             while (numSelezionati < numMassimo) {
                 Long idCandidatura = Long.valueOf(sc.nextLine());
-                Candidatura scelto = gestoreCandidature.getCandidatura(idCandidatura);
+                Candidatura scelto = getCandidaturaController().getCandidaturaById(idCandidatura);
                 if (scelto != null) {
                     idsCandidatureSelezionate.add(scelto.getId());
                     numSelezionati++;
@@ -284,13 +299,13 @@ public class IProponente {
             String yN = sc.nextLine().toUpperCase();
             if (yN.equals("Y")) {
                 // selezione definitiva team di progettisti
-                gestoreCandidature.modificaStatoCandidature(StatoCandidatura.ACCETTATA, idsCandidatureSelezionate);
-                gestoreProgetto.modificaStatoProgetto(idProgetto, StatoProgetto.FINALIZZATO);
+                getCandidaturaController().modificaStatoCandidature(idsCandidatureSelezionate, StatoCandidatura.ACCETTATA);
+                getProgettoController().setStatoProgetto(idProgetto, StatoProgetto.FINALIZZATO);
                 System.out.println("Complimenti hai trovato un team per il progetto!");
                 // stampa le info di tutti i progettisti
                 Set<Candidatura> candidatureSelezionate = new HashSet<Candidatura>();
                 for(Long id : idsCandidatureSelezionate) {
-                    Candidatura candidaturaTrovata = gestoreCandidature.getCandidatura(id);
+                    Candidatura candidaturaTrovata = getCandidaturaController().getCandidaturaById(id);
                     candidatureSelezionate.add(candidaturaTrovata);
                 }
                 candidatureSelezionate.forEach(PrinterProgettisti::printInfoProgettista);
