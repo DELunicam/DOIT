@@ -55,4 +55,10 @@ public class GestoreEnti {
         return lavoratoreRepository.findLavoratoriByIdEnteAndSpecializzazioniIn(idEnte, Collections.singleton(specializzazione));
     }
 
+	public Ente creaEnte(String username, String password, String mail, String nome, String tipologia, String descrizione) {
+        Ente ente = new Ente(username, password, mail, nome, tipologia, descrizione);
+        enteRepository.save(ente);
+        return ente;
+	}
+
 }

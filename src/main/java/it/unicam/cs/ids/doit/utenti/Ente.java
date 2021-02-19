@@ -15,6 +15,18 @@ public class Ente extends Utente {
 
     }
 
+    public Ente(String username, String password, String mailAddress, String nome) {
+        super(username, password, mailAddress);
+        this.nome = nome;
+    }
+
+    public Ente(String username, String password, String mailAddress, String nome, String tipologia, String descrizione) {
+        super(username, password, mailAddress);
+        this.nome = nome;
+        this.tipologia = tipologia;
+        this.descrizione = descrizione;
+    }
+
     public Ente(String nome) {
         this.nome = nome;
     }

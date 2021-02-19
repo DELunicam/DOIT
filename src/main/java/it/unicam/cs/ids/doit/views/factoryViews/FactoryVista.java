@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.doit.views;
+package it.unicam.cs.ids.doit.views.factoryViews;
 
 import it.unicam.cs.ids.doit.utenti.Utente;
 

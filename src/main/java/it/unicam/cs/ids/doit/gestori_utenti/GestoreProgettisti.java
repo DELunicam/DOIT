@@ -52,6 +52,12 @@ public class GestoreProgettisti {
         return progettisti;
     }
 
+	public Progettista creaProgettista(String username, String password, String mail, String nome, String cognome, Set<Specializzazione> specializzazioni) {
+        Progettista progettista = new Progettista(username, password, mail, nome, cognome, specializzazioni);
+        progettistaRepository.save(progettista);
+        return progettista;
+	}
+
     // Probabilmente andra' spostato in GestoreProgetti
 //    public Set<Progetto> getProgettiSvolti(String idProgettista) {
 //        Set<Progetto> progettiSvolti = new HashSet<>();
