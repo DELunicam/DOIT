@@ -24,8 +24,11 @@ public class IVisitatore {
 
     public void opzioniDisponibili() {
         while (true) {
-            System.out.println("Cosa vuoi fare\n" + "[VISUALIZZA PROGETTI]\n" + "[VISUALIZZA PROGETTISTI]\n"
-                    + "[REGISTRAZIONE]\n" + "[LOGIN]");
+            System.out.println("Cosa vuoi fare\n" +
+                "[VISUALIZZA PROGETTI]\n" +
+                "[VISUALIZZA PROGETTISTI]\n" +
+                "[REGISTRAZIONE]\n" +
+                "[LOGIN]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
                 case "VISUALIZZA PROGETTI":
@@ -75,8 +78,12 @@ public class IVisitatore {
     // SIGNUP
 
     public void registrazione() {
-        System.out.println("Digita il tipo di registrazione che vuoi effettuare\n" + "[A] per PROPONENTE\n"
-                + "[B] per PROGETTISTA\n" + "[C] per ESPERTO\n" + "[D] per ENTE\n" + "[EXIT] per uscire");
+        System.out.println("Digita il tipo di registrazione che vuoi effettuare\n" +
+            "[A] per PROPONENTE\n" +
+            "[B] per PROGETTISTA\n" +
+            "[C] per ESPERTO\n" +
+            "[D] per ENTE\n" +
+            "[EXIT] per uscire");
         String input = sc.nextLine().toUpperCase();
         switch (input) {
             case "A":

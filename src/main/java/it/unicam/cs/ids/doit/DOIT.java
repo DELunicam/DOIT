@@ -19,10 +19,9 @@ public class DOIT {
         System.out.println("BENVENUTO IN DOIT!");
         final FactoryIVisitatore factory = new FactoryIVisitatore();
         factory.creaVista();
-        //IVisitatore visitatore = new IVisitatore();
-		//visitatore.opzioniDisponibili();
     }
 
+    // rimuovere dopo merge e usare startApp()
     public static void runApp() {
 
         Scanner sc = new Scanner(System.in);
