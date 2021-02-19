@@ -7,7 +7,7 @@ import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 
-public class IEnte 
+public class IEnte extends IUtente
     {
      Scanner sc;
      Long id;
@@ -31,7 +31,8 @@ public class IEnte
         {
             System.out.println("Cosa vuoi fare \n"
                 +"[INSERISCI CANDIDATURA} \n"
-                +"[INVIA PROPOSTA DI ASSOCIAZIONE]\n");
+                +"[INVIA PROPOSTA DI ASSOCIAZIONE]\n"
+                +"[LOGOUT]");
                 String input = sc.nextLine().toUpperCase();
                 switch (input) 
                 {
@@ -41,8 +42,9 @@ public class IEnte
                     case "INVIA PROPOSTA DI ASSOCIAZIONE":
                         PropostaAssociazione();
                         break;
-                    case "EXIT":
-                        return;
+                    case "LOGOUT":
+                        logout();
+                        break;
                 }
         }
    }

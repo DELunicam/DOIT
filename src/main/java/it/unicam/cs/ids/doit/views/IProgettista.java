@@ -8,7 +8,7 @@ import it.unicam.cs.ids.doit.utils.SpringContext;
 import java.util.Scanner;
 
 
-public class IProgettista {
+public class IProgettista extends IUtente {
     Scanner sc;
     Long idProgettista;
 
@@ -29,14 +29,15 @@ public class IProgettista {
         while (true) {
             System.out.println("Cosa vuoi fare?\n" +
                     "[CANDIDA]\n" +
-                    "[EXIT]");
+                    "[LOGOUT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
                 case "CANDIDA":
                     candida();
                     break;
-                case "EXIT":
-                    return;
+                case "LOGOUT":
+                    logout();
+                    break;
 
             }
         }

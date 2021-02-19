@@ -35,7 +35,7 @@ public class Utente {
         return id;
     }
 
-    public String getpassword() {
+    public String getPassword() {
         return password;
     }
 

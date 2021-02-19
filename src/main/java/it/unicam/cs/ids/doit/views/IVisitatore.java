@@ -24,7 +24,7 @@ public class IVisitatore {
 
     public void opzioniDisponibili() {
         while (true) {
-            System.out.println("Cosa vuoi fare\n" +
+            System.out.println("Cosa vuoi fare?\n" +
                 "[VISUALIZZA PROGETTI]\n" +
                 "[VISUALIZZA PROGETTISTI]\n" +
                 "[REGISTRAZIONE]\n" +
@@ -70,8 +70,7 @@ public class IVisitatore {
                 break;
             }
             PrinterProgettisti.printInfoProgettista(Long.valueOf(idProgettista));
-            // TODO session?
-            // PrinterProgetti.printListaProgettiSvolti(Long.valueOf(idProgettista));
+            PrinterProgetti.printListaProgettiSvolti(Long.valueOf(idProgettista));
         }
     }
 

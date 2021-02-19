@@ -10,13 +10,7 @@ import it.unicam.cs.ids.doit.valutazione.ValutazioneController;
 
 import java.util.*;
 
-
-// aggiunto visualizzaCandidature(String idProgetto)
-// rimosso approvaCandidato()
-// cambiato selezionaProposta(String idProgetto) in visualizzaProgetto(String idProgetto)
-// cambiato selezionaCandidatura(String idProgettista) in visualizzaInfoProgettista(String idProgettista)
-
-public class IEsperto {
+public class IEsperto extends IUtente {
     Scanner sc;
     private CandidaturaController getCandidaturaController() {
         return SpringContext.getBean(CandidaturaController.class);
@@ -35,7 +29,8 @@ public class IEsperto {
         while (true) {
             System.out.println("Cosa vuoi fare\n" +
                     "[VALUTA PROPOSTA]\n" +
-                    "[VALUTA PROGETTISTI]");
+                    "[VALUTA PROGETTISTI]\n" +
+                    "[LOGOUT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
                 case "VALUTA PROPOSTA":
@@ -44,8 +39,9 @@ public class IEsperto {
                 case "VALUTA PROGETTISTI":
                     valutaProgettisti();
                     break;
-                case "EXIT":
-                    return;
+                case "LOGOUT":
+                    logout();
+                    break;
             }
         }
     }

@@ -11,7 +11,7 @@ import it.unicam.cs.ids.doit.utils.SpringContext;
 
 import java.util.*;
 
-public class IProponente implements Vista {
+public class IProponente extends IUtente /*implements Vista */{
     Scanner sc;
     Long idProponente;
 
@@ -31,7 +31,7 @@ public class IProponente implements Vista {
     public void opzioniDisponibili() {
         while (true) {
             System.out.println("Cosa vuoi fare?\n" + "[CREA]\n" + "[PUBBLICA]\n" + "[SELEZIONA PROGETTISTI]\n"
-                    + "[CONFERMA PROGETTISTI]\n" + "[EXIT]");
+                    + "[CONFERMA PROGETTISTI]\n" + "[LOGOUT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
                 case "CREA":
@@ -71,8 +71,9 @@ public class IProponente implements Vista {
                     }
                     break;
 
-                case "EXIT":
-                    return;
+                case "LOGOUT":
+                    logout();
+                    break;
             }
         }
     }
