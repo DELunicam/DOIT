@@ -23,7 +23,7 @@ public abstract class PrinterProgettisti {
 
     public static void printBasicProgettisti(Set<Progettista> progettisti) {
         if (progettisti.size() == 0) {
-            System.out.println("Non sono stati trovati progetti");
+            System.out.println("Non sono stati trovati progettisti");
         } else {
             System.out.println("ID, NOME, COGNOME, SPECIALIZZAZIONI");
             for (Progettista progettista : progettisti) {

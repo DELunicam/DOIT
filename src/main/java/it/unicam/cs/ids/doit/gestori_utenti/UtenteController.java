@@ -1,13 +1,10 @@
 package it.unicam.cs.ids.doit.gestori_utenti;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import it.unicam.cs.ids.doit.utenti.Utente;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 public class UtenteController {
@@ -38,9 +35,14 @@ public class UtenteController {
     }
 
 
-    @GetMapping(value= "/utente/{username}/{password}")
+    @GetMapping(value = "/utente/{username}/{password}")
     public Utente getUtente(@PathVariable String username, @PathVariable String password) {
         return gestoreUtenti.getUtente(username, password);
     }
-    
+
+    @GetMapping(value = "/utenti")
+    public Set<Utente> all() {
+        return gestoreUtenti.all();
+    }
+
 }
