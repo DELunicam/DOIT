@@ -3,6 +3,7 @@ package it.unicam.cs.ids.doit.gestori_utenti;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -57,7 +58,7 @@ public class GestoreProgettisti {
     }
 
 	public Progettista creaProgettista(String username, String password, String mail, String nome, String cognome, Set<Specializzazione> specializzazioni) {
-        Progettista progettista = new Progettista(username, password, mail, nome, cognome, specializzazioni);
+        Progettista progettista = new Progettista(username, BCrypt.hashpw(password, BCrypt.gensalt()), mail, nome, cognome, specializzazioni);
         progettistaRepository.save(progettista);
         return progettista;
 	}

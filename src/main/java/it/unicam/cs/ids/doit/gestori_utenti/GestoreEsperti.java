@@ -3,6 +3,7 @@ package it.unicam.cs.ids.doit.gestori_utenti;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
@@ -15,7 +16,7 @@ public class GestoreEsperti {
     EspertoRepository espertoRepository;
 
 	public Esperto creaEsperto(String username, String password, String mail, String nome, String cognome, Set<Specializzazione> specializzazioni) {
-        Esperto esperto = new Esperto(username, password, mail, nome, cognome, specializzazioni);
+        Esperto esperto = new Esperto(username, BCrypt.hashpw(password, BCrypt.gensalt()), mail, nome, cognome, specializzazioni);
         espertoRepository.save(esperto);
         return esperto;
 	}
