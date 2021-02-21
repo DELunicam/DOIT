@@ -6,6 +6,9 @@ import java.util.Set;
 import it.unicam.cs.ids.doit.associazione.AssociazioneController;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
+import it.unicam.cs.ids.doit.gestori_utenti.EnteController;
+import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
+import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 
 public class IEnte extends IUtente
@@ -16,9 +19,19 @@ public class IEnte extends IUtente
     private CandidaturaController getCandidaturaController() {
         return SpringContext.getBean(CandidaturaController.class);
     }
+    private ProgettistaController getProgettistaController(){
+       return SpringContext.getBean(ProgettistaController.class);
+    }
     private AssociazioneController getAssociazioneController() {
         return SpringContext.getBean(AssociazioneController.class);
     }
+    private ProgettoController getProgettoController() {
+        return SpringContext.getBean(ProgettoController.class);
+    }
+    private EnteController getEnteController()
+      {
+          return SpringContext.getBean(EnteController.class);
+      }
      
     public IEnte(Long id)
     {
@@ -177,7 +190,7 @@ public class IEnte extends IUtente
     public void viewProgettiAssegnati()
     {
         System.out.println("I progetti a te assegnati sono: \n");
-        PrinterProgetti.printProgettiCandidati(gestoreCandidature.getIdProgetti(id, StatoCandidatura.PRESELEZIONATA));
+        PrinterProgetti.printProgettiCandidati(getCandidaturaController().getIdProgetti(id, StatoCandidatura.PRESELEZIONATA));
         selezionaProgettoAssegnazione();
     }
 
@@ -204,16 +217,16 @@ public class IEnte extends IUtente
     public void selezionaLavoratori(Long idProgetto)
     {
         System.out.println("I seguenti progettisti sono associati per questo progetto: \n");
-        PrinterProgettisti.printInfoProgettisti(gestoreProgettisti.getListaProgettistiById(gestoreAssociazioni.getIdProgettisti(id, Long.valueOf(idProgetto))));
+        PrinterProgettisti.printInfoProgettisti(getProgettistaController().getProgettistiCandidati(getAssociazioneController().getIdProgettisti(id, Long.valueOf(idProgetto))));
         System.out.println("Inserisci l'id dei lavoratori che vuoi assegnare a questo progetto\n");
-        PrinterEnti.printInfoLavoratore(gestoreEnti.getLavoratori(id));
-        int progettistiAttuali = gestoreProgettisti.getListaProgettistiById(gestoreAssociazioni.getIdProgettisti(id, Long.valueOf(idProgetto))).size();
-        int progettistiRichiesti = gestoreProgetto.getProgetto(idProgetto).getNumeroProgettistiRichiesti();
+        PrinterEnti.printInfoLavoratore(getEnteController().getLavoratori(id));
+        int progettistiAttuali = getProgettistaController().getProgettistiCandidati(getAssociazioneController().getIdProgettisti(id, Long.valueOf(idProgetto))).size();
+        int progettistiRichiesti = getProgettoController().one(idProgetto).getNumeroProgettistiRichiesti();
         
         while(progettistiAttuali < progettistiRichiesti)
         {
             Long idLavoratore = Long.valueOf(sc.nextLine());
-            gestoreEnti.assegnaProgetto(idLavoratore, idProgetto);
+            getEnteController().assegnaProgetto(idLavoratore, idProgetto);
             progettistiAttuali++;
             System.out.println("Lavoratore " + idLavoratore + "assegnato al progetto " + idProgetto);
             //TODO notifica

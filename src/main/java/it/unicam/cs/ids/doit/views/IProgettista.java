@@ -2,6 +2,7 @@ package it.unicam.cs.ids.doit.views;
 import it.unicam.cs.ids.doit.associazione.StatoAssociazione;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
+import it.unicam.cs.ids.doit.associazione.AssociazioneController;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 
@@ -17,6 +18,10 @@ public class IProgettista extends IUtente {
     }
     private CandidaturaController getCandidaturaController() {
         return SpringContext.getBean(CandidaturaController.class);
+    }
+    private AssociazioneController getAssociazioneController()
+    {
+        return SpringContext.getBean(AssociazioneController.class);
     }
 
 

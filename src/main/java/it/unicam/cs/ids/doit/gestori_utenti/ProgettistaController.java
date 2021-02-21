@@ -41,9 +41,9 @@ public class ProgettistaController {
         return gestoreProgettisti.getProgettistaByUsername(username);
     }
     @GetMapping(value = "/progettisti/{id}")
-    Set<Progettista> getProgettiCandidati(@PathVariable Set<Long> id)
+    public Set<Progettista> getProgettistiCandidati(@PathVariable Set<Long> id)
     {
-        return gestore.getListaProgettistiById(id);
+        return gestoreProgettisti.getListaProgettistiById(id);
 
     }
 

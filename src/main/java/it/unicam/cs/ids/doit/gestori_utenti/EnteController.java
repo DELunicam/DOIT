@@ -28,23 +28,23 @@ public class EnteController {
     }
 
     @GetMapping(value = "/enti/{id}")
-    Ente getEnte(@PathVariable Long id) {
+    public Ente getEnte(@PathVariable Long id) {
         return gestoreEnti.getEnte(id);
     }
 
     @GetMapping(value = "enti/{id}/lavoratori")
-    Set<Lavoratore> getLavoratori(@PathVariable Long id) {
+    public Set<Lavoratore> getLavoratori(@PathVariable Long id) {
         return gestoreEnti.getLavoratori(id);
     }
 
     // TODO
     @PutMapping(value = "lavoratori/{idLavoratore}")
-    void assegnaProgetto(@PathVariable Long idLavoratore, @RequestParam Long idProgetto) {
+    public void assegnaProgetto(@PathVariable Long idLavoratore, @RequestParam Long idProgetto) {
         gestoreEnti.assegnaProgetto(idLavoratore, idProgetto);
     }
 
     @GetMapping(value = "enti/{id}/lavoratori/{specializzazione}")
-    Set<Lavoratore> getLavoratori(@PathVariable Long id, @PathVariable Specializzazione specializzazione) {
+    public Set<Lavoratore> getLavoratori(@PathVariable Long id, @PathVariable Specializzazione specializzazione) {
         return gestoreEnti.getLavoratori(id, specializzazione);
     }
 

@@ -36,7 +36,7 @@ public abstract class PrinterProgettisti {
     public static void printProgettistiAssociati(Set<Long> id)
     {
 
-        Set<Progettista> progettisti = gestoreProgettisti.getListaProgettistiById(id);
+        Set<Progettista> progettisti = getProgettistaController().getProgettistiCandidati(id);
         printInfoProgettisti(progettisti);
     }
 
