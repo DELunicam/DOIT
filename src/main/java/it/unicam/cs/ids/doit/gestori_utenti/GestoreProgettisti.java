@@ -25,6 +25,10 @@ public class GestoreProgettisti {
         }
         return instance;
     }
+    public Set<Progettista>getListaProgettistiById(Set<Long> id)
+    {
+        return progettistaRepository.findProgettistiByIdIn(id);
+    }
 
     public Progettista getProgettista(Long idProgettista) {
         return progettistaRepository.findById(idProgettista).get();

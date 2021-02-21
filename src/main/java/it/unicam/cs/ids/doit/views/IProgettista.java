@@ -1,14 +1,7 @@
 package it.unicam.cs.ids.doit.views;
-<<<<<<< Updated upstream
-
-import it.unicam.cs.ids.doit.candidatura.GestoreCandidature;
-import it.unicam.cs.ids.doit.gestori_utenti.GestoreProgettisti;
-=======
-import it.unicam.cs.ids.doit.associazione.AssociazioneController;
 import it.unicam.cs.ids.doit.associazione.StatoAssociazione;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
->>>>>>> Stashed changes
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 
 import java.util.Scanner;
@@ -20,19 +13,6 @@ public class IProgettista {
     GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
     Long idProgettista;
 
-<<<<<<< Updated upstream
-=======
-    private ProgettistaController getProgettistaController() {
-        return SpringContext.getBean(ProgettistaController.class);
-    }
-    private CandidaturaController getCandidaturaController() {
-        return SpringContext.getBean(CandidaturaController.class);
-    }
-    private AssociazioneController getAssociazioneController() {
-        return SpringContext.getBean(AssociazioneController.class);
-    }
-
->>>>>>> Stashed changes
 
     public IProgettista(Long idProgettista) {
         this.sc = new Scanner(System.in);

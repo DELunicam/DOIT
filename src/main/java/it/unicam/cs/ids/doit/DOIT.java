@@ -23,11 +23,7 @@ public class DOIT {
                 break;
             }
             case "PROG": {
-<<<<<<< Updated upstream
                 String idProgettista = digitaID(sc);
-=======
-                Long idProgettista = digitaID(sc);
->>>>>>> Stashed changes
                 IProgettista progettista = new IProgettista(7L);
                 progettista.opzioniDisponibili();
                 break;

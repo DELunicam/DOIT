@@ -35,6 +35,12 @@ public class ProgettistaController {
     Progettista oneByUsername(@RequestParam Long username) {
         return gestore.getProgettistaByUsername(username);
     }
+    @GetMapping(value = "/progettisti/{id}")
+    Set<Progettista> getProgettiCandidati(@PathVariable Set<Long> id)
+    {
+        return gestore.getListaProgettistiById(id);
+
+    }
 
  /*   @GetMapping(value= "specializzazioni/idProgettista/{idProgettista}")
     Set<Specializzazione> getSpecializzazioniByIdProgettista(@PathVariable Long idProgettista)

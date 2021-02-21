@@ -94,6 +94,14 @@ public class Lavoratore {
 	public Set<Long> getIdProgettiSvolti() {
 		return this.idProgettiSvolti;
 	}
+    
+    public String getInfoSpec() {
+        String info = "Specializzazioni : \n";
+        for (Specializzazione spec : specializzazioni) {
+            info += spec.name() + " ";
+        }
+        return info;
+    }
 
 }
 

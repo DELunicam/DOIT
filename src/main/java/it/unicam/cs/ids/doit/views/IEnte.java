@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.doit.views;
 
 import java.util.Scanner;
+import java.util.Set;
 
 import it.unicam.cs.ids.doit.associazione.GestoreAssociazioni;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
@@ -32,7 +33,8 @@ public class IEnte
         while(true)
         {
             System.out.println("Cosa vuoi fare \n"
-                +"[INSERISCI CANDIDATURA} \n"
+                +"[INSERISCI CANDIDATURA] \n"
+                +"[ASSEGNA LAVORATORI] \n"
                 +"[INVIA PROPOSTA DI ASSOCIAZIONE]\n");
                 String input = sc.nextLine().toUpperCase();
                 switch (input) 
@@ -42,6 +44,9 @@ public class IEnte
                         break;
                     case "INVIA PROPOSTA DI ASSOCIAZIONE":
                         PropostaAssociazione();
+                        break;
+                    case "ASSEGNA LAVORATORI":
+                        assegnaLavoratori();
                         break;
                     case "EXIT":
                         return;
@@ -138,6 +143,7 @@ public class IEnte
             if (input.equals("Y")) {
                 gestoreAssociazioni.creaAssociazione(id, Long.valueOf(idProgettista), idProgetto);
                 System.out.println("Proposta di associazione inviata\n");
+                //TODO notifica
 
             } else if (input.equals("N")) {
                 System.out.println("Ok, operazione annullata \n");
@@ -147,5 +153,67 @@ public class IEnte
             }
 
         }
-     }
+ 
+    }
+    public void assegnaLavoratori()
+    {
+        System.out.println("Vuoi assegnare dei lavoratori ad un progetto? \n[Y] YES,    [N] NO)\n");
+        String input = sc.nextLine().toUpperCase();
+        if (input.equals("Y")) 
+         {
+            viewProgettiAssegnati();
+    
+        } else if (input.equals("N")) {
+            System.out.println("Ok, operazione annullata \n");
+        } else {
+            System.out.println("Impossibile processare l'operazione");
+        }
+    }
+
+    public void viewProgettiAssegnati()
+    {
+        System.out.println("I progetti a te assegnati sono: \n");
+        PrinterProgetti.printProgettiCandidati(gestoreCandidature.getIdProgetti(id, StatoCandidatura.PRESELEZIONATA));
+        selezionaProgettoAssegnazione();
+    }
+
+    public void selezionaProgettoAssegnazione()
+    {
+        System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
+        String idProgetto = sc.nextLine();
+        if (!idProgetto.equals("EXIT")) {
+            PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
+            System.out.println("Desideri assegnare dei lavoratori a questo progetto?\n[Y] YES,    [N] NO)\n");
+            String input = sc.nextLine().toUpperCase();
+            if (input.equals("Y")) {
+                    selezionaLavoratori(Long.valueOf(idProgetto));
+
+            } else if (input.equals("N")) {
+                System.out.println("Ok, operazione annullata \n");
+                viewProgettiCandidati();
+            } else {
+                System.out.println("Impossibile processare l'operazione");
+            }
+
+        }
+    }
+    public void selezionaLavoratori(Long idProgetto)
+    {
+        System.out.println("I seguenti progettisti sono associati per questo progetto: \n");
+        PrinterProgettisti.printInfoProgettisti(gestoreProgettisti.getListaProgettistiById(gestoreAssociazioni.getIdProgettisti(id, Long.valueOf(idProgetto))));
+        System.out.println("Inserisci l'id dei lavoratori che vuoi assegnare a questo progetto\n");
+        PrinterEnti.printInfoLavoratore(gestoreEnti.getLavoratori(id));
+        int progettistiAttuali = gestoreProgettisti.getListaProgettistiById(gestoreAssociazioni.getIdProgettisti(id, Long.valueOf(idProgetto))).size();
+        int progettistiRichiesti = gestoreProgetto.getProgetto(idProgetto).getNumeroProgettistiRichiesti();
+        
+        while(progettistiAttuali < progettistiRichiesti)
+        {
+            Long idLavoratore = Long.valueOf(sc.nextLine());
+            gestoreEnti.assegnaProgetto(idLavoratore, idProgetto);
+            progettistiAttuali++;
+            System.out.println("Lavoratore " + idLavoratore + "assegnato al progetto " + idProgetto);
+            //TODO notifica
+        }
+
+    }
 }

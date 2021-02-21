@@ -44,7 +44,7 @@ public class AssociazioneController {
     }
 
     @GetMapping(value = "/associazioni/progettisti", params = {"idEnte", "idProgetto"})
-    Set<Long> getIdProgettisti(@RequestParam Long idEnte, @RequestParam Long idProgetto) {
+    public  Set<Long> getIdProgettisti(@RequestParam Long idEnte, @RequestParam Long idProgetto) {
         return gestoreAssociazioni.getIdProgettisti(idEnte, idProgetto);
     }
 
