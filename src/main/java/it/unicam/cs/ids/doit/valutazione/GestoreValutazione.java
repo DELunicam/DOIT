@@ -6,20 +6,20 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class GestoreValutazioni {
-    private static GestoreValutazioni instance;
+public class GestoreValutazione {
+    private static GestoreValutazione instance;
 
     @Autowired
-    ValutazioniRepository repository;
+    ValutazioneRepository repository;
 
-    public GestoreValutazioni() {
+    public GestoreValutazione() {
 
     }
 
     // Singleton
-    public static GestoreValutazioni getInstance() {
+    public static GestoreValutazione getInstance() {
         if (instance == null) {
-            instance = new GestoreValutazioni();
+            instance = new GestoreValutazione();
         }
         return instance;
     }

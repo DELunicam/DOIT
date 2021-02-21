@@ -11,6 +11,9 @@ public class Utente {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NonNull
+    private String password;
+    @NonNull
     private String username;
     @NonNull
     private String mailAddress;
@@ -22,9 +25,22 @@ public class Utente {
         this.username = username;
         this.mailAddress = mailAddress;
     }
+    public Utente(String username, String password, String mailAddress) {
+        this.username = username;
+        this.password = password;
+        this.mailAddress = mailAddress;
+    }
     public Long getId()
     {
         return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUsername() {

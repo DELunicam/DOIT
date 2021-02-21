@@ -5,6 +5,9 @@ import org.springframework.lang.NonNull;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import java.util.HashSet;
 import java.util.Set;
 @Entity
@@ -13,22 +16,23 @@ public class Progettista extends Utente {
     private String nome;
     @NonNull
     private String cognome;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
+	@Enumerated(EnumType.STRING)
     private Set<Specializzazione> specializzazioni = new HashSet<>();
-    @NonNull
-    private Long id;
 
     public Progettista() {
     }
 
-    public Progettista(String username, String mailAddress, String nome, String cognome) {
-        super(username, mailAddress);
+    public Progettista(String username, String password, String mailAddress, String nome, String cognome) {
+        super(username, password, mailAddress);
         this.nome = nome;
         this.cognome = cognome;
     }
 
-    public Progettista(String username, String mailAddress, String nome, String cognome, Set<Specializzazione> specializzazioni) {
-        this(username, mailAddress, nome, cognome);
+    public Progettista(String username, String password, String mailAddress, String nome, String cognome, Set<Specializzazione> specializzazioni) {
+        super(username, password, mailAddress);
+        this.nome = nome;
+        this.cognome = cognome;
         this.specializzazioni = specializzazioni;
     }
 

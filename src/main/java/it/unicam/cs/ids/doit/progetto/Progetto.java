@@ -13,10 +13,11 @@ public class Progetto {
     @NonNull
     private String nome;
     private String descrizione;
+	@Enumerated(EnumType.STRING)
     private StatoProgetto statoProgetto;
     @NonNull
     private Long idProponente;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<Specializzazione, Integer> infoProgettistiRichiesti = new HashMap<>();
 
     public Progetto() {

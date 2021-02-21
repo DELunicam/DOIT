@@ -1,6 +1,8 @@
 package it.unicam.cs.ids.doit.gestori_utenti;
 
+import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utenti.Progettista;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,30 +12,33 @@ import java.util.Set;
 
 @RestController
 public class ProgettistaController {
-    private final GestoreProgettisti gestore;
 
-    ProgettistaController(ProgettistaRepository repository, GestoreProgettisti gestore){
-        this.gestore = gestore;
+    @Autowired
+    ProgettistaRepository progettistaRepository;
+    @Autowired
+    GestoreProgettisti gestoreProgettisti;
+
+    public ProgettistaController() {
     }
 
     @GetMapping(value="/progettisti")
-    Set<Progettista> all(){
-        return gestore.getListaProgettisti();
+    public Set<Progettista> all(){
+        return gestoreProgettisti.getListaProgettisti();
     }
 
     @GetMapping(value = "/progettisti/{id}")
-    Progettista one(@PathVariable Long id) {
-        return gestore.getProgettista(id);
+    public Progettista one(@PathVariable Long id) {
+        return gestoreProgettisti.getProgettista(id);
     }
 
     @GetMapping(value = "/progettisti", params = {"nome"})
     Progettista oneByNome(@RequestParam String nome) {
-        return gestore.getProgettistaByNome(nome);
+        return gestoreProgettisti.getProgettistaByNome(nome);
     }
 
     @GetMapping(value = "/progettisti", params = {"username"})
-    Progettista oneByUsername(@RequestParam Long username) {
-        return gestore.getProgettistaByUsername(username);
+    public Progettista oneByUsername(@RequestParam String username) {
+        return gestoreProgettisti.getProgettistaByUsername(username);
     }
     @GetMapping(value = "/progettisti/{id}")
     Set<Progettista> getProgettiCandidati(@PathVariable Set<Long> id)
@@ -42,10 +47,8 @@ public class ProgettistaController {
 
     }
 
- /*   @GetMapping(value= "specializzazioni/idProgettista/{idProgettista}")
-    Set<Specializzazione> getSpecializzazioniByIdProgettista(@PathVariable Long idProgettista)
-    {
-        return gestore.getSpecializzazioni(idProgettista);
+    @GetMapping(value= "specializzazioni/idProgettista/{idProgettista}")
+    public Set<Specializzazione> getSpecializzazioniByIdProgettista(@PathVariable Long idProgettista) {
+        return gestoreProgettisti.getSpecializzazioni(idProgettista);
     }
-   */
 }

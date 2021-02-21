@@ -1,6 +1,8 @@
 package it.unicam.cs.ids.doit.gestori_utenti;
 
 import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,10 +16,10 @@ import it.unicam.cs.ids.doit.utenti.Lavoratore;
 @RestController
 public class EnteController {
 
-    private final GestoreEnti gestoreEnti;
+    @Autowired
+    GestoreEnti gestoreEnti;
 
-    EnteController(GestoreEnti gestoreEnti) {
-        this.gestoreEnti = gestoreEnti;
+    public EnteController() {
     }
 
     @GetMapping(value = "/enti/{id}/info")

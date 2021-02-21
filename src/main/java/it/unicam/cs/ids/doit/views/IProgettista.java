@@ -3,15 +3,21 @@ import it.unicam.cs.ids.doit.associazione.StatoAssociazione;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
+import it.unicam.cs.ids.doit.utils.SpringContext;
 
 import java.util.Scanner;
 
 
-public class IProgettista {
+public class IProgettista extends IUtente {
     Scanner sc;
-    GestoreProgettisti gestoreProgetto = GestoreProgettisti.getInstance();
-    GestoreCandidature gestoreCandidature = GestoreCandidature.getInstance();
     Long idProgettista;
+
+    private ProgettistaController getProgettistaController() {
+        return SpringContext.getBean(ProgettistaController.class);
+    }
+    private CandidaturaController getCandidaturaController() {
+        return SpringContext.getBean(CandidaturaController.class);
+    }
 
 
     public IProgettista(Long idProgettista) {
@@ -55,7 +61,7 @@ public class IProgettista {
 
     public void viewProgettiCandidabili() {
         System.out.println("Puoi candidarti ai seguenti progetti \n");
-        PrinterProgetti.printListaProgetti(gestoreProgetto.getSpecializzazioni(gestoreProgetto.getIdProgettistaByUsername(idProgettista)), StatoProgetto.PUBBLICO);
+        PrinterProgetti.printListaProgetti(getProgettistaController().getSpecializzazioniByIdProgettista(idProgettista), StatoProgetto.PUBBLICO);
         selezionaProgetto();
     }
 
@@ -67,7 +73,7 @@ public class IProgettista {
             System.out.println("Desideri candidarti a questo progetto?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
             if (input.equals("Y")) {
-                gestoreCandidature.creaCandidatura(idProgettista, Long.valueOf(idProgetto));
+                getCandidaturaController().creaCandidatura(idProgettista, Long.valueOf(idProgetto));
                 System.out.println("Congratulazioni, ti sei candidato al progetto " + idProgetto);
 
             } else if (input.equals("N")) {

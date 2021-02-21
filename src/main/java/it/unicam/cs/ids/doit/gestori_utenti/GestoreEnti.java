@@ -13,14 +13,14 @@ import it.unicam.cs.ids.doit.utenti.Lavoratore;
 @Service
 public class GestoreEnti {
 
-    public static GestoreEnti instance;
+    private static GestoreEnti instance;
 
     @Autowired
     EnteRepository enteRepository;
     @Autowired
     LavoratoreRepository lavoratoreRepository;
 
-    public GestoreEnti() {
+    private GestoreEnti() {
 
     }
 
@@ -54,5 +54,11 @@ public class GestoreEnti {
     public Set<Lavoratore> getLavoratori(Long idEnte, Specializzazione specializzazione) {
         return lavoratoreRepository.findLavoratoriByIdEnteAndSpecializzazioniIn(idEnte, Collections.singleton(specializzazione));
     }
+
+	public Ente creaEnte(String username, String password, String mail, String nome, String tipologia, String descrizione) {
+        Ente ente = new Ente(username, password, mail, nome, tipologia, descrizione);
+        enteRepository.save(ente);
+        return ente;
+	}
 
 }

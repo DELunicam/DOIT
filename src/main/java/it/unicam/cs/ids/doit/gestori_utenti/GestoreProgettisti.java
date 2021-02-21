@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.doit.gestori_utenti;
 
-import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +10,11 @@ import java.util.Set;
 
 @Service
 public class GestoreProgettisti {
-    public static GestoreProgettisti instance;
+    private static GestoreProgettisti instance;
     @Autowired
     ProgettistaRepository progettistaRepository;
 
-    public GestoreProgettisti() {
+    private GestoreProgettisti() {
     }
 
     // Singleton
@@ -38,11 +37,11 @@ public class GestoreProgettisti {
         return progettistaRepository.findProgettistaByNome(nome);
     }
 
-    public Progettista getProgettistaByUsername(Long username) {
+    public Progettista getProgettistaByUsername(String username) {
         return progettistaRepository.findProgettistaByUsername(username);
     }
 
-    public Long getIdProgettistaByUsername(Long username) {
+    public Long getIdProgettistaByUsername(String username) {
         return progettistaRepository.findProgettistaByUsername(username).getId();
     }
 
@@ -56,6 +55,12 @@ public class GestoreProgettisti {
         progettistaRepository.findAll().forEach(progettisti::add);
         return progettisti;
     }
+
+	public Progettista creaProgettista(String username, String password, String mail, String nome, String cognome, Set<Specializzazione> specializzazioni) {
+        Progettista progettista = new Progettista(username, password, mail, nome, cognome, specializzazioni);
+        progettistaRepository.save(progettista);
+        return progettista;
+	}
 
     // Probabilmente andra' spostato in GestoreProgetti
 //    public Set<Progetto> getProgettiSvolti(String idProgettista) {
@@ -88,13 +93,13 @@ public class GestoreProgettisti {
 //    }
 
     // TODO NON USATO? ELIMINARE?
-    public Set<Progettista> getListaProgettisti(Set<Candidatura> candidatura) {
-        Set<Progettista> progettisti = new HashSet<Progettista>();
-        for (Candidatura cand : candidatura) {
-            progettisti.add(getProgettista(getIdProgettistaByUsername(cand.getIdProgettista())));
-        }
-        return progettisti;
-    }
+//    public Set<Progettista> getListaProgettisti(Set<Candidatura> candidatura) {
+//        Set<Progettista> progettisti = new HashSet<Progettista>();
+//        for (Candidatura cand : candidatura) {
+//            progettisti.add(getProgettista(getIdProgettistaByUsername(cand.getIdProgettista())));
+//        }
+//        return progettisti;
+//    }
 
 //    public String getInfoProgettisti(Set<Progettista> progettisti) {
 //        String info = "INFO PROGETTISTI:\n";

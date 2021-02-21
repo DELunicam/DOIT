@@ -1,6 +1,8 @@
 package it.unicam.cs.ids.doit.associazione;
 
 import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -11,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AssociazioneController {
 
-    private final GestoreAssociazioni gestoreAssociazioni;
+    @Autowired
+    GestoreAssociazioni gestoreAssociazioni;
 
-    AssociazioneController(GestoreAssociazioni gestoreAssociazioni) {
-        this.gestoreAssociazioni = gestoreAssociazioni;
+    public AssociazioneController() {
     }
 
     @GetMapping(value = "/associazioni", params = {"idProgettista", "stato"})
@@ -49,7 +51,7 @@ public class AssociazioneController {
     }
 
     @PostMapping(value = "/associazioni", params = {"idEnte", "idProgettista", "idProgetto"})
-    Associazione creaAssociazione(@RequestParam Long idEnte, @RequestParam Long idProgettista, @RequestParam Long idProgetto) {
+    public Associazione creaAssociazione(@RequestParam Long idEnte, @RequestParam Long idProgettista, @RequestParam Long idProgetto) {
         return gestoreAssociazioni.creaAssociazione(idEnte, idProgettista, idProgetto);
     }
 
