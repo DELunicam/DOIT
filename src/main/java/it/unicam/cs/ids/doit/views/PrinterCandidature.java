@@ -12,19 +12,23 @@ public abstract class PrinterCandidature {
         return SpringContext.getBean(CandidaturaController.class);
     }
 
-    public static void printListaCandidature(Long idProgetto, StatoCandidatura statoCandidatura){
+    public static void printListaCandidature(Long idProgetto, StatoCandidatura statoCandidatura) {
         Set<Candidatura> candidature = getCandidaturaController().getCandidatureByIdProgettoAndStato(idProgetto, statoCandidatura);
         printBasicCandidature(candidature);
     }
 
-    private static void printBasicCandidature(Set<Candidatura> candidature) {
-        System.out.println("ID_candidatura, Stato_candidatura, ID_progettista, ID_progetto");
-        for (Candidatura candidatura : candidature) {
-            System.out.println(candidatura.getId() + ", "
-                    + candidatura.getStatoCandidatura() + ", "
-                    + candidatura.getIdProgettista() + ", "
-                    + candidatura.getIdProgetto());
-
+    public static void printBasicCandidature(Set<Candidatura> candidature) {
+        if (candidature == null) {
+            System.out.println("Non sono state trovate candidature");
+        }
+        else {
+            System.out.println("ID_candidatura, Stato_candidatura, ID_progettista, ID_progetto");
+            for (Candidatura candidatura : candidature) {
+                System.out.println(candidatura.getId() + ", "
+                        + candidatura.getStatoCandidatura() + ", "
+                        + candidatura.getIdProgettista() + ", "
+                        + candidatura.getIdProgetto());
+            }
         }
     }
 }

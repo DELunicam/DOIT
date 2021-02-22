@@ -7,6 +7,8 @@ import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaRepository;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.doit.gestori_utenti.*;
+import it.unicam.cs.ids.doit.notifica.Messaggio;
+import it.unicam.cs.ids.doit.notifica.MessaggioRepository;
 import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.ProgettoRepository;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
@@ -33,14 +35,13 @@ public class LoadDatabase {
         return args -> {
             log.info("Preloading " + repository.save(new Proponente("prop1", BCrypt.hashpw("prop1", BCrypt.gensalt()), "mail1", "mario", "alto")));
             log.info("Preloading " + repository.save(new Proponente("prop2", BCrypt.hashpw("prop2", BCrypt.gensalt()), "mail2", "dario", "basso")));
-
         };
     }
 
     @Bean
     CommandLineRunner loadProgetti(ProgettoRepository repository) {
 
-        Progetto prog3 = new Progetto(1L,"nome3", "desc3");
+        Progetto prog3 = new Progetto(1L, "nome3", "desc3");
         HashMap<Specializzazione, Integer> map = new HashMap<Specializzazione, Integer>();
         map.put(Specializzazione.CHIMICA, 2);
         map.put(Specializzazione.INFORMATICA, 5);
@@ -53,13 +54,13 @@ public class LoadDatabase {
         prog4.setInfoProgettistiRichiesti(map);
         prog4.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
 
-        Progetto prog5 = new Progetto(3L, "nome2", "desc2");
+        Progetto prog5 = new Progetto(1L, "nome2", "desc2");
         prog5.setInfoProgettistiRichiesti(map);
         prog5.setStatoProgetto(StatoProgetto.PUBBLICO);
 
         return args -> {
             log.info("Preloading " + repository.save(new Progetto(2L, "nome1", "desc1")));
-            log.info("Preloading " + repository.save(new Progetto(3L, "nome2", "desc2")));
+            log.info("Preloading " + repository.save(new Progetto(1L, "nome2", "desc2")));
             log.info("Preloading" + repository.save(prog3));
             log.info("Preloading" + repository.save(prog4));
             log.info("Preloading " + repository.save(prog5));
@@ -105,57 +106,43 @@ public class LoadDatabase {
 
         };
     }
-    //@Bean
-    //CommandLineRunner loadCandidature(EnteRepository repository)
-    //{
-    //    Ente bar = new Ente();
-    //    bar.setNome("ente1");
-    //    bar.setDescrizione("Ente generico");
-    //    
-    //    return args -> {
-    //       
-    //        log.info("Preloading " + repository.save(bar));
-    //        
-    //    };
-//
-    //}
 
     @Bean
     CommandLineRunner loadCandidature(CandidaturaRepository repository) {
         Candidatura foo = new Candidatura();
         //foo.setId("CAND1");
         foo.setIdProgettista(8L);
-        foo.setIdProgetto(5L);
+        foo.setIdProgetto(7L);
         foo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
         Candidatura bar = new Candidatura();
         //bar.setId("CAND2");
         bar.setIdProgettista(8L);
-        bar.setIdProgetto(4L);
+        bar.setIdProgetto(7L);
         bar.setStatoCandidatura(StatoCandidatura.ACCETTATA);
 
         Candidatura sad = new Candidatura();
         //sad.setId("CAND3");
         sad.setIdProgettista(8L);
-        sad.setIdProgetto(Long.valueOf(3));
+        sad.setIdProgetto(Long.valueOf(7));
         sad.setStatoCandidatura(StatoCandidatura.RIFIUTATA);
 
         Candidatura zoo = new Candidatura();
         //zoo.setId("CAND4");
         zoo.setIdProgettista(8L);
-        zoo.setIdProgetto(Long.valueOf(4));
+        zoo.setIdProgetto(Long.valueOf(7));
         zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
         Candidatura ciao = new Candidatura();
         //ciao.setId("CAND5");
         ciao.setIdProgettista(8L);
-//		ciao.setIdProgetto(tre.getId());
+		ciao.setIdProgetto(7L);
         ciao.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
         Candidatura puffo = new Candidatura();
         //puffo.setId("CAND6");
         puffo.setIdProgettista(8L);
-//		puffo.setIdProgetto(tre.getId());
+		puffo.setIdProgetto(7L);
         puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
         Candidatura bee = new Candidatura();
@@ -186,34 +173,34 @@ public class LoadDatabase {
     @Bean
     CommandLineRunner loadEsperto(EspertoRepository repository) {
         return args -> {
-            log.info("Preloading " + repository.save(new Esperto("esp1", BCrypt.hashpw("esp1", BCrypt.gensalt()),"mail","nome","cognome")));
-            log.info("Preloading " + repository.save(new Esperto("esp2", BCrypt.hashpw("esp2", BCrypt.gensalt()),"mail","nome","cognome")));
+            log.info("Preloading " + repository.save(new Esperto("esp1", BCrypt.hashpw("esp1", BCrypt.gensalt()), "mail", "nome", "cognome")));
+            log.info("Preloading " + repository.save(new Esperto("esp2", BCrypt.hashpw("esp2", BCrypt.gensalt()), "mail", "nome", "cognome")));
         };
     }
 
     @Bean
     CommandLineRunner loadEnti(EnteRepository repository) {
         return args -> {
-            log.info("Preloading " + repository.save(new Ente("apple", BCrypt.hashpw("apple", BCrypt.gensalt()),"mail","nome")));
-            log.info("Preloading " + repository.save(new Ente("microsoft", BCrypt.hashpw("microsoft", BCrypt.gensalt()),"mail","nome")));
-            log.info("Preloading " + repository.save(new Ente("governo", BCrypt.hashpw("governo", BCrypt.gensalt()),"mail","nome")));
+            log.info("Preloading " + repository.save(new Ente("apple", BCrypt.hashpw("apple", BCrypt.gensalt()), "mail", "nome")));
+            log.info("Preloading " + repository.save(new Ente("microsoft", BCrypt.hashpw("microsoft", BCrypt.gensalt()), "mail", "nome")));
+            log.info("Preloading " + repository.save(new Ente("governo", BCrypt.hashpw("governo", BCrypt.gensalt()), "mail", "nome")));
         };
     }
 
     @Bean
     CommandLineRunner loadAssociazioni(AssociazioneRepository repository) {
-        Associazione a = new Associazione(21L,7l,3L);
+        Associazione a = new Associazione(23L, 8L, 3L);
         a.setStatoAssociazione(StatoAssociazione.PROPOSTA);
 
-        Associazione b = new Associazione(21L,7l,3L);
+        Associazione b = new Associazione(23L, 8L, 3L);
         b.setStatoAssociazione(StatoAssociazione.PROPOSTA);
         return args -> {
-            log.info("Preloading " + repository.save(new Associazione(21L,6L,3L)));
-            log.info("Preloading " + repository.save(new Associazione(21L,7L,3L)));
-            log.info("Preloading " + repository.save(new Associazione(22L,8L,4L)));
-            log.info("Preloading " + repository.save(new Associazione(22L,9L,5L)));
-            log.info("Preloading " + repository.save(new Associazione(23L,10L,5L)));
-            log.info("Preloading " + repository.save(new Associazione(23L,6L,5L)));
+            log.info("Preloading " + repository.save(new Associazione(23L, 8L, 3L)));
+            log.info("Preloading " + repository.save(new Associazione(23L, 9L, 3L)));
+            log.info("Preloading " + repository.save(new Associazione(24L, 10L, 4L)));
+            log.info("Preloading " + repository.save(new Associazione(24L, 10L, 5L)));
+            log.info("Preloading " + repository.save(new Associazione(25L, 11L, 5L)));
+            log.info("Preloading " + repository.save(new Associazione(25L, 12L, 5L)));
             log.info("Preloading " + repository.save(a));
             log.info("Preloading " + repository.save(b));
         };
@@ -232,12 +219,27 @@ public class LoadDatabase {
         set3.add(Specializzazione.INGEGNERIA);
         set3.add(Specializzazione.INFORMATICA);
         return args -> {
-            log.info("Preloading " + repository.save(new Lavoratore("Mario", "Rossi", 21L)));
-            log.info("Preloading " + repository.save(new Lavoratore("Paolo", "Verdi", 21L)));
-            log.info("Preloading " + repository.save(new Lavoratore("Giuseppe", "Bianchi", 21L)));
-            log.info("Preloading " + repository.save(new Lavoratore("Franco", "Neri", set1, 22L)));
-            log.info("Preloading " + repository.save(new Lavoratore("Augusto", "Viola", set2, 22L)));
-            log.info("Preloading " + repository.save(new Lavoratore("Mauro", "Rosa", set3, 21L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Mario", "Rossi", 23L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Paolo", "Verdi", 23L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Giuseppe", "Bianchi", 23L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Franco", "Neri", set1, 24L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Augusto", "Viola", set2, 24L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Mauro", "Rosa", set3, 25L)));
+        };
+    }
+
+    @Bean
+    CommandLineRunner loadMessaggi(MessaggioRepository repository) {
+        Messaggio msg1 = new Messaggio(1L, 8L, "Ciao, questo è un messaggio di prova");
+        Messaggio msg2 = new Messaggio(1L, 8L, "Ciao, questo è un messaggio di prova letto");
+        msg2.setLetto(true);
+        return args -> {
+            log.info("Preloading " + repository.save(msg1));
+            log.info("Preloading " + repository.save(msg2));
+            log.info("Preloading " + repository.save(new Messaggio(8L, 1L, "Ciao, questo è un messaggio di prova")));
+            log.info("Preloading " + repository.save(new Messaggio(9L, 10L, "Ciao, questo è un messaggio di prova")));
+            log.info("Preloading " + repository.save(new Messaggio(9L, 21L, "Ciao, questo è un messaggio di prova")));
+            log.info("Preloading " + repository.save(new Messaggio(21L, 23L, "Ciao, questo è un messaggio di prova")));
         };
     }
 

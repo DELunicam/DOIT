@@ -51,26 +51,46 @@ public class IVisitatore {
 
     public void visualizzaListaProgetti() {
         PrinterProgetti.printListaProgetti();
-        System.out.println("Digita l'id di un progetto per visualizzarne i dettagli, \n" + "EXIT per uscire");
+        System.out.println("Digita l'id di un progetto per visualizzarne i dettagli, [EXIT] per uscire");
         while (true) {
             String idProgetto = sc.nextLine();
             if (idProgetto.equalsIgnoreCase("EXIT")) {
                 break;
             }
-            PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
-        }
+            else {
+                try {
+                    Long.valueOf(idProgetto);
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("Inserisci un id valido");
+                    visualizzaListaProgetti();
+                    break;
+                }
+                PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
+            }
+        }      
     }
 
     public void visualizzaProgettisti() {
         PrinterProgettisti.printListaProgettisti();
-        System.out.println("Digita l'id di un progettista per visualizzarne i dettagli, \n" + "EXIT per uscire");
+        System.out.println("Digita l'id di un progettista per visualizzarne i dettagli, [EXIT] per uscire");
         while (true) {
             String idProgettista = sc.nextLine();
             if (idProgettista.equalsIgnoreCase("EXIT")) {
                 break;
             }
-            PrinterProgettisti.printInfoProgettista(Long.valueOf(idProgettista));
-            PrinterProgetti.printListaProgettiSvolti(Long.valueOf(idProgettista));
+            else {
+                try {
+                    Long.valueOf(idProgettista);
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("Inserisci un id valido");
+                    visualizzaProgettisti();
+                    break;
+                }
+                PrinterProgettisti.printInfoProgettista(Long.valueOf(idProgettista));
+                //PrinterProgetti.printListaProgettiSvolti(Long.valueOf(idProgettista));
+            }
         }
     }
 
@@ -108,16 +128,13 @@ public class IVisitatore {
 
     public void registraProponente() {
         String user = askUsername();
-        while (getUtenteController().cercaUsername(user)) {
-            System.out.println("Username " + user + " già in uso");
-            user = askUsername();
-        }
+        checkUsername(user);
         String pass = askPassword();
         String mail = askMail();
         String nome = askNome();
         String cognome = askCognome();
         getUtenteController().creaProponente(user, pass, mail, nome, cognome);
-        System.out.println("Coplimenti, ti sei registrato con successo");
+        System.out.println("Complimenti, ti sei registrato con successo");
     }
 
     public void registraProgettista() {
@@ -129,7 +146,7 @@ public class IVisitatore {
         String cognome = askCognome();
         Set<Specializzazione> specializzazioni = askSpecializzazioni();
         getUtenteController().creaProgettista(user, pass, mail, nome, cognome, specializzazioni);
-        System.out.println("Coplimenti, ti sei registrato con successo");
+        System.out.println("Complimenti, ti sei registrato con successo");
     }
 
     public void registraEsperto() {
@@ -141,7 +158,7 @@ public class IVisitatore {
         String cognome = askCognome();
         Set<Specializzazione> specializzazioni = askSpecializzazioni();
         getUtenteController().creaEsperto(user, pass, mail, nome, cognome, specializzazioni);
-        System.out.println("Coplimenti, ti sei registrato con successo");
+        System.out.println("Complimenti, ti sei registrato con successo");
     }
 
     public void registraEnte() {
@@ -154,7 +171,7 @@ public class IVisitatore {
         String descrizione = askDescrizione();
         getUtenteController().creaEnte(user, pass, mail, nome, tipologia, descrizione);
         //TODO aggiungere lavoratori
-        System.out.println("Coplimenti, ti sei registrato con successo");
+        System.out.println("Complimenti, ti sei registrato con successo");
     }
 
 

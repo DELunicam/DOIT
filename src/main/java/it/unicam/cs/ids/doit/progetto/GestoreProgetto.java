@@ -3,6 +3,7 @@ package it.unicam.cs.ids.doit.progetto;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaRepository;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
+import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaRepository;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class GestoreProgetto {
     // TODO candidatureRepository non dovrebbe essere qui
     @Autowired
     CandidaturaRepository candidatureRepository;
+    @Autowired
+    ProgettistaRepository progettistaRepository;
 
     private GestoreProgetto() {
     }
@@ -81,7 +84,10 @@ public class GestoreProgetto {
      * @return Progetto con id uguale a idProgetto, null se non esiste
      */
     public Progetto getProgetto(Long idProgetto) {
-        return progettoRepository.findById(idProgetto).get();
+        if (progettoRepository.existsById(idProgetto)) {
+            return progettoRepository.findById(idProgetto).get();
+        }
+        return null;
     }
 
     // TODO
@@ -144,15 +150,17 @@ public class GestoreProgetto {
 
     // TODO check
     public Set<Progetto> getListaProgettiSvolti(Long idProgettista) {
-        Set<Progetto> progettiSvolti = new HashSet<>();
-        Set<Candidatura> candidatureAccettate = candidatureRepository.findAllByIdProgettista(idProgettista);
-        candidatureAccettate = candidatureAccettate.stream().filter(c -> c.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)).collect(Collectors.toSet());
+        if (progettistaRepository.existsById(idProgettista)) {
+            Set<Progetto> progettiSvolti = new HashSet<>();
+            Set<Candidatura> candidatureAccettate = candidatureRepository.findAllByIdProgettista(idProgettista);
+            candidatureAccettate = candidatureAccettate.stream().filter(c -> c.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)).collect(Collectors.toSet());
 
-        for (Candidatura candidatura : candidatureAccettate) {
-            progettiSvolti.add(progettoRepository.getOne(candidatura.getIdProgetto()));
+            for (Candidatura candidatura : candidatureAccettate) {
+                progettiSvolti.add(progettoRepository.getOne(candidatura.getIdProgetto()));
+            }
+            return progettiSvolti;
         }
-
-        return progettiSvolti;
+        return null;
     }
 
     public void notificaEsito(String idProgettista) {

@@ -32,7 +32,7 @@ public class UtenteController {
     @PutMapping(value = "/utenti/proponente", params = {"username", "password", "mail", "nome", "cognome"})
     public void creaProponente(@RequestParam String username, @RequestParam String password,
         @RequestParam String mail, @RequestParam String nome, @RequestParam String cognome) {
-            gestoreProponenti.creaProponente(username, password, mail, nome, cognome);
+        gestoreProponenti.creaProponente(username, password, mail, nome, cognome);
     }
 
     //PROGETTISTA
@@ -54,7 +54,7 @@ public class UtenteController {
     }
 
     // ENTE
-    
+
     @PutMapping(value = "/utenti/esperto", params = {"username", "password", "mail", "nome", "tipologia", "descrizione"})
 	public void creaEnte(@RequestParam String username, @RequestParam String password,
         @RequestParam String mail, @RequestParam String nome,@RequestParam String tipologia,
@@ -69,6 +69,7 @@ public class UtenteController {
         return gestoreUtenti.cercaUsername(username);
     }
 
+
     @GetMapping
     public String getType(@PathVariable String username, @PathVariable String password) {
         return gestoreUtenti.getType(username, password);
@@ -79,5 +80,9 @@ public class UtenteController {
         return gestoreUtenti.getUtente(username, password);
     }
 
-    
+    @GetMapping(value = "/utenti")
+    public Set<Utente> all() {
+        return gestoreUtenti.all();
+    }
+
 }

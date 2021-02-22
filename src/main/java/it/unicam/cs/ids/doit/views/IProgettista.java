@@ -10,12 +10,7 @@ import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 
-import java.util.Scanner;
-
-
 public class IProgettista extends IUtente {
-    Scanner sc;
-    Long idProgettista;
 
     private ProgettoController getProgettoController()
     {
@@ -34,8 +29,7 @@ public class IProgettista extends IUtente {
 
 
     public IProgettista(Long idProgettista) {
-        this.sc = new Scanner(System.in);
-        this.idProgettista = idProgettista;
+        super(idProgettista);
     }
 
     public void opzioniDisponibili(){
@@ -43,7 +37,9 @@ public class IProgettista extends IUtente {
             System.out.println("Cosa vuoi fare?\n" +
                     "[CANDIDA]\n" +
                     "[ACCETTA ASSOCIAZIONE]\n" +
-                    "[EXIT]");
+                    "[INVIA MESSAGGIO]\n" +
+                    "[VISUALIZZA NOTIFICHE]\n" +
+                    "[LOGOUT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
                 case "CANDIDA":
@@ -52,8 +48,15 @@ public class IProgettista extends IUtente {
                 case "ACCETTA ASSOCIAZIONE":
                     accettaAssociazione();
                     break;
-                case "EXIT":
-                    return;
+                case "INVIA MESSAGGIO":
+                    inviaMessaggio();
+                    break;
+                case "VISUALIZZA NOTIFICHE":
+                    visualizzaMessaggi();
+                    break;
+                case "LOGOUT":
+                    logout();
+                    break;
 
             }
         }
@@ -74,7 +77,7 @@ public class IProgettista extends IUtente {
 
     public void viewProgettiCandidabili() {
         System.out.println("Puoi candidarti ai seguenti progetti \n");
-        PrinterProgetti.printListaProgetti(getProgettistaController().getSpecializzazioniByIdProgettista(idProgettista), StatoProgetto.PUBBLICO);
+        PrinterProgetti.printListaProgetti(getProgettistaController().getSpecializzazioniByIdProgettista(id), StatoProgetto.PUBBLICO);
         selezionaProgetto();
     }
 
@@ -132,7 +135,7 @@ public class IProgettista extends IUtente {
 
     public void viewRichiesteAssociazione()
     {
-        PrinterAssociazioni.printListaAssociazione(idProgettista, StatoAssociazione.PROPOSTA);
+        PrinterAssociazioni.printListaAssociazione(id, StatoAssociazione.PROPOSTA);
         selezionaAssociazione();
     }
 
@@ -170,7 +173,7 @@ public class IProgettista extends IUtente {
                 System.out.println("Impossibile processare l'operazione");
             }
 
-        
+
         }
     }
 
