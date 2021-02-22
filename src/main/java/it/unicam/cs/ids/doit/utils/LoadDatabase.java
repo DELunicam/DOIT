@@ -34,7 +34,6 @@ public class LoadDatabase {
         return args -> {
             log.info("Preloading " + repository.save(new Proponente("prop1", BCrypt.hashpw("prop1", BCrypt.gensalt()), "mail1", "mario", "alto")));
             log.info("Preloading " + repository.save(new Proponente("prop2", BCrypt.hashpw("prop2", BCrypt.gensalt()), "mail2", "dario", "basso")));
-
         };
     }
 
@@ -201,18 +200,18 @@ public class LoadDatabase {
 
     @Bean
     CommandLineRunner loadAssociazioni(AssociazioneRepository repository) {
-        Associazione a = new Associazione(21L, 7l, 3L);
+        Associazione a = new Associazione(23L, 8L, 3L);
         a.setStatoAssociazione(StatoAssociazione.PROPOSTA);
 
-        Associazione b = new Associazione(21L, 7l, 3L);
+        Associazione b = new Associazione(23L, 8L, 3L);
         b.setStatoAssociazione(StatoAssociazione.PROPOSTA);
         return args -> {
-            log.info("Preloading " + repository.save(new Associazione(21L, 6L, 3L)));
-            log.info("Preloading " + repository.save(new Associazione(21L, 7L, 3L)));
-            log.info("Preloading " + repository.save(new Associazione(22L, 8L, 4L)));
-            log.info("Preloading " + repository.save(new Associazione(22L, 9L, 5L)));
-            log.info("Preloading " + repository.save(new Associazione(23L, 10L, 5L)));
-            log.info("Preloading " + repository.save(new Associazione(23L, 6L, 5L)));
+            log.info("Preloading " + repository.save(new Associazione(23L, 8L, 3L)));
+            log.info("Preloading " + repository.save(new Associazione(23L, 9L, 3L)));
+            log.info("Preloading " + repository.save(new Associazione(24L, 10L, 4L)));
+            log.info("Preloading " + repository.save(new Associazione(24L, 10L, 5L)));
+            log.info("Preloading " + repository.save(new Associazione(25L, 11L, 5L)));
+            log.info("Preloading " + repository.save(new Associazione(25L, 12L, 5L)));
             log.info("Preloading " + repository.save(a));
             log.info("Preloading " + repository.save(b));
         };
@@ -231,12 +230,12 @@ public class LoadDatabase {
         set3.add(Specializzazione.INGEGNERIA);
         set3.add(Specializzazione.INFORMATICA);
         return args -> {
-            log.info("Preloading " + repository.save(new Lavoratore("Mario", "Rossi", 21L)));
-            log.info("Preloading " + repository.save(new Lavoratore("Paolo", "Verdi", 21L)));
-            log.info("Preloading " + repository.save(new Lavoratore("Giuseppe", "Bianchi", 21L)));
-            log.info("Preloading " + repository.save(new Lavoratore("Franco", "Neri", set1, 22L)));
-            log.info("Preloading " + repository.save(new Lavoratore("Augusto", "Viola", set2, 22L)));
-            log.info("Preloading " + repository.save(new Lavoratore("Mauro", "Rosa", set3, 21L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Mario", "Rossi", 23L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Paolo", "Verdi", 23L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Giuseppe", "Bianchi", 23L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Franco", "Neri", set1, 24L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Augusto", "Viola", set2, 24L)));
+            log.info("Preloading " + repository.save(new Lavoratore("Mauro", "Rosa", set3, 25L)));
         };
     }
 

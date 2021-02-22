@@ -1,14 +1,9 @@
 package it.unicam.cs.ids.doit.associazione;
 
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 public class AssociazioneController {
@@ -26,7 +21,7 @@ public class AssociazioneController {
     @GetMapping(value = "/associazioni", params = {"id"})
     // TODO passare id invece che associazione?
     public Associazione getAssociazioneById(@RequestParam Long idAssociazione) {
-        return gestoreAssociazioni.getAssociazione(idAssociazione);
+        return gestoreAssociazioni.getAssociazioneById(idAssociazione);
     }
 
     @GetMapping(value = "/associazioni", params = {"idProgettista"})

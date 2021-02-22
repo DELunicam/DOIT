@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.doit.notifica;
 
+import it.unicam.cs.ids.doit.gestori_utenti.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class GestoreMessaggio {
     MessaggioRepository messaggioRepository;
 
     @Autowired
-    MessaggioRepository utenteRepository;
+    UtenteRepository utenteRepository;
 
     public Set<Messaggio> allByLetto(boolean letto) {
         if (letto) {
@@ -34,7 +35,9 @@ public class GestoreMessaggio {
 
     public Optional<Messaggio> createMessaggio(Long idSender, Long idReceiver, String testo) {
         if (utenteRepository.existsById(idReceiver)) {
-            return Optional.of(new Messaggio(idSender, idReceiver, testo));
+            Messaggio msg = new Messaggio(idSender, idReceiver, testo);
+            messaggioRepository.save(msg);
+            return Optional.of(msg);
         }
         return Optional.empty();
     }
