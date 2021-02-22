@@ -40,6 +40,22 @@ public class GestoreEnti {
     public Ente getEnte(Long idEnte) {
         return enteRepository.findById(idEnte).get();
     }
+    public Lavoratore getLavoratore(Long idLavoratore) {
+        return lavoratoreRepository.findById(idLavoratore).get();
+    }
+    public boolean checkLavoratore(Long id, long idEnte)
+    {
+        boolean checkLavoratore = false;
+        if(lavoratoreRepository.existsById(id))
+        {
+            Lavoratore one = getLavoratore(id);
+            if(one.getIdEnte() == idEnte)
+            {
+                checkLavoratore = true;
+            }
+        }
+        return checkLavoratore;
+    }
 
     public Set<Lavoratore> getLavoratori(Long idEnte) {
         return lavoratoreRepository.findLavoratoriByIdEnte(idEnte);

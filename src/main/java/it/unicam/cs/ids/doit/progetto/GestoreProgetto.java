@@ -54,6 +54,26 @@ public class GestoreProgetto {
     public void insertInfoProgettisti(Long idProgetto, Map<Specializzazione, Integer> in) {
         Progetto progetto = progettoRepository.findById(idProgetto).get();
         this.insertInfoProgettisti(progetto, in);
+    }  
+
+    public boolean checkIdProgetto(Long idProgetto)
+    {   
+        return progettoRepository.existsById(idProgetto);
+
+    }
+    public boolean checkStatoProgetto(Long idProgetto, StatoProgetto stato)
+    {  
+            boolean checkStato;
+            Progetto progetto = progettoRepository.findById(idProgetto).get();
+            if(progetto.getStatoProgetto() == stato)
+            {
+                checkStato = true;
+            }
+            else
+            {
+                checkStato = false;
+            }
+            return checkStato;
     }
 
     /**

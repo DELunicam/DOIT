@@ -52,6 +52,11 @@ public class CandidaturaController {
         return gestoreCandidature.getProgettisti(idsCandidature);
     }
 */
+    @GetMapping(value= "/candidature", params = {"idProgettista", "idProgetto", "statoCandidatura"})
+    public boolean checkStatoCandidatura(@PathVariable Long idProgettista, @PathVariable Long idProgetto,@PathVariable StatoCandidatura statoCandidatura )
+    {
+        return gestoreCandidature.checkStatoCandidatura(idProgettista, idProgetto, statoCandidatura);
+    }
     @PostMapping(value = "/candidature", params = {"idProgettista", "idProgetto"})
     public Candidatura creaCandidatura(@RequestParam Long idProgettista, @RequestParam Long idProgetto) {
         return gestoreCandidature.creaCandidatura(idProgettista, idProgetto);

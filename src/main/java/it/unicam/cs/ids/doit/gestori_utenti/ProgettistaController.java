@@ -26,6 +26,11 @@ public class ProgettistaController {
         return gestoreProgettisti.getListaProgettisti();
     }
 
+  //  @GetMapping (value= "/progettisti/{id}")
+  //  public boolean checkProgettisti(@PathVariable Long idProgettista)
+  //  {
+  //      return gestoreProgettisti.checkProgettista(idProgettista);
+  //   }
     @GetMapping(value = "/progettisti/{id}")
     public Progettista one(@PathVariable Long id) {
         return gestoreProgettisti.getProgettista(id);

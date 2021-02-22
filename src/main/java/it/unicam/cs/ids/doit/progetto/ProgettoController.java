@@ -78,7 +78,16 @@ public class ProgettoController {
     public Progetto createProgetto(@RequestParam Long idProponente, @RequestParam String nome, @RequestParam String descrizione) {
         return gestoreProgetto.createProgetto(idProponente, nome, descrizione);
     }
+    @PostMapping(value= "/progetti/{idProgetto}")
+    public boolean checkIdProgetto(@PathVariable Long idProgetto){
+        return gestoreProgetto.checkIdProgetto(idProgetto);
+    }
 
+    @GetMapping(value = "/progetti", params ={"idProgetto", "statoProgetto"})
+    public boolean checkStatoProgetto(@PathVariable Long idProgetto, @PathVariable StatoProgetto statoProgetto)
+    {
+        return gestoreProgetto.checkStatoProgetto(idProgetto, statoProgetto);
+    }
 
     // GET /progetti/{idProgetto}
 
