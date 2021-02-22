@@ -31,7 +31,10 @@ public class GestoreProgettisti {
     }
 
     public Progettista getProgettista(Long idProgettista) {
-        return progettistaRepository.findById(idProgettista).get();
+        if (progettistaRepository.existsById(idProgettista)) {
+            return progettistaRepository.findById(idProgettista).get();
+        }
+        return null;
     }
 
     public Progettista getProgettistaByNome(String nome) {
