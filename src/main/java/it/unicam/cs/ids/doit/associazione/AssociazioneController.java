@@ -26,7 +26,7 @@ public class AssociazioneController {
     @GetMapping(value = "/associazioni", params = {"id"})
     // TODO passare id invece che associazione?
     public Associazione getAssociazioneById(@RequestParam Long idAssociazione) {
-        return gestoreAssociazioni.getAssociazione(idAssociazione);
+        return gestoreAssociazioni.getAssociazioneById(idAssociazione);
     }
 
     @GetMapping(value = "/associazioni", params = {"idProgettista"})
