@@ -8,9 +8,9 @@ public class DoitApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DoitApplication.class, args);
-		
-		DOIT.runApp(); // rimuovere dopo merge e usare startApp()
-		//DOIT.startApp(); // parte direttamente IVisitatore e si logga da lì
+
+//		DOIT.runApp(); // rimuovere dopo merge e usare startApp()
+		DOIT.startApp(); // parte direttamente IVisitatore e si logga da lì
 	}
 
 }

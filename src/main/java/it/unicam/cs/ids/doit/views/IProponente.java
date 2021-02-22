@@ -9,11 +9,12 @@ import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class IProponente extends IUtente /*implements Vista */{
-    Scanner sc;
-    Long idProponente;
 
     private static ProgettoController getProgettoController() {
         return SpringContext.getBean(ProgettoController.class);
@@ -24,8 +25,7 @@ public class IProponente extends IUtente /*implements Vista */{
     }
 
     public IProponente(Long idProponente) {
-        this.sc = new Scanner(System.in);
-        this.idProponente = idProponente;
+        super(idProponente);
     }
 
     public void opzioniDisponibili() {
@@ -39,7 +39,7 @@ public class IProponente extends IUtente /*implements Vista */{
                     break;
 
                 case "PUBBLICA":
-                    Set<Progetto> progettiNeutri = getProgettoController().allByIdProponenteAndStato(idProponente,
+                    Set<Progetto> progettiNeutri = getProgettoController().allByIdProponenteAndStato(id,
                             StatoProgetto.NEUTRO);
                     if (progettiNeutri.size() > 0) {
                         PrinterProgetti.printListaProgetti(progettiNeutri);
@@ -50,7 +50,7 @@ public class IProponente extends IUtente /*implements Vista */{
                     break;
 
                 case "SELEZIONA PROGETTISTI":
-                    Set<Progetto> progettiPubblici = getProgettoController().allByIdProponenteAndStato(idProponente,
+                    Set<Progetto> progettiPubblici = getProgettoController().allByIdProponenteAndStato(id,
                             StatoProgetto.PUBBLICO);
                     if (progettiPubblici.size() > 0) {
                         PrinterProgetti.printListaProgetti(progettiPubblici);
@@ -62,7 +62,7 @@ public class IProponente extends IUtente /*implements Vista */{
 
                 case "CONFERMA PROGETTISTI":
                     Set<Progetto> progettiInValutazione = getProgettoController()
-                            .allByIdProponenteAndStato(idProponente, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
+                            .allByIdProponenteAndStato(id, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
                     if (progettiInValutazione.size() > 0) {
                         PrinterProgetti.printListaProgetti(progettiInValutazione);
                         selezionaProgetto();
@@ -97,7 +97,7 @@ public class IProponente extends IUtente /*implements Vista */{
         System.out.println("Inserire una descrizione per " + nome);
         String descrizione = sc.nextLine();
 
-        Progetto progettoNeutro = getProgettoController().createProgetto(idProponente, nome, descrizione);
+        Progetto progettoNeutro = getProgettoController().createProgetto(id, nome, descrizione);
 
         System.out.println("Nuovo progetto creato: ");
         System.out.println("Nome: " + nome);

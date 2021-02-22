@@ -10,4 +10,9 @@ public interface MessaggioRepository extends JpaRepository<Messaggio, Long> {
     Set<Messaggio> findAllByLettoIsTrue();
 
     Set<Messaggio> findAllByLettoIsFalse();
+
+    Set<Messaggio> findAllByLettoIsTrueAndIdReceiver(Long idReceiver);
+
+    Set<Messaggio> findAllByLettoIsFalseAndIdReceiver(Long idReceiver);
+
 }

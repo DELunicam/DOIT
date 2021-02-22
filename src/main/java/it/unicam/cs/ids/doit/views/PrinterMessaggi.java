@@ -12,17 +12,24 @@ public class PrinterMessaggi {
         return SpringContext.getBean(MessaggioController.class);
     }
 
-    public static void printListaMessaggiNonLetti() {
-        Set<Messaggio> messaggi = getMessaggioController().allByLetto(false);
+    public static void printListaMessaggiNonLetti(Long idReceiver) {
+        Set<Messaggio> messaggi = getMessaggioController().allByLettoAndIdReceiver(false, idReceiver);
+        if (messaggi.size() == 0) {
+            System.out.println("Non ci sono nuovi messaggi");
+        }
         printBasicMessaggi(messaggi);
     }
 
-    public static void printListaMessaggiLetti() {
-        Set<Messaggio> messaggi = getMessaggioController().allByLetto(true);
+    public static void printListaMessaggiLetti(Long idReceiver) {
+        Set<Messaggio> messaggi = getMessaggioController().allByLettoAndIdReceiver(true, idReceiver);
+        if (messaggi.size() == 0) {
+            System.out.println("Non ci sono messaggi");
+        }
         printBasicMessaggi(messaggi);
     }
 
     public static void printBasicMessaggi(Set<Messaggio> messaggi) {
+
         for (Messaggio msg : messaggi) {
             System.out.println("Mandato da utente n: " + msg.getIdSender());
             System.out.println("Ricevuta da utente n: " + msg.getIdReceiver());

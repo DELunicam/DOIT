@@ -10,11 +10,11 @@ import java.util.Scanner;
 // TODO DA MODIFICARE
 public class IUtente {
     Scanner sc;
-    Long idUtente;
+    Long id;
 
-    public IUtente(Long idUtente) {
+    public IUtente(Long id) {
         this.sc = new Scanner(System.in);
-        this.idUtente = idUtente;
+        this.id = id;
     }
 
     private UtenteController getUtenteController() {
@@ -54,16 +54,18 @@ public class IUtente {
         // crea notifica
         // inserisci idSender, idReceiver, messaggio, letto=false
         // POST notifica
-        getMessaggioController().createMessaggio(idUtente, idReceiver, testo);
-        System.out.println("Messaggio inviato!");
+        if (getMessaggioController().createMessaggio(id, idReceiver, testo).isPresent()) {
+            System.out.println("Messaggio inviato!");
+        } else {
+            System.out.println("Destinatario non valido");
+        }
     }
 
     public void visualizzaMessaggi() {
-        PrinterMessaggi.printListaMessaggiNonLetti();
-        // gestire nessun nuovo messaggio
+        PrinterMessaggi.printListaMessaggiNonLetti(id);
         System.out.println("Si vogliono visualizzare anche i messaggi gia letti? [Y] [N]");
         if (sc.nextLine().equalsIgnoreCase("Y")) {
-            PrinterMessaggi.printListaMessaggiLetti();
+            PrinterMessaggi.printListaMessaggiLetti(id);
         }
     }
 

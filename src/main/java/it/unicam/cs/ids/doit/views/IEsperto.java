@@ -21,8 +21,7 @@ public class IEsperto extends IUtente {
     Long idEsperto;
 
     public IEsperto(Long idEsperto) {
-        this.sc = new Scanner(System.in);
-        this.idEsperto = idEsperto;
+        super(idEsperto);
     }
 
     public void opzioniDisponibili(){

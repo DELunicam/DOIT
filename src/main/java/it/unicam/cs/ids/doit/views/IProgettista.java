@@ -1,12 +1,11 @@
 package it.unicam.cs.ids.doit.views;
+
+import it.unicam.cs.ids.doit.associazione.AssociazioneController;
 import it.unicam.cs.ids.doit.associazione.StatoAssociazione;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
-import it.unicam.cs.ids.doit.associazione.AssociazioneController;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
-
-import java.util.Scanner;
 
 public class IProgettista extends IUtente {
 
@@ -70,7 +69,7 @@ public class IProgettista extends IUtente {
 
     public void viewProgettiCandidabili() {
         System.out.println("Puoi candidarti ai seguenti progetti \n");
-        PrinterProgetti.printListaProgetti(getProgettistaController().getSpecializzazioniByIdProgettista(idUtente), StatoProgetto.PUBBLICO);
+        PrinterProgetti.printListaProgetti(getProgettistaController().getSpecializzazioniByIdProgettista(id), StatoProgetto.PUBBLICO);
         selezionaProgetto();
     }
 
@@ -82,7 +81,7 @@ public class IProgettista extends IUtente {
             System.out.println("Desideri candidarti a questo progetto?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
             if (input.equals("Y")) {
-                getCandidaturaController().creaCandidatura(idUtente, Long.valueOf(idProgetto));
+                getCandidaturaController().creaCandidatura(id, Long.valueOf(idProgetto));
                 System.out.println("Congratulazioni, ti sei candidato al progetto " + idProgetto);
 
             } else if (input.equals("N")) {
@@ -112,7 +111,7 @@ public class IProgettista extends IUtente {
 
     public void viewRichiesteAssociazione()
     {
-        PrinterAssociazioni.printListaAssociazione(idProgettista, StatoAssociazione.PROPOSTA);
+        PrinterAssociazioni.printListaAssociazione(id, StatoAssociazione.PROPOSTA);
         selezionaAssociazione();
     }
 
