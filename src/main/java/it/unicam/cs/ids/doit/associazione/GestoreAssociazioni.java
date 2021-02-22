@@ -54,7 +54,9 @@ public class GestoreAssociazioni {
 
     public Associazione getAssociazioneById(Long idAssociazione)
     {
-        return repository.findAssociazioneById(idAssociazione);
+        if(repository.existsById(idAssociazione)){
+        return repository.findAssociazioneById(idAssociazione);}
+        return null;
     }
 
     public Associazione creaAssociazione(Long idEnte, Long idProgettista, Long idProgetto) {
