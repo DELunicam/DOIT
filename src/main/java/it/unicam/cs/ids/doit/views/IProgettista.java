@@ -1,10 +1,4 @@
 package it.unicam.cs.ids.doit.views;
-<<<<<<< Updated upstream
-import it.unicam.cs.ids.doit.associazione.StatoAssociazione;
-import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
-import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
-import it.unicam.cs.ids.doit.associazione.AssociazioneController;
-=======
 
 import it.unicam.cs.ids.doit.associazione.Associazione;
 import it.unicam.cs.ids.doit.associazione.AssociazioneController;
@@ -13,7 +7,6 @@ import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
 import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.ProgettoController;
->>>>>>> Stashed changes
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 
@@ -108,11 +101,7 @@ public class IProgettista extends IUtente {
             System.out.println("Desideri candidarti a questo progetto?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
             if (input.equals("Y")) {
-<<<<<<< Updated upstream
-                getCandidaturaController().creaCandidatura(idProgettista, Long.valueOf(idProgetto));
-=======
-                getCandidaturaController().creaCandidatura(id, progetto.getId());
->>>>>>> Stashed changes
+                getCandidaturaController().creaCandidatura(idProgettista, progetto.getId());
                 System.out.println("Congratulazioni, ti sei candidato al progetto " + idProgetto);
 
             } else if (input.equals("N")) {

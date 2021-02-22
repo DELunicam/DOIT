@@ -1,27 +1,18 @@
 package it.unicam.cs.ids.doit.views;
 
-<<<<<<< Updated upstream
 import java.util.Scanner;
-import java.util.Set;
 
-=======
 import ch.qos.logback.core.joran.conditional.ElseAction;
->>>>>>> Stashed changes
 import it.unicam.cs.ids.doit.associazione.AssociazioneController;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.doit.gestori_utenti.EnteController;
 import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
 import it.unicam.cs.ids.doit.notifica.MessaggioController;
-<<<<<<< Updated upstream
-import it.unicam.cs.ids.doit.progetto.ProgettoController;
-import it.unicam.cs.ids.doit.progetto.StatoProgetto;
-=======
 import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utenti.Progettista;
->>>>>>> Stashed changes
 import it.unicam.cs.ids.doit.utils.SpringContext;
 
 public class IEnte extends IUtente
@@ -32,27 +23,14 @@ public class IEnte extends IUtente
     private CandidaturaController getCandidaturaController() {
         return SpringContext.getBean(CandidaturaController.class);
     }
-<<<<<<< Updated upstream
     private ProgettistaController getProgettistaController(){
        return SpringContext.getBean(ProgettistaController.class);
-=======
-    private MessaggioController getMessaggioConroller()
-    {
-        return SpringContext.getBean(MessaggioController.class);
     }
-
-    public IEnte(Long idEnte) {
-        super(idEnte);
->>>>>>> Stashed changes
-    }
-<<<<<<< Updated upstream
-=======
 
     private MessaggioController getMessaggioController()
     {
         return SpringContext.getBean(MessaggioController.class);
     }
->>>>>>> Stashed changes
     private AssociazioneController getAssociazioneController() {
         return SpringContext.getBean(AssociazioneController.class);
     }
@@ -134,12 +112,7 @@ public class IEnte extends IUtente
         }
         else{
         if (!idProgetto.equals("EXIT")) {
-<<<<<<< Updated upstream
-            if(getProgettoController().checkIdProgetto(Long.valueOf(idProgetto)) == true && getProgettoController().checkStatoProgetto(Long.valueOf(idProgetto),StatoProgetto.PUBBLICO))
-            {
-=======
             if(progetto.getStatoProgetto()== StatoProgetto.PUBBLICO){
->>>>>>> Stashed changes
             PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
             System.out.println("Desideri candidarti a questo progetto?\n[Y] YES,    [N] NO\n");
             String input = sc.nextLine().toUpperCase();
@@ -153,15 +126,6 @@ public class IEnte extends IUtente
             } else {
                 System.out.println("Impossibile processare l'operazione");
             }
-<<<<<<< Updated upstream
-            }
-            else
-            {
-                System.out.println("ID progetto errato");
-                selezionaProgetto();
-            }
-=======
->>>>>>> Stashed changes
         }
         else
         {
@@ -232,18 +196,10 @@ public class IEnte extends IUtente
             }
 
         }
-<<<<<<< Updated upstream
-        
-     }
-
-     public void selezionaProgettista(Long idProgetto)
-     {  
-=======
     }
     }
 
     public void selezionaProgettista(Long idProgetto) {
->>>>>>> Stashed changes
         PrinterProgettisti.printListaProgettisti();
         System.out.println("Digitare l'id del progettista desiderato, [EXIT] per uscire");
         String idProgettista = sc.nextLine();
@@ -262,22 +218,13 @@ public class IEnte extends IUtente
         }
         else{
         if (!idProgettista.equals("EXIT")) {
-<<<<<<< Updated upstream
             System.out.println("Desideri inviare una proposta di associazione a progettista"+idProgettista+"?\n[Y] YES,    [N] NO)\n");
-=======
-           // if(getProgettistaController().checkProgettisti(Long.valueOf(idProgettista)) == true ){
-            System.out.println("Desideri inviare una proposta di associazione a progettista" + idProgettista + "?\n[Y] YES,    [N] NO)\n");
->>>>>>> Stashed changes
             String input = sc.nextLine().toUpperCase();
             
             if (input.equals("Y")) {
                 getAssociazioneController().creaAssociazione(id, Long.valueOf(idProgettista), idProgetto);
                 System.out.println("Proposta di associazione inviata\n");
-<<<<<<< Updated upstream
-                getMessaggioConroller().createMessaggio(id, Long.valueOf(idProgettista), "L'ente: "+id +"ti ha inviato una richiesta di associazione\n");
-=======
                 getMessaggioController().createMessaggio(id, progettista.getId(), "Hai ricevuto una proposta di associazione da:" +getEnteController().getEnte(id).getNome());
->>>>>>> Stashed changes
 
             } else if (input.equals("N")) {
                 System.out.println("Ok, operazione annullata \n");
@@ -285,21 +232,15 @@ public class IEnte extends IUtente
             } else {
                 System.out.println("Impossibile processare l'operazione");
             }
-       /* }
+        }
 
         else
         {
             System.out.println("Id progettista errato \n");
             selezionaProgettista(idProgetto);
         }
-<<<<<<< Updated upstream
-        */
-        }
- 
-=======
     }
 
->>>>>>> Stashed changes
     }
     public void assegnaLavoratori()
     {
@@ -327,11 +268,6 @@ public class IEnte extends IUtente
     {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
-<<<<<<< Updated upstream
-        if (!idProgetto.equals("EXIT")) {
-            if(getProgettoController().checkIdProgetto(Long.valueOf(idProgetto)) == true && getCandidaturaController().checkStatoCandidatura(id, Long.valueOf(idProgetto), StatoCandidatura.PRESELEZIONATA))
-            {
-=======
         try{Long.valueOf(idProgetto);}
     
         catch (NumberFormatException e) {
@@ -347,7 +283,6 @@ public class IEnte extends IUtente
         }
         else{
         if (!idProgetto.equals("EXIT")) { 
->>>>>>> Stashed changes
             PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
             System.out.println("Desideri assegnare dei lavoratori a questo progetto?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
