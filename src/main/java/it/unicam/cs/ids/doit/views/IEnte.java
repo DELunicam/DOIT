@@ -159,22 +159,22 @@ public class IEnte extends IUtente {
     public void selezionaProgettoAssociazione() {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
-        try{Long.valueOf(idProgetto);}
+      
+        if (!idProgetto.equals("EXIT")) {
+            try{Long.valueOf(idProgetto);}
     
         catch (NumberFormatException e) {
             System.out.println("Inserisci un id valido");
-            selezionaProgetto();
+            selezionaProgettoAssociazione();
             return;
         }
         Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
         if (progetto == null) {
             System.out.println("Inserisci un id valido");
-            selezionaProgetto();
+            selezionaProgettoAssociazione();
             return;
         }
-        else{
-        if (!idProgetto.equals("EXIT")) {
-           
+        else{ 
           PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
             System.out.println("Desideri creare un'associazione per questo progetto?\n[Y] YES,    [N] NO\n");
             String input = sc.nextLine().toUpperCase();
@@ -188,11 +188,7 @@ public class IEnte extends IUtente {
                 System.out.println("Impossibile processare l'operazione");
             }
             }
-            else {
-                System.out.println("ID progetto errato");
-                selezionaProgettoAssociazione();
-            }
-
+          
         }
     }
     
@@ -201,7 +197,9 @@ public class IEnte extends IUtente {
         PrinterProgettisti.printListaProgettisti();
         System.out.println("Digitare l'id del progettista desiderato, [EXIT] per uscire");
         String idProgettista = sc.nextLine();
-        try{Long.valueOf(idProgettista);}
+        
+        if (!idProgettista.equals("EXIT")) {
+            try{Long.valueOf(idProgettista);}
     
         catch (NumberFormatException e) {
             System.out.println("Inserisci un id valido");
@@ -215,7 +213,6 @@ public class IEnte extends IUtente {
             return;
         }
         else{
-        if (!idProgettista.equals("EXIT")) {
             System.out.println("Desideri inviare una proposta di associazione a progettista" + idProgettista + "?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
             
@@ -231,14 +228,9 @@ public class IEnte extends IUtente {
                 System.out.println("Impossibile processare l'operazione");
             }
         }
+     }
 
-        else
-        {
-            System.out.println("Id progettista errato \n");
-            selezionaProgettista(idProgetto);
-        }
-
-    }}
+    }
 
     public void assegnaLavoratori() {
         System.out.println("Vuoi assegnare dei lavoratori ad un progetto? \n[Y] YES,    [N] NO)\n");
@@ -262,21 +254,22 @@ public class IEnte extends IUtente {
     public void selezionaProgettoAssegnazione() {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
-        try{Long.valueOf(idProgetto);}
-    
-        catch (NumberFormatException e) {
-            System.out.println("Inserisci un id valido");
-            selezionaProgetto();
-            return;
-        }
-        Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
-        if (progetto == null) {
-            System.out.println("Inserisci un id valido");
-            selezionaProgetto();
-            return;
-        }
-        else{
+       
         if (!idProgetto.equals("EXIT")) { 
+            try{Long.valueOf(idProgetto);}
+    
+            catch (NumberFormatException e) {
+                System.out.println("Inserisci un id valido");
+                selezionaProgetto();
+                return;
+            }
+            Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
+            if (progetto == null) {
+                System.out.println("Inserisci un id valido");
+                selezionaProgetto();
+                return;
+            }
+            else{
             PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
             System.out.println("Desideri assegnare dei lavoratori a questo progetto?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
@@ -290,15 +283,8 @@ public class IEnte extends IUtente {
                 System.out.println("Impossibile processare l'operazione");
             }
 
-            }
-            else
-            {
-                System.out.println("Id progetto errato \n");
-                selezionaProgettoAssociazione();
-
-            }
         }
-    }
+    }}
 
     public void selezionaLavoratori(Long idProgetto) {
         System.out.println("I seguenti progettisti sono associati per questo progetto: \n");

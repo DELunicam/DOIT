@@ -84,21 +84,22 @@ public class IProgettista extends IUtente {
     public void selezionaProgetto() {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
-        try{Long.valueOf(idProgetto);}
-    
-    catch (NumberFormatException e) {
-        System.out.println("Inserisci un id valido");
-        selezionaProgetto();
-        return;
-    }
-    Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
-    if (progetto == null) {
-        System.out.println("Inserisci un id valido");
-        selezionaProgetto();
-        return;
-    }
-    else{
+      
         if (!idProgetto.equals("EXIT")) {
+            try{Long.valueOf(idProgetto);}
+    
+            catch (NumberFormatException e) {
+                System.out.println("Inserisci un id valido");
+                selezionaProgetto();
+                return;
+            }
+            Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
+            if (progetto == null) {
+                System.out.println("Inserisci un id valido");
+                selezionaProgetto();
+                return;
+            }
+            else{
             
             PrinterProgetti.printInfoProgetto(progetto.getId());
             System.out.println("Desideri candidarti a questo progetto?\n[Y] YES,    [N] NO)\n");
@@ -143,22 +144,25 @@ public class IProgettista extends IUtente {
     {
         System.out.println("Digitare l'id dell'associazione desiderata, [EXIT] per uscire");
         String idAssociazione = sc.nextLine();
-        try
-        {
-            Long.valueOf(idAssociazione);
-        }
-        catch (NumberFormatException e) {
-            System.out.println("Inserisci un id valido");
-            selezionaAssociazione();
-            return;
-        }
-        Associazione associazione = getAssociazioneController().getAssociazioneById(Long.valueOf(idAssociazione));
-        if (associazione == null) {
-            System.out.println("Inserisci un id valido");
-            selezionaAssociazione();
-            return;
-        }
+      
         if (!idAssociazione.equals("EXIT")) {
+            try
+            {
+                Long.valueOf(idAssociazione);
+            }
+            catch (NumberFormatException e) {
+                System.out.println("Inserisci un id valido");
+                selezionaAssociazione();
+                return;
+            }
+            Associazione associazione = getAssociazioneController().getAssociazioneById(Long.valueOf(idAssociazione));
+            if (associazione == null) {
+                System.out.println("Inserisci un id valido");
+                selezionaAssociazione();
+                return;
+            }
+            else{
+
             PrinterAssociazioni.printInfoAssociazione(Long.valueOf(idAssociazione));
             System.out.println("Desideri accettare questa richiesta?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
@@ -177,4 +181,5 @@ public class IProgettista extends IUtente {
         }
     }
 
+    }
 }
