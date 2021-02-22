@@ -42,10 +42,16 @@ public class IEnte extends IUtente
           return SpringContext.getBean(EnteController.class);
       }
      
+<<<<<<< Updated upstream
     public IEnte(Long id)
     {
         this.sc = new Scanner(System.in);
         this.id= id;
+=======
+    public IEnte(Long idEnte)
+    {
+        super(idEnte);
+>>>>>>> Stashed changes
     }
     
     public void opzioniDisponibili()
@@ -175,9 +181,14 @@ public class IEnte extends IUtente
         }
         else{
         if (!idProgetto.equals("EXIT")) {
+<<<<<<< Updated upstream
             if(getProgettoController().checkIdProgetto(Long.valueOf(idProgetto)) == true && getCandidaturaController().checkStatoCandidatura(id, Long.valueOf(idProgetto), StatoCandidatura.ACCETTATA))
             {
             PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
+=======
+           
+          PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
+>>>>>>> Stashed changes
             System.out.println("Desideri creare un'associazione per questo progetto?\n[Y] YES,    [N] NO\n");
             String input = sc.nextLine().toUpperCase();
             if (input.equals("Y")) {
@@ -196,8 +207,12 @@ public class IEnte extends IUtente
             }
 
         }
+<<<<<<< Updated upstream
     }
+=======
+>>>>>>> Stashed changes
     }
+    
 
     public void selezionaProgettista(Long idProgetto) {
         PrinterProgettisti.printListaProgettisti();
@@ -305,7 +320,11 @@ public class IEnte extends IUtente
             }
         }
         }
+<<<<<<< Updated upstream
     }
+=======
+    
+>>>>>>> Stashed changes
     public void selezionaLavoratori(Long idProgetto)
     {
         System.out.println("I seguenti progettisti sono associati per questo progetto: \n");
@@ -318,13 +337,29 @@ public class IEnte extends IUtente
         while(progettistiAttuali < progettistiRichiesti)
         {
             Long idLavoratore = Long.valueOf(sc.nextLine());
+<<<<<<< Updated upstream
             if(getEnteController().checkLavoratori(id, Long.valueOf(idLavoratore)) == true)
             {
+=======
+            try
+            {
+                Long.valueOf(idLavoratore);
+            }
+            
+            catch(NumberFormatException e)
+            {
+                System.out.println("Inserisci un id valido");
+                selezionaLavoratori(idProgetto);
+                return;
+            }
+
+>>>>>>> Stashed changes
             getEnteController().assegnaProgetto(idLavoratore, idProgetto);
             progettistiAttuali++;
             System.out.println("Lavoratore " + idLavoratore + "assegnato al progetto " + idProgetto);
         
             }
+<<<<<<< Updated upstream
         else
         {
             System.out.println("Id Lavoratore errato \n");
@@ -334,3 +369,10 @@ public class IEnte extends IUtente
     }
     }
 }
+=======
+     
+
+    }
+    }
+
+>>>>>>> Stashed changes
