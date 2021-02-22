@@ -8,17 +8,20 @@ import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 import it.unicam.cs.ids.doit.valutazione.ValutazioneController;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class IEsperto extends IUtente {
-    Scanner sc;
+    //    Scanner sc;
     private CandidaturaController getCandidaturaController() {
         return SpringContext.getBean(CandidaturaController.class);
     }
     private ValutazioneController getValutazioneController() {
         return SpringContext.getBean(ValutazioneController.class);
     }
-    Long idEsperto;
+//    Long idEsperto;
 
     public IEsperto(Long idEsperto) {
         super(idEsperto);
@@ -29,6 +32,8 @@ public class IEsperto extends IUtente {
             System.out.println("Cosa vuoi fare\n" +
                     "[VALUTA PROPOSTA]\n" +
                     "[VALUTA PROGETTISTI]\n" +
+                    "[INVIA MESSAGGIO]\n" +
+                    "[VISUALIZZA NOTIFICHE]\n" +
                     "[LOGOUT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
@@ -37,6 +42,12 @@ public class IEsperto extends IUtente {
                     break;
                 case "VALUTA PROGETTISTI":
                     valutaProgettisti();
+                    break;
+                case "INVIA MESSAGGIO":
+                    inviaMessaggio();
+                    break;
+                case "VISUALIZZA NOTIFICHE":
+                    visualizzaMessaggi();
                     break;
                 case "LOGOUT":
                     logout();
@@ -67,10 +78,10 @@ public class IEsperto extends IUtente {
                             "[Y] YES,    [N] NO");
                     String fattibile = sc.nextLine().toUpperCase();
                     if (fattibile.equals("Y")) {
-                        getValutazioneController().creaValutazionePositiva(Long.valueOf(idProgetto), idEsperto, this.requestProgettistiECompetenze());
+                        getValutazioneController().creaValutazionePositiva(Long.valueOf(idProgetto), id, this.requestProgettistiECompetenze());
                         System.out.println("Valutazione completa inviata \n");
                     } else {
-                        getValutazioneController().creaValutazioneNegativa(Long.valueOf(idProgetto), idEsperto);
+                        getValutazioneController().creaValutazioneNegativa(Long.valueOf(idProgetto), id);
                         System.out.println("Valutazione negativa inviata \n");
                     }
                 } else {
@@ -135,7 +146,7 @@ public class IEsperto extends IUtente {
                         "[Y] YES,    [N] NO");
                 String scelta = sc.nextLine().toUpperCase();
                 if (scelta.equals("Y")) {
-                    getCandidaturaController().aggiungiPareriEsperto(idEsperto, idsConsigliate, idsSconsigliate);
+                    getCandidaturaController().aggiungiPareriEsperto(id, idsConsigliate, idsSconsigliate);
                     System.out.println("Valutazioni inviate");
                 } else if (scelta.equals("N")) {
                     System.out.println("Valutazioni non inviate");

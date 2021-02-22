@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class IProponente extends IUtente /*implements Vista */{
+public class IProponente extends IUtente /*implements Vista */ {
 
     private static ProgettoController getProgettoController() {
         return SpringContext.getBean(ProgettoController.class);
@@ -30,8 +30,14 @@ public class IProponente extends IUtente /*implements Vista */{
 
     public void opzioniDisponibili() {
         while (true) {
-            System.out.println("Cosa vuoi fare?\n" + "[CREA]\n" + "[PUBBLICA]\n" + "[SELEZIONA PROGETTISTI]\n"
-                    + "[CONFERMA PROGETTISTI]\n" + "[LOGOUT]");
+            System.out.println("Cosa vuoi fare?\n"
+                    + "[CREA]\n"
+                    + "[PUBBLICA]\n"
+                    + "[SELEZIONA PROGETTISTI]\n"
+                    + "[CONFERMA PROGETTISTI]\n"
+                    + "[INVIA MESSAGGIO]\n"
+                    + "[VISUALIZZA NOTIFICHE]\n"
+                    + "[LOGOUT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
                 case "CREA":
@@ -71,6 +77,12 @@ public class IProponente extends IUtente /*implements Vista */{
                     }
                     break;
 
+                case "INVIA MESSAGGIO":
+                    inviaMessaggio();
+                    break;
+                case "VISUALIZZA NOTIFICHE":
+                    visualizzaMessaggi();
+                    break;
                 case "LOGOUT":
                     logout();
                     break;

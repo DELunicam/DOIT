@@ -32,7 +32,7 @@ public class IProgettista extends IUtente {
                     "[ACCETTA ASSOCIAZIONE]\n" +
                     "[INVIA MESSAGGIO]\n" +
                     "[VISUALIZZA NOTIFICHE]\n" +
-                    "[EXIT]");
+                    "[LOGOUT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
                 case "CANDIDA":
@@ -47,8 +47,9 @@ public class IProgettista extends IUtente {
                 case "VISUALIZZA NOTIFICHE":
                     visualizzaMessaggi();
                     break;
-                case "EXIT":
-                    return;
+                case "LOGOUT":
+                    logout();
+                    break;
 
             }
         }

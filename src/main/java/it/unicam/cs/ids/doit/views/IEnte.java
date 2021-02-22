@@ -39,7 +39,10 @@ public class IEnte extends IUtente {
             System.out.println("Cosa vuoi fare \n"
                     + "[INSERISCI CANDIDATURA] \n"
                     + "[ASSEGNA LAVORATORI] \n"
-                    + "[INVIA PROPOSTA DI ASSOCIAZIONE]\n");
+                    + "[INVIA PROPOSTA DI ASSOCIAZIONE]\n"
+                    + "[INVIA MESSAGGIO]\n"
+                    + "[VISUALIZZA NOTIFICHE]\n" +
+                    "[LOGOUT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
                 case "INSERISCI CANDIDATURA":
@@ -51,8 +54,15 @@ public class IEnte extends IUtente {
                 case "ASSEGNA LAVORATORI":
                     assegnaLavoratori();
                     break;
-                case "EXIT":
-                    return;
+                case "INVIA MESSAGGIO":
+                    inviaMessaggio();
+                    break;
+                case "VISUALIZZA NOTIFICHE":
+                    visualizzaMessaggi();
+                    break;
+                case "LOGOUT":
+                    logout();
+                    break;
             }
         }
     }
