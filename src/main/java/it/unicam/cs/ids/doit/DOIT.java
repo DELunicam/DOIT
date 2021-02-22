@@ -4,8 +4,8 @@ import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 import it.unicam.cs.ids.doit.views.*;
+import it.unicam.cs.ids.doit.views.factoryViews.FactoryIVisitatore;
 import org.springframework.stereotype.Controller;
-
 import java.util.Scanner;
 
 @Controller
@@ -15,6 +15,13 @@ public class DOIT {
         return SpringContext.getBean(ProgettistaController.class);
     }
 
+    public static void startApp() {
+        System.out.println("BENVENUTO IN DOIT!");
+        final FactoryIVisitatore factory = new FactoryIVisitatore();
+        factory.creaVista();
+    }
+
+    // rimuovere dopo merge e usare startApp()
     public static void runApp() {
 
         Scanner sc = new Scanner(System.in);

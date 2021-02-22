@@ -31,6 +31,13 @@ public abstract class PrinterProgettisti {
                 + ", " + progettista.getSpecializzazioni());
             }
         }
+    
+    }
+    public static void printProgettistiAssociati(Set<Long> id)
+    {
+
+        Set<Progettista> progettisti = getProgettistaController().getProgettistiCandidati(id);
+        printInfoProgettisti(progettisti);
     }
 
     public static void printInfoProgettista(Long idProgettista) {

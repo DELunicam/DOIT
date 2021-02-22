@@ -23,14 +23,16 @@ public class Esperto extends Utente {
     }
 
 
-    public Esperto(String username, String mailAddress, String nome, String cognome) {
-        super(username, mailAddress);
+    public Esperto(String username, String password, String mailAddress, String nome, String cognome) {
+        super(username, password, mailAddress);
         this.nome = nome;
         this.cognome = cognome;
     }
 
-    public Esperto(String username, String mailAddress, String nome, String cognome, Set<Specializzazione> specializzazioni) {
-        this(username, mailAddress, nome, cognome);
+    public Esperto(String username, String password, String mailAddress, String nome, String cognome, Set<Specializzazione> specializzazioni) {
+        super(username, password, mailAddress);
+        this.nome = nome;
+        this.cognome = cognome;
         this.specializzazioni = specializzazioni;
     }
 

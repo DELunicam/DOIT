@@ -13,4 +13,6 @@ public interface AssociazioneRepository extends JpaRepository<Associazione, Long
 
     public Set<Associazione> findAssociazioniByIdEnteAndIdProgetto(Long idEnte, Long idProgetto);
 
+    public Associazione findAssociazioneById(Long idAssociazione);
+
 }

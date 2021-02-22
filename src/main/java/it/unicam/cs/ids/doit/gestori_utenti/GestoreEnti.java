@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
@@ -54,5 +55,11 @@ public class GestoreEnti {
     public Set<Lavoratore> getLavoratori(Long idEnte, Specializzazione specializzazione) {
         return lavoratoreRepository.findLavoratoriByIdEnteAndSpecializzazioniIn(idEnte, Collections.singleton(specializzazione));
     }
+
+	public Ente creaEnte(String username, String password, String mail, String nome, String tipologia, String descrizione) {
+        Ente ente = new Ente(username, BCrypt.hashpw(password, BCrypt.gensalt()), mail, nome, tipologia, descrizione);
+        enteRepository.save(ente);
+        return ente;
+	}
 
 }

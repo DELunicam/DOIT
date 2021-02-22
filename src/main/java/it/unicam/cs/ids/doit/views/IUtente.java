@@ -3,6 +3,7 @@ package it.unicam.cs.ids.doit.views;
 import it.unicam.cs.ids.doit.gestori_utenti.UtenteController;
 import it.unicam.cs.ids.doit.notifica.MessaggioController;
 import it.unicam.cs.ids.doit.utils.SpringContext;
+import it.unicam.cs.ids.doit.views.factoryViews.FactoryIVisitatore;
 
 import java.util.Scanner;
 
@@ -65,6 +66,13 @@ public class IUtente {
             PrinterMessaggi.printListaMessaggiLetti();
         }
     }
+
+    public void logout() {
+        System.out.println("Ti sei scollegato con successo!");
+        final FactoryIVisitatore factory = new FactoryIVisitatore();
+        factory.creaVista();
+    }
+
 
 
 }
