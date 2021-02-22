@@ -238,7 +238,7 @@ public class IEnte extends IUtente {
             selezionaProgettista(idProgetto);
         }
 
-    }
+    }}
 
     public void assegnaLavoratori() {
         System.out.println("Vuoi assegnare dei lavoratori ad un progetto? \n[Y] YES,    [N] NO)\n");

@@ -104,7 +104,7 @@ public class IProgettista extends IUtente {
             System.out.println("Desideri candidarti a questo progetto?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
             if (input.equals("Y")) {
-                getCandidaturaController().creaCandidatura(idProgettista, progetto.getId());
+                getCandidaturaController().creaCandidatura(id, progetto.getId());
                 System.out.println("Congratulazioni, ti sei candidato al progetto " + idProgetto);
 
             } else if (input.equals("N")) {
