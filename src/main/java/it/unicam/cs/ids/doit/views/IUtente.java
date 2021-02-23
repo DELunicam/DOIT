@@ -7,7 +7,6 @@ import it.unicam.cs.ids.doit.views.factoryViews.FactoryIVisitatore;
 
 import java.util.Scanner;
 
-// TODO DA MODIFICARE
 public class IUtente {
     Scanner sc;
     Long id;
@@ -17,20 +16,11 @@ public class IUtente {
         this.id = id;
     }
 
-    private UtenteController getUtenteController() {
-        return SpringContext.getBean(UtenteController.class);
-    }
-
     private MessaggioController getMessaggioController() {
         return SpringContext.getBean(MessaggioController.class);
     }
 
     public void opzioniUtente(String input) {
-//        while (true) {
-//            System.out.println("Cosa vuoi fare\n" +
-//                    "[INVIA MESSAGGIO]\n" +
-//                    "[VISUALIZZA NOTIFICHE]");
-//            String input = sc.nextLine().toUpperCase();
         switch (input) {
             case "INVIA MESSAGGIO":
                 inviaMessaggio();
@@ -42,7 +32,6 @@ public class IUtente {
                 return;
         }
     }
-//    }
 
     public void inviaMessaggio() {
         System.out.println("Seleziona un utente digitando l'id corrispondente");

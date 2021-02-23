@@ -46,7 +46,6 @@ public class EnteController {
         return gestoreEnti.getLavoratori(id);
     }
 
-    // TODO
     @PutMapping(value = "lavoratori/{idLavoratore}")
     public void assegnaProgetto(@PathVariable Long idLavoratore, @RequestParam Long idProgetto) {
         gestoreEnti.assegnaProgetto(idLavoratore, idProgetto);

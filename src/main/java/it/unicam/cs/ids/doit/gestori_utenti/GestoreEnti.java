@@ -14,8 +14,6 @@ import it.unicam.cs.ids.doit.utenti.Lavoratore;
 @Service
 public class GestoreEnti {
 
-    private static GestoreEnti instance;
-
     @Autowired
     EnteRepository enteRepository;
     @Autowired
@@ -23,14 +21,6 @@ public class GestoreEnti {
 
     private GestoreEnti() {
 
-    }
-
-    // Singleton
-    public static GestoreEnti getInstance() {
-        if (instance == null) {
-            instance = new GestoreEnti();
-        }
-        return instance;
     }
 
     public String getInfo(Long idEnte) {

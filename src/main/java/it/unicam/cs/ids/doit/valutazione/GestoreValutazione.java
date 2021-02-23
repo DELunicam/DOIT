@@ -7,7 +7,6 @@ import java.util.Map;
 
 @Service
 public class GestoreValutazione {
-    private static GestoreValutazione instance;
 
     @Autowired
     ValutazioneRepository repository;
@@ -16,14 +15,6 @@ public class GestoreValutazione {
 
     }
 
-    // Singleton
-    public static GestoreValutazione getInstance() {
-        if (instance == null) {
-            instance = new GestoreValutazione();
-        }
-        return instance;
-    }
-    
     // crea valutazione positiva
     public Valutazione createValutazione(Long idProgetto, Long idEsperto, Map<Specializzazione, Integer> infoLavoratori) {
         Valutazione nuovaValutazione = new Valutazione(idProgetto, idEsperto, infoLavoratori);

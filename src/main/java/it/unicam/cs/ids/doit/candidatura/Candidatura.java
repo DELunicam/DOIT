@@ -8,8 +8,6 @@ import java.util.Map;
 
 @Entity
 public class Candidatura {
-//	@GenericGenerator(name = "sequence_cand_id", strategy = "it.unicam.cs.ids.doit.candidatura.CandidaturaIdGenerator")
-//	@GeneratedValue(generator = "sequence_cand_id")
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

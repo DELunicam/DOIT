@@ -12,6 +12,7 @@ import it.unicam.cs.ids.doit.utils.SpringContext;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class IProponente extends IUtente {
@@ -49,7 +50,7 @@ public class IProponente extends IUtente {
                             StatoProgetto.NEUTRO);
                     if (progettiNeutri.size() > 0) {
                         PrinterProgetti.printListaProgetti(progettiNeutri);
-                        selezionaProgetto();
+                        selezionaProgetto(StatoProgetto.NEUTRO);
                     } else {
                         System.out.println("Non ci sono progetti neutri");
                     }
@@ -60,7 +61,7 @@ public class IProponente extends IUtente {
                             StatoProgetto.PUBBLICO);
                     if (progettiPubblici.size() > 0) {
                         PrinterProgetti.printListaProgetti(progettiPubblici);
-                        selezionaProgetto();
+                        selezionaProgetto(StatoProgetto.PUBBLICO);
                     } else {
                         System.out.println("Non ci sono progetti pubblici");
                     }
@@ -71,7 +72,7 @@ public class IProponente extends IUtente {
                             .allByIdProponenteAndStato(id, StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
                     if (progettiInValutazione.size() > 0) {
                         PrinterProgetti.printListaProgetti(progettiInValutazione);
-                        selezionaProgetto();
+                        selezionaProgetto(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
                     } else {
                         System.out.println("Non ci sono progetti in valutazione");
                     }
@@ -200,48 +201,47 @@ public class IProponente extends IUtente {
         }
     }
 
-    public void selezionaProgetto() {
+    public void selezionaProgetto(StatoProgetto stato) {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
         if (!idProgetto.toUpperCase().equals("EXIT")) {
             try {
                 Long.valueOf(idProgetto);
-            }
-            catch (NumberFormatException e) {
-                System.out.println("Inserisci un id valido");
-                selezionaProgetto();
-                return;
-            }
-            Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
-            if (progetto == null) {
-                System.out.println("Inserisci un id valido");
-                selezionaProgetto();
-                return;
-            }
-            else {
-                PrinterProgetti.printInfoProgetto(progetto);
-                switch (progetto.getStatoProgetto()) {
-                    case NEUTRO:
-                        this.pubblicaProgetto(progetto);
-                        break;
-                    case PUBBLICO:
-                        this.selezionaProgettisti(Long.valueOf(idProgetto));
-                        break;
-                    case IN_VALUTAZIONE_CANDIDATURE:
-                        Set<Candidatura> progettistiPreselezionati = getCandidaturaController()
-                                .getCandidatureByIdProgettoAndStato(Long.valueOf(idProgetto), StatoCandidatura.PRESELEZIONATA);
-                        if (progettistiPreselezionati.size() > 0) {
-                            PrinterCandidature.printBasicCandidature(progettistiPreselezionati);
-                            selezionaTeam(Long.valueOf(idProgetto));
-                        }
-                        else {
-                            System.out.println("Non ci sono candidature preselezionate per il progetto con id " + idProgetto);
-                        }
-                        break;
-                    default:
-                        System.out.println("Impossibile processare l'operazione");
-                        break;
+                Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
+                if (!getProgettoController().checkProgetto(Long.valueOf(idProgetto), id, stato)) {
+                    System.out.println("Inserisci un id valido");
+                    selezionaProgetto(stato);
                 }
+                else {
+                    PrinterProgetti.printInfoProgetto(progetto);
+
+                    switch (progetto.getStatoProgetto()) {
+                        case NEUTRO:
+                            pubblicaProgetto(progetto);
+                            break;
+                        case PUBBLICO:
+                            selezionaProgettisti(Long.valueOf(idProgetto));
+                            break;
+                        case IN_VALUTAZIONE_CANDIDATURE:
+                            Set<Candidatura> progettistiPreselezionati = getCandidaturaController()
+                                    .getCandidatureByIdProgettoAndStato(Long.valueOf(idProgetto), StatoCandidatura.PRESELEZIONATA);
+                            if (progettistiPreselezionati.size() > 0) {
+                                PrinterCandidature.printBasicCandidature(progettistiPreselezionati);
+                                selezionaTeam(Long.valueOf(idProgetto));
+                            }
+                            else {
+                                System.out.println("Non ci sono candidature preselezionate per il progetto con id " + idProgetto);
+                            }
+                            break;
+                        default:
+                            System.out.println("Impossibile processare l'operazione");
+                            break;
+                    }
+                }
+            }
+             catch (NumberFormatException | NoSuchElementException e) {
+                System.out.println("Inserisci un id valido");
+                selezionaProgetto(stato);
             }
         }
     }
@@ -399,7 +399,6 @@ public class IProponente extends IUtente {
                 // selezione definitiva team di progettisti
                 getCandidaturaController().modificaStatoCandidature(idsCandidatureSelezionate,
                         StatoCandidatura.ACCETTATA);
-                // TODO che succede a quelle non accettate? anche nel CASO D'USO non è specificato
                 getProgettoController().setStatoProgetto(idProgetto, StatoProgetto.FINALIZZATO);
                 System.out.println("Complimenti hai trovato un team per il progetto!");
                 // stampa le info di tutti i progettisti

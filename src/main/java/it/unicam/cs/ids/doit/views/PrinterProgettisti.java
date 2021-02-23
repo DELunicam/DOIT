@@ -13,7 +13,6 @@ public abstract class PrinterProgettisti {
     }
 
     public static void printListaProgettisti() {
-        //TODO printListaProgetti
         Set<Progettista> progettisti = getProgettistaController().all();
         System.out.println("ID, USERNAME, NOME, COGNOME");
         for (Progettista progettista : progettisti) {

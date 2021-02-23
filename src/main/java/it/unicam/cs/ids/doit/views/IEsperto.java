@@ -14,14 +14,13 @@ import java.util.Map;
 import java.util.Set;
 
 public class IEsperto extends IUtente {
-    //    Scanner sc;
+
     private CandidaturaController getCandidaturaController() {
         return SpringContext.getBean(CandidaturaController.class);
     }
     private ValutazioneController getValutazioneController() {
         return SpringContext.getBean(ValutazioneController.class);
     }
-//    Long idEsperto;
 
     public IEsperto(Long idEsperto) {
         super(idEsperto);
