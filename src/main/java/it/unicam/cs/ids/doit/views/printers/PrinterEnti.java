@@ -1,8 +1,8 @@
-package it.unicam.cs.ids.doit.views;
+package it.unicam.cs.ids.doit.views.printers;
 
 import it.unicam.cs.ids.doit.gestori_utenti.EnteController;
-import it.unicam.cs.ids.doit.utenti.Ente;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
+import it.unicam.cs.ids.doit.utenti.Ente;
 import it.unicam.cs.ids.doit.utenti.Lavoratore;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 

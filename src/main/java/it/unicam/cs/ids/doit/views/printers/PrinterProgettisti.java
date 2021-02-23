@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.doit.views;
+package it.unicam.cs.ids.doit.views.printers;
 
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;

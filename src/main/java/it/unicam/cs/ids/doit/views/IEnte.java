@@ -11,6 +11,9 @@ import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import it.unicam.cs.ids.doit.utils.SpringContext;
+import it.unicam.cs.ids.doit.views.printers.PrinterEnti;
+import it.unicam.cs.ids.doit.views.printers.PrinterProgetti;
+import it.unicam.cs.ids.doit.views.printers.PrinterProgettisti;
 
 public class IEnte extends IUtente {
 

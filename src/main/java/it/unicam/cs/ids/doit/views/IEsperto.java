@@ -7,6 +7,9 @@ import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 import it.unicam.cs.ids.doit.valutazione.ValutazioneController;
+import it.unicam.cs.ids.doit.views.printers.PrinterCandidature;
+import it.unicam.cs.ids.doit.views.printers.PrinterProgetti;
+import it.unicam.cs.ids.doit.views.printers.PrinterProgettisti;
 
 import java.util.*;
 

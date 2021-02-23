@@ -8,12 +8,11 @@ import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
+import it.unicam.cs.ids.doit.views.printers.PrinterCandidature;
+import it.unicam.cs.ids.doit.views.printers.PrinterProgetti;
+import it.unicam.cs.ids.doit.views.printers.PrinterProgettisti;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 
 public class IProponente extends IUtente {
 
@@ -204,15 +203,14 @@ public class IProponente extends IUtente {
     public void selezionaProgetto(StatoProgetto stato) {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
-        if (!idProgetto.toUpperCase().equals("EXIT")) {
+        if (!idProgetto.equalsIgnoreCase("EXIT")) {
             try {
                 Long.valueOf(idProgetto);
                 Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
                 if (!getProgettoController().checkProgetto(Long.valueOf(idProgetto), id, stato)) {
                     System.out.println("Inserisci un id valido");
                     selezionaProgetto(stato);
-                }
-                else {
+                } else {
                     PrinterProgetti.printInfoProgetto(progetto);
 
                     switch (progetto.getStatoProgetto()) {
@@ -296,7 +294,7 @@ public class IProponente extends IUtente {
 
             while (true) {
                 String idCandidaturaScelta = sc.nextLine();
-                if (idCandidaturaScelta.toUpperCase().equals("DONE")) {
+                if (idCandidaturaScelta.equalsIgnoreCase("DONE")) {
                     System.out.println("Selezione terminata \n");
                     break;
                 }
@@ -312,9 +310,9 @@ public class IProponente extends IUtente {
                         else {
                             PrinterProgettisti.printInfoProgettista(candidaturaScelta);
                             System.out.println("[Y] per salvare la candidatura se ritenuta interessante, o digita un altro id");
-                            if (sc.nextLine().toUpperCase().equals("Y")) {
+                            if (sc.nextLine().equalsIgnoreCase("Y")) {
                                 getCandidaturaController().modificaStatoCandidatura(Long.valueOf(idCandidaturaScelta),
-                                    StatoCandidatura.PRESELEZIONATA);
+                                        StatoCandidatura.PRESELEZIONATA);
                                 System.out.println("Progettista " + candidaturaScelta.getIdProgettista() + " selezionato");
                             }
                         }
