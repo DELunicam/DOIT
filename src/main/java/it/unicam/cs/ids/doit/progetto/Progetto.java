@@ -94,36 +94,4 @@ public class Progetto {
         this.infoProgettistiRichiesti.putAll(in);
     }
 
-    // TODO check se potrebbero servire
-//    public String getInfo() {
-//        return "ID: " + this.getId() + "\n"
-//                + "Nome: " + this.getNome() + "\n"
-//                + "Descrizione: " + this.getDescrizione() + "\n"
-//                + "Stato: " + this.getStatoProgetto() + "\n"
-//                + "Progettisti richiesti: \n" + this.progettistiString();
-//    }
-//
-//    private String progettistiString() {
-//        StringBuilder output = new StringBuilder();
-//        output.append("Specializzazione, numero richiesti\n");
-//        this.infoProgettistiRichiesti.forEach((spec, num) -> {
-//            output.append(spec).append(", ").append(num).append("\n");
-//        });
-//        return output.toString();
-//    }
-//        private String progettistiString() {
-//        String out = new String();
-//        for (String i : this.infoProgettistiRichiesti.keySet()) {
-//            out += "Specializzazione: " + i + ", numero progettisti necessari: " + this.infoProgettistiRichiesti.get(i) + "\n";
-//        }
-//        return out;
-//    }
-
-//    // extra per comodità (usato in IProponente.selezionaProgetto())
-//    public void setInfo(String id, String nome, String descrizione, StatoProgetto stato) {
-//        this.id = id;
-//        this.nome = nome;
-//        this.descrizione = descrizione;
-//        this.stato = stato;
-//    }
 }

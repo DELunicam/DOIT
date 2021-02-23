@@ -3,6 +3,7 @@ package it.unicam.cs.ids.doit.progetto;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaRepository;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
+import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaRepository;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,24 +16,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class GestoreProgetto {
-    private static GestoreProgetto instance;
     @Autowired
     ProgettoRepository progettoRepository;
-    // TODO candidatureRepository non dovrebbe essere qui
     @Autowired
     CandidaturaRepository candidatureRepository;
+    @Autowired
+    ProgettistaRepository progettistaRepository;
 
     private GestoreProgetto() {
     }
-
-    // Singleton
-    public static GestoreProgetto getInstance() {
-        if (instance == null) {
-            instance = new GestoreProgetto();
-        }
-        return instance;
-    }
-
 
     public Progetto createProgetto(Long idProponente, String nome, String descrizione) {
         Progetto progettoNeutro = new Progetto(idProponente, nome, descrizione);
@@ -54,17 +46,49 @@ public class GestoreProgetto {
     public void insertInfoProgettisti(Long idProgetto, Map<Specializzazione, Integer> in) {
         Progetto progetto = progettoRepository.findById(idProgetto).get();
         this.insertInfoProgettisti(progetto, in);
+    }  
+
+    public boolean checkIdProgetto(Long idProgetto)
+    {   
+        return progettoRepository.existsById(idProgetto);
+
     }
+    public boolean checkStatoProgetto(Long idProgetto, StatoProgetto stato)
+    {  
+            boolean checkStato;
+            Progetto progetto = progettoRepository.findById(idProgetto).get();
+            if(progetto.getStatoProgetto() == stato)
+            {
+                checkStato = true;
+            }
+            else
+            {
+                checkStato = false;
+            }
+            return checkStato;
+    }
+
+    public boolean checkProgetto(Long idProgetto, Long idProponente, StatoProgetto stato) {
+        Progetto progetto = progettoRepository.findById(idProgetto).get();
+        if (progetto != null) {
+            if (progetto.getIdProponente() == idProponente && progetto.getStatoProgetto() == stato) {
+                return true;
+            }
+        }
+		return false;
+	}
 
     /**
      * @param idProgetto
      * @return Progetto con id uguale a idProgetto, null se non esiste
      */
     public Progetto getProgetto(Long idProgetto) {
-        return progettoRepository.findById(idProgetto).get();
+        if (progettoRepository.existsById(idProgetto)) {
+            return progettoRepository.findById(idProgetto).get();
+        }
+        return null;
     }
 
-    // TODO
     public void pubblicaProgetto(Progetto progetto) {
         progetto.setStatoProgetto(StatoProgetto.PUBBLICO);
         progettoRepository.save(progetto);
@@ -82,7 +106,6 @@ public class GestoreProgetto {
         return progettoRepository.findAllByIdProponenteAndStatoProgetto(idProponente, stato);
     }
 
-    // TODO check implementazione migliore
     // Restituisce tutti i progetti aventi stato che richiedono una delle specializzazioni passate
     public Set<Progetto> getListaProgetti(Set<Specializzazione> specializzazioni, StatoProgetto statoProgetto) {
         Set<Progetto> progettiConStato = progettoRepository.findAllByStatoProgetto(statoProgetto);
@@ -92,13 +115,6 @@ public class GestoreProgetto {
                     filter(p -> p.getInfoProgettistiRichiesti().containsKey(specializzazione))
                     .collect(Collectors.toSet()));
         }
-//        for (Progetto p : progettiConStato) {
-//            for (Specializzazione s : specializzazioni) {
-//                if (p.getInfoProgettistiRichiesti().containsKey(s)) {
-//                    progettiCercati.add(p);
-//                }
-//            }
-//        }
         return progettiCercati;
     }
 
@@ -117,32 +133,27 @@ public class GestoreProgetto {
         return progettoRepository.findProgettiByIdIn(id);
     }
     
-    // TODO check
     public Set<Progetto> getListaProgettiSvolti(Progettista progettista) {
         return getListaProgettiSvolti(progettista.getId());
     }
 
-    // TODO check
     public Set<Progetto> getListaProgettiSvolti(Long idProgettista) {
-        Set<Progetto> progettiSvolti = new HashSet<>();
-        Set<Candidatura> candidatureAccettate = candidatureRepository.findAllByIdProgettista(idProgettista);
-        candidatureAccettate = candidatureAccettate.stream().filter(c -> c.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)).collect(Collectors.toSet());
+        if (progettistaRepository.existsById(idProgettista)) {
+            Set<Progetto> progettiSvolti = new HashSet<>();
+            Set<Candidatura> candidatureAccettate = candidatureRepository.findAllByIdProgettista(idProgettista);
+            candidatureAccettate = candidatureAccettate.stream().filter(c -> c.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)).collect(Collectors.toSet());
 
-        for (Candidatura candidatura : candidatureAccettate) {
-            progettiSvolti.add(progettoRepository.getOne(candidatura.getIdProgetto()));
+            for (Candidatura candidatura : candidatureAccettate) {
+                progettiSvolti.add(progettoRepository.getOne(candidatura.getIdProgetto()));
+            }
+            return progettiSvolti;
         }
-
-        return progettiSvolti;
+        return null;
     }
 
     public void notificaEsito(String idProgettista) {
         //TODO notificaEsito
     }
-
-    // TODO check se serve
-//    public String getInfoProgetto(Long idProgetto) {
-//        return this.getProgetto(idProgetto).getInfo();
-//    }
 
     public void modificaStatoProgetto(Progetto progetto, StatoProgetto statoProgetto) {
         progetto.setStatoProgetto(statoProgetto);

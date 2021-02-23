@@ -23,7 +23,7 @@ public class Valutazione {
     @NonNull
     private Boolean fattibilità;
     @ElementCollection
-    private Map<Specializzazione, Integer> lavoratoriConsigliati; 
+    private Map<Specializzazione, Integer> lavoratoriConsigliati;
     private String parere;
 
     public Valutazione() {

@@ -15,14 +15,9 @@ public class ProgettoController {
     ProgettoRepository progettoRepository;
     @Autowired
     GestoreProgetto gestoreProgetto;
+    
     public ProgettoController() {
     }
-    //public ProgettoController(GestoreProgetto gestoreProgetto) {
-    //    this.gestoreProgetto = gestoreProgetto;
-    //}
-
-
-    // GET /progetti
 
     @GetMapping(value = "/progetti")
     public Set<Progetto> all() {
@@ -44,17 +39,10 @@ public class ProgettoController {
         return gestoreProgetto.getListaProgetti(idProponente, statoProgetto);
     }
 
-    //@GetMapping(value = "/progetti", params = {"specializzazione", "statoProgetto"})
-    //List<Progetto> allByStatoProgettoAndSpecializzazione(@RequestParam Specializzazione specializzazione, @RequestParam StatoProgetto statoProgetto) {
-    //    return gestoreProgetto.getListaProgetti(specializzazione, statoProgetto);
-    //}
-
     @GetMapping(value = "/progetti", params = {"specializzazioni", "statoProgetto"})
     public Set<Progetto> allByStatoProgettoAndSpecializzazione(@RequestParam Set<Specializzazione> specializzazioni, @RequestParam StatoProgetto statoProgetto) {
         return gestoreProgetto.getListaProgetti(specializzazioni, statoProgetto);
     }
-
-    // PUT /progetti
 
     @PutMapping(value = "/progetti", params = {"idProgetto", "statoProgetto"})
     public void setStatoProgetto(@RequestParam Long idProgetto, @RequestParam StatoProgetto statoProgetto) {
@@ -71,24 +59,31 @@ public class ProgettoController {
         gestoreProgetto.pubblicaProgetto(progetto);
     }
 
-
-    // POST /progetti
-
     @PostMapping(value = "/progetti", params = {"idProponente", "nome", "descrizione"})
     public Progetto createProgetto(@RequestParam Long idProponente, @RequestParam String nome, @RequestParam String descrizione) {
         return gestoreProgetto.createProgetto(idProponente, nome, descrizione);
     }
 
+    @PostMapping(value= "/progetti/{idProgetto}")
+    public boolean checkIdProgetto(@PathVariable Long idProgetto){
+        return gestoreProgetto.checkIdProgetto(idProgetto);
+    }
 
-    // GET /progetti/{idProgetto}
+    @GetMapping(value= "/progetti/{idProgetto}/{idProponente}/{stato}")
+    public boolean checkProgetto(@PathVariable Long idProgetto, @PathVariable Long idProponente, @PathVariable StatoProgetto stato){
+        return gestoreProgetto.checkProgetto(idProgetto, idProponente, stato);
+    }
+
+    @GetMapping(value = "/progetti", params ={"idProgetto", "statoProgetto"})
+    public boolean checkStatoProgetto(@PathVariable Long idProgetto, @PathVariable StatoProgetto statoProgetto)
+    {
+        return gestoreProgetto.checkStatoProgetto(idProgetto, statoProgetto);
+    }
 
     @GetMapping(value = "/progetti/{idProgetto}")
     public Progetto one(@PathVariable Long idProgetto) {
         return gestoreProgetto.getProgetto(idProgetto);
     }
-
-
-    // PUT /progetti/{idProgetto}
 
     @PutMapping(value = "/progetti/{idProgetto}")
     void insertInfoProgettistiRichiesti(@PathVariable Long idProgetto, @RequestBody Map<Specializzazione, Integer> specializzazioni) {

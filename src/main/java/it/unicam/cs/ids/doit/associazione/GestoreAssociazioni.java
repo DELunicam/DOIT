@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GestoreAssociazioni {
-    private static GestoreAssociazioni instance;
 
     @Autowired
     AssociazioneRepository repository;
@@ -16,19 +15,10 @@ public class GestoreAssociazioni {
 
     }
 
-    // Singleton
-    public static GestoreAssociazioni getInstance() {
-        if (instance == null) {
-            instance = new GestoreAssociazioni();
-        }
-        return instance;
-    }
-
     public Set<Associazione> getAssociazioni(Long idProgettista, StatoAssociazione stato) {
         return repository.findAssociazioniByIdProgettistaAndStato(idProgettista, stato);
     }
 
-    // TODO manca qualche altro parametro?
     public Associazione getAssociazione(Long idProgettista) {
         return repository.findAssociazioneByIdProgettista(idProgettista);
     }
@@ -40,7 +30,6 @@ public class GestoreAssociazioni {
     public void modificaStatoAssociazione(Associazione associazione, StatoAssociazione stato) {
         associazione.setStatoAssociazione(stato);
         repository.save(associazione);
-        // TODO usare id invece che associazione?
     }
 
     public Set<Long> getIdProgettisti(Long idEnte, Long idProgetto) {
@@ -54,7 +43,9 @@ public class GestoreAssociazioni {
 
     public Associazione getAssociazioneById(Long idAssociazione)
     {
-        return repository.findAssociazioneById(idAssociazione);
+        if(repository.existsById(idAssociazione)){
+        return repository.findAssociazioneById(idAssociazione);}
+        return null;
     }
 
     public Associazione creaAssociazione(Long idEnte, Long idProgettista, Long idProgetto) {

@@ -74,7 +74,12 @@ public abstract class PrinterProgetti {
 
     public static void printInfoProgetto(Long idProgetto) {
         Progetto progetto = getProgettoController().one(idProgetto);
-        printInfoProgetto(progetto);
+        if (progetto != null) {
+            printInfoProgetto(progetto);
+        }
+        else {
+            System.out.println("Impossibile trovare il progetto desiderato");
+        }
     }
     
 

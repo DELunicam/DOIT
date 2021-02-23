@@ -31,13 +31,21 @@ public class EnteController {
     public Ente getEnte(@PathVariable Long id) {
         return gestoreEnti.getEnte(id);
     }
+    @GetMapping(value = "/lavoratori/{idLavoratore}")
+    public Lavoratore getLavoratore(@PathVariable Long idLavoratore) {
+        return gestoreEnti.getLavoratore(idLavoratore);
+    }
+    @GetMapping(value = "/enti/{id}/lavoratori/{id}")
+    public boolean checkLavoratori(@PathVariable Long idEnte, @PathVariable Long IdLavoratore)
+    {
+        return gestoreEnti.checkLavoratore(IdLavoratore, idEnte);
+    }
 
     @GetMapping(value = "enti/{id}/lavoratori")
     public Set<Lavoratore> getLavoratori(@PathVariable Long id) {
         return gestoreEnti.getLavoratori(id);
     }
 
-    // TODO
     @PutMapping(value = "lavoratori/{idLavoratore}")
     public void assegnaProgetto(@PathVariable Long idLavoratore, @RequestParam Long idProgetto) {
         gestoreEnti.assegnaProgetto(idLavoratore, idProgetto);

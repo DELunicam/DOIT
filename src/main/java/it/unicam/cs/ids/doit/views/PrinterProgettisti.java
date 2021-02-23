@@ -13,7 +13,6 @@ public abstract class PrinterProgettisti {
     }
 
     public static void printListaProgettisti() {
-        //TODO printListaProgetti
         Set<Progettista> progettisti = getProgettistaController().all();
         System.out.println("ID, USERNAME, NOME, COGNOME");
         for (Progettista progettista : progettisti) {
@@ -42,7 +41,12 @@ public abstract class PrinterProgettisti {
 
     public static void printInfoProgettista(Long idProgettista) {
         Progettista progettista = getProgettistaController().one(idProgettista);
-        printInfoProgettista(progettista);
+        if (progettista != null) {
+            printInfoProgettista(progettista);
+        }
+        else {
+            System.out.println("Impossibile trovare il progettista desiderato");
+        }
     }
 
     public static void printInfoProgettista(Progettista progettista) {

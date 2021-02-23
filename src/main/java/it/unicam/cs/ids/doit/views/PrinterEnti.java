@@ -2,12 +2,10 @@ package it.unicam.cs.ids.doit.views;
 
 import it.unicam.cs.ids.doit.gestori_utenti.EnteController;
 import it.unicam.cs.ids.doit.utenti.Ente;
-import it.unicam.cs.ids.doit.gestori_utenti.GestoreEnti;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utenti.Lavoratore;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public abstract class PrinterEnti {
@@ -35,7 +33,7 @@ public abstract class PrinterEnti {
     }
     public static void printInfoEnte(Long id)
     {
-        Ente ente = getEnteController().getEnte(id);
+        getEnteController().getEnte(id);
 
     }
     public static void printInfoEnte(Ente ente)

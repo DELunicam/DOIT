@@ -9,7 +9,6 @@ import java.util.HashSet;
 
 @Service
 public class GestoreCandidature {
-    private static GestoreCandidature instance;
 
     @Autowired
     CandidaturaRepository repository;
@@ -18,13 +17,6 @@ public class GestoreCandidature {
 
     }
 
-    // Singleton
-    public static GestoreCandidature getInstance() {
-        if (instance == null) {
-            instance = new GestoreCandidature();
-        }
-        return instance;
-    }
     public Set<Long> getIdProgetti(Long idProgettista, StatoCandidatura stato) 
     {   Set<Long> id = new HashSet<Long>();
         Set<Candidatura> candidature = repository.findIdProgettiByIdProgettistaAndStato(idProgettista, stato);
@@ -53,6 +45,20 @@ public class GestoreCandidature {
     // ottiene candidatura da id del progetto e id del progettista
     public Candidatura getCandidatura(Long idProgetto, Long idProgettista) {
         return repository.findCandidaturaByIdProgettoAndIdProgettista(idProgetto, idProgettista);
+    }
+    public boolean checkStatoCandidatura(Long idProgetto, Long idProgettista, StatoCandidatura stato)
+    {
+        Candidatura candidatura = repository.findCandidaturaByIdProgettoAndIdProgettista(idProgetto, idProgettista);
+        boolean checkStato;
+        if (candidatura.getStatoCandidatura() == stato)
+        {
+            checkStato = true;
+        }  
+        else
+        {
+            checkStato = false;
+        }
+        return checkStato;
     }
 
     // modifica lo stato di una candidatura

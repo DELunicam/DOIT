@@ -5,7 +5,11 @@ import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.doit.gestori_utenti.EnteController;
 import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
+import it.unicam.cs.ids.doit.notifica.MessaggioController;
+import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.ProgettoController;
+import it.unicam.cs.ids.doit.progetto.StatoProgetto;
+import it.unicam.cs.ids.doit.utenti.Progettista;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 
 public class IEnte extends IUtente {
@@ -18,6 +22,10 @@ public class IEnte extends IUtente {
         super(idEnte);
     }
 
+    private MessaggioController getMessaggioController()
+    {
+        return SpringContext.getBean(MessaggioController.class);
+    }
     private AssociazioneController getAssociazioneController() {
         return SpringContext.getBean(AssociazioneController.class);
     }
@@ -25,7 +33,9 @@ public class IEnte extends IUtente {
     private ProgettoController getProgettoController() {
         return SpringContext.getBean(ProgettoController.class);
     }
-
+  
+    
+   
     private ProgettistaController getProgettistaController() {
         return SpringContext.getBean(ProgettistaController.class);
     }
@@ -82,16 +92,31 @@ public class IEnte extends IUtente {
 
     public void viewProgettiCandidabili() {
         System.out.println("Puoi candidarti ai seguenti progetti \n");
-        PrinterProgetti.printListaProgetti();
+        PrinterProgetti.printListaProgetti(StatoProgetto.PUBBLICO);
         selezionaProgetto();
     }
 
     public void selezionaProgetto() {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
+        try{Long.valueOf(idProgetto);}
+    
+        catch (NumberFormatException e) {
+            System.out.println("Inserisci un id valido");
+            selezionaProgetto();
+            return;
+        }
+        Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
+        if (progetto == null) {
+            System.out.println("Inserisci un id valido");
+            selezionaProgetto();
+            return;
+        }
+        else{
         if (!idProgetto.equals("EXIT")) {
+            if(progetto.getStatoProgetto()== StatoProgetto.PUBBLICO){
             PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
-            System.out.println("Desideri candidarti a questo progetto?\n[Y] YES,    [N] NO)\n");
+            System.out.println("Desideri candidarti a questo progetto?\n[Y] YES,    [N] NO\n");
             String input = sc.nextLine().toUpperCase();
             if (input.equals("Y")) {
                 getCandidaturaController().creaCandidatura(id, Long.valueOf(idProgetto));
@@ -103,9 +128,14 @@ public class IEnte extends IUtente {
             } else {
                 System.out.println("Impossibile processare l'operazione");
             }
-
         }
-    }
+        else
+        {
+            System.out.println("Id progetto errato \n");
+            selezionaProgetto();
+        }
+        }
+    }}
 
     public void PropostaAssociazione() {
         System.out.println("Vuoi associare un progettista per un progetto? \n[Y] YES,    [N] NO)\n");
@@ -121,7 +151,7 @@ public class IEnte extends IUtente {
     }
 
     public void viewProgettiCandidati() {
-        System.out.println("Puoi candidarti ai seguenti progetti \n");
+        System.out.println("Sei candidato ai seguenti progetti \n");
         PrinterProgetti.printProgettiCandidati(getCandidaturaController().getIdProgetti(id, StatoCandidatura.ACCETTATA));
         selezionaProgettoAssociazione();
     }
@@ -129,9 +159,24 @@ public class IEnte extends IUtente {
     public void selezionaProgettoAssociazione() {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
+      
         if (!idProgetto.equals("EXIT")) {
-            PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
-            System.out.println("Desideri creare un'associazione per questo progetto?\n[Y] YES,    [N] NO)\n");
+            try{Long.valueOf(idProgetto);}
+    
+        catch (NumberFormatException e) {
+            System.out.println("Inserisci un id valido");
+            selezionaProgettoAssociazione();
+            return;
+        }
+        Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
+        if (progetto == null) {
+            System.out.println("Inserisci un id valido");
+            selezionaProgettoAssociazione();
+            return;
+        }
+        else{ 
+          PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
+            System.out.println("Desideri creare un'associazione per questo progetto?\n[Y] YES,    [N] NO\n");
             String input = sc.nextLine().toUpperCase();
             if (input.equals("Y")) {
                 selezionaProgettista(Long.valueOf(idProgetto));
@@ -142,22 +187,39 @@ public class IEnte extends IUtente {
             } else {
                 System.out.println("Impossibile processare l'operazione");
             }
-
+            }
+          
         }
-
     }
+    
 
     public void selezionaProgettista(Long idProgetto) {
         PrinterProgettisti.printListaProgettisti();
         System.out.println("Digitare l'id del progettista desiderato, [EXIT] per uscire");
         String idProgettista = sc.nextLine();
+        
         if (!idProgettista.equals("EXIT")) {
+            try{Long.valueOf(idProgettista);}
+    
+        catch (NumberFormatException e) {
+            System.out.println("Inserisci un id valido");
+            selezionaProgettista(idProgetto);
+            return;
+        }
+        Progettista progettista = getProgettistaController().one(id);
+        if (progettista == null) {
+            System.out.println("Inserisci un id valido");
+            selezionaProgetto();
+            return;
+        }
+        else{
             System.out.println("Desideri inviare una proposta di associazione a progettista" + idProgettista + "?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
+            
             if (input.equals("Y")) {
                 getAssociazioneController().creaAssociazione(id, Long.valueOf(idProgettista), idProgetto);
                 System.out.println("Proposta di associazione inviata\n");
-                //TODO notifica
+                getMessaggioController().createMessaggio(id, progettista.getId(), "Hai ricevuto una proposta di associazione da:" +getEnteController().getEnte(id).getNome());
 
             } else if (input.equals("N")) {
                 System.out.println("Ok, operazione annullata \n");
@@ -165,8 +227,8 @@ public class IEnte extends IUtente {
             } else {
                 System.out.println("Impossibile processare l'operazione");
             }
-
         }
+     }
 
     }
 
@@ -192,7 +254,22 @@ public class IEnte extends IUtente {
     public void selezionaProgettoAssegnazione() {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
-        if (!idProgetto.equals("EXIT")) {
+       
+        if (!idProgetto.equals("EXIT")) { 
+            try{Long.valueOf(idProgetto);}
+    
+            catch (NumberFormatException e) {
+                System.out.println("Inserisci un id valido");
+                selezionaProgetto();
+                return;
+            }
+            Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
+            if (progetto == null) {
+                System.out.println("Inserisci un id valido");
+                selezionaProgetto();
+                return;
+            }
+            else{
             PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
             System.out.println("Desideri assegnare dei lavoratori a questo progetto?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
@@ -207,7 +284,7 @@ public class IEnte extends IUtente {
             }
 
         }
-    }
+    }}
 
     public void selezionaLavoratori(Long idProgetto) {
         System.out.println("I seguenti progettisti sono associati per questo progetto: \n");
@@ -219,11 +296,25 @@ public class IEnte extends IUtente {
 
         while (progettistiAttuali < progettistiRichiesti) {
             Long idLavoratore = Long.valueOf(sc.nextLine());
+            try
+            {
+                Long.valueOf(idLavoratore);
+            }
+            
+            catch(NumberFormatException e)
+            {
+                System.out.println("Inserisci un id valido");
+                selezionaLavoratori(idProgetto);
+                return;
+            }
+
             getEnteController().assegnaProgetto(idLavoratore, idProgetto);
             progettistiAttuali++;
             System.out.println("Lavoratore " + idLavoratore + "assegnato al progetto " + idProgetto);
-            //TODO notifica
-        }
+        
+            }
 
+        
     }
 }
+

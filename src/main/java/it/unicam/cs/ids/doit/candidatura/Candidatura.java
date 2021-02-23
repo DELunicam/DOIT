@@ -8,11 +8,9 @@ import java.util.Map;
 
 @Entity
 public class Candidatura {
-//	@GenericGenerator(name = "sequence_cand_id", strategy = "it.unicam.cs.ids.doit.candidatura.CandidaturaIdGenerator")
-//	@GeneratedValue(generator = "sequence_cand_id")
-@Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-private Long id;
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	@NonNull
 	private Long idProgetto;
 	@NonNull
@@ -20,7 +18,7 @@ private Long id;
 	@Enumerated(EnumType.STRING)
 	private StatoCandidatura stato;
 	@ElementCollection(fetch = FetchType.EAGER)
-	private Map<Long, Boolean> pareriEsperti = new HashMap<Long, Boolean>(); // idesperto, valutazione pos o neg
+    private Map<Long, Boolean> pareriEsperti = new HashMap<Long, Boolean>(); // idesperto, valutazione pos o neg
 
 	public Candidatura() {
 

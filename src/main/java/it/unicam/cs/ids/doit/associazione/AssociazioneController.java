@@ -19,13 +19,11 @@ public class AssociazioneController {
         return gestoreAssociazioni.getAssociazioni(idProgettista, stato);
     }
     @GetMapping(value = "/associazioni", params = {"id"})
-    // TODO passare id invece che associazione?
     public Associazione getAssociazioneById(@RequestParam Long idAssociazione) {
         return gestoreAssociazioni.getAssociazioneById(idAssociazione);
     }
 
     @GetMapping(value = "/associazioni", params = {"idProgettista"})
-    // TODO passare id invece che associazione?
     Associazione getAssociazioneByIdProgettista(@RequestParam Long idProgettista) {
         return gestoreAssociazioni.getAssociazione(idProgettista);
     }

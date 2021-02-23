@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Configuration
 public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
@@ -53,13 +54,13 @@ public class LoadDatabase {
         prog4.setInfoProgettistiRichiesti(map);
         prog4.setStatoProgetto(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
 
-        Progetto prog5 = new Progetto(3L, "nome2", "desc2");
+        Progetto prog5 = new Progetto(1L, "nome2", "desc2");
         prog5.setInfoProgettistiRichiesti(map);
         prog5.setStatoProgetto(StatoProgetto.PUBBLICO);
 
         return args -> {
             log.info("Preloading " + repository.save(new Progetto(2L, "nome1", "desc1")));
-            log.info("Preloading " + repository.save(new Progetto(3L, "nome2", "desc2")));
+            log.info("Preloading " + repository.save(new Progetto(1L, "nome2", "desc2")));
             log.info("Preloading" + repository.save(prog3));
             log.info("Preloading" + repository.save(prog4));
             log.info("Preloading " + repository.save(prog5));
@@ -105,57 +106,43 @@ public class LoadDatabase {
 
         };
     }
-    //@Bean
-    //CommandLineRunner loadCandidature(EnteRepository repository)
-    //{
-    //    Ente bar = new Ente();
-    //    bar.setNome("ente1");
-    //    bar.setDescrizione("Ente generico");
-    //    
-    //    return args -> {
-    //       
-    //        log.info("Preloading " + repository.save(bar));
-    //        
-    //    };
-//
-    //}
 
     @Bean
     CommandLineRunner loadCandidature(CandidaturaRepository repository) {
         Candidatura foo = new Candidatura();
         //foo.setId("CAND1");
         foo.setIdProgettista(8L);
-        foo.setIdProgetto(5L);
+        foo.setIdProgetto(7L);
         foo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
         Candidatura bar = new Candidatura();
         //bar.setId("CAND2");
         bar.setIdProgettista(8L);
-        bar.setIdProgetto(4L);
+        bar.setIdProgetto(7L);
         bar.setStatoCandidatura(StatoCandidatura.ACCETTATA);
 
         Candidatura sad = new Candidatura();
         //sad.setId("CAND3");
         sad.setIdProgettista(8L);
-        sad.setIdProgetto(Long.valueOf(3));
+        sad.setIdProgetto(Long.valueOf(7));
         sad.setStatoCandidatura(StatoCandidatura.RIFIUTATA);
 
         Candidatura zoo = new Candidatura();
         //zoo.setId("CAND4");
-        zoo.setIdProgettista(8L);
-        zoo.setIdProgetto(Long.valueOf(4));
+        zoo.setIdProgettista(9L);
+        zoo.setIdProgetto(Long.valueOf(5));
         zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
         Candidatura ciao = new Candidatura();
         //ciao.setId("CAND5");
-        ciao.setIdProgettista(8L);
-//		ciao.setIdProgetto(tre.getId());
+        ciao.setIdProgettista(10L);
+		ciao.setIdProgetto(5L);
         ciao.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
         Candidatura puffo = new Candidatura();
         //puffo.setId("CAND6");
         puffo.setIdProgettista(8L);
-//		puffo.setIdProgetto(tre.getId());
+		puffo.setIdProgetto(5L);
         puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
         Candidatura bee = new Candidatura();
@@ -168,6 +155,8 @@ public class LoadDatabase {
         poi.setIdProgetto(Long.valueOf(3));
         poi.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
+        Candidatura pep = new Candidatura();
+        
 
         return args -> {
             log.info("Preloading " + repository.save(foo));

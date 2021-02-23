@@ -11,27 +11,23 @@ import java.util.Set;
 
 @Service
 public class GestoreProgettisti {
-    private static GestoreProgettisti instance;
+
     @Autowired
     ProgettistaRepository progettistaRepository;
 
     private GestoreProgettisti() {
     }
 
-    // Singleton
-    public static GestoreProgettisti getInstance() {
-        if (instance == null) {
-            instance = new GestoreProgettisti();
-        }
-        return instance;
-    }
     public Set<Progettista>getListaProgettistiById(Set<Long> id)
     {
         return progettistaRepository.findProgettistiByIdIn(id);
     }
 
     public Progettista getProgettista(Long idProgettista) {
-        return progettistaRepository.findById(idProgettista).get();
+        if (progettistaRepository.existsById(idProgettista)) {
+            return progettistaRepository.findById(idProgettista).get();
+        }
+        return null;
     }
 
     public Progettista getProgettistaByNome(String nome) {
@@ -63,50 +59,4 @@ public class GestoreProgettisti {
         return progettista;
 	}
 
-    // Probabilmente andra' spostato in GestoreProgetti
-//    public Set<Progetto> getProgettiSvolti(String idProgettista) {
-//        Set<Progetto> progettiSvolti = new HashSet<>();
-//        GestoreProgetto gestoreProgetto = GestoreProgetto.getInstance();
-//        for (Candidatura candidatura : db.candidature) {
-//            if (candidatura.getIdProgettista().equals(idProgettista) && candidatura.getStatoCandidatura().equals(StatoCandidatura.ACCETTATA)) {
-//                progettiSvolti.add(gestoreProgetto.getProgetto(candidatura.getIdProgetto()));
-//            }
-//        }
-//        return progettiSvolti;
-//    }
-
-
-//    public String getInfoProgettista(String idProgettista) {
-//        String info = "INFO PROGETTISTA: \n";
-//        for (Progettista progettista : db.progettisti) {
-//            if (progettista.getId().equals(idProgettista)) {
-//                info +=
-//                        "ID: " + progettista.getId() + "\n" +
-//                                "Nome: " + progettista.getNome() + "\n" +
-//                                "Cognome: " + progettista.getCognome() + "\n" +
-//                                progettista.getInfoSpec() + "\n" +
-//                                "Progetti svolti: " + getProgettiSvolti(progettista.getId()) + "\n" +
-//                                "Mail: " + progettista.getMailAddress();
-//            }
-//
-//        }
-//        return info;
-//    }
-
-    // TODO NON USATO? ELIMINARE?
-//    public Set<Progettista> getListaProgettisti(Set<Candidatura> candidatura) {
-//        Set<Progettista> progettisti = new HashSet<Progettista>();
-//        for (Candidatura cand : candidatura) {
-//            progettisti.add(getProgettista(getIdProgettistaByUsername(cand.getIdProgettista())));
-//        }
-//        return progettisti;
-//    }
-
-//    public String getInfoProgettisti(Set<Progettista> progettisti) {
-//        String info = "INFO PROGETTISTI:\n";
-//        for (Progettista progettista : progettisti) {
-//            info += this.getInfoProgettista(progettista.getId()) + "\n";
-//        }
-//        return info;
-//    }
 }

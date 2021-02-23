@@ -69,7 +69,6 @@ public class UtenteController {
         return gestoreUtenti.cercaUsername(username);
     }
 
-
     @GetMapping
     public String getType(@PathVariable String username, @PathVariable String password) {
         return gestoreUtenti.getType(username, password);
