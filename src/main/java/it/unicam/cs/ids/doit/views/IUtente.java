@@ -1,8 +1,9 @@
 package it.unicam.cs.ids.doit.views;
 
-import it.unicam.cs.ids.doit.gestori_utenti.UtenteController;
 import it.unicam.cs.ids.doit.notifica.MessaggioController;
 import it.unicam.cs.ids.doit.utils.SpringContext;
+import it.unicam.cs.ids.doit.utils.printers.PrinterMessaggi;
+import it.unicam.cs.ids.doit.utils.printers.PrinterUtenti;
 import it.unicam.cs.ids.doit.views.factoryViews.FactoryIVisitatore;
 
 import java.util.Scanner;

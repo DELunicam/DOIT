@@ -8,6 +8,8 @@ import it.unicam.cs.ids.doit.gestori_utenti.UtenteController;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utenti.*;
 import it.unicam.cs.ids.doit.utils.SpringContext;
+import it.unicam.cs.ids.doit.utils.printers.PrinterProgetti;
+import it.unicam.cs.ids.doit.utils.printers.PrinterProgettisti;
 import it.unicam.cs.ids.doit.views.factoryViews.*;
 
 public class IVisitatore {

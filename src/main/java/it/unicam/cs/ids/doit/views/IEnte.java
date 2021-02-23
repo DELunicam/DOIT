@@ -11,6 +11,9 @@ import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utenti.Progettista;
 import it.unicam.cs.ids.doit.utils.SpringContext;
+import it.unicam.cs.ids.doit.utils.printers.PrinterEnti;
+import it.unicam.cs.ids.doit.utils.printers.PrinterProgetti;
+import it.unicam.cs.ids.doit.utils.printers.PrinterProgettisti;
 
 public class IEnte extends IUtente {
 
@@ -59,7 +62,7 @@ public class IEnte extends IUtente {
                     inserisciCandidatura();
                     break;
                 case "INVIA PROPOSTA DI ASSOCIAZIONE":
-                    PropostaAssociazione();
+                    propostaAssociazione();
                     break;
                 case "ASSEGNA LAVORATORI":
                     assegnaLavoratori();
@@ -137,7 +140,7 @@ public class IEnte extends IUtente {
         }
     }}
 
-    public void PropostaAssociazione() {
+    public void propostaAssociazione() {
         System.out.println("Vuoi associare un progettista per un progetto? \n[Y] YES,    [N] NO)\n");
         String input = sc.nextLine().toUpperCase();
         if (input.equals("Y")) {

@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.doit.views;
+package it.unicam.cs.ids.doit.utils.printers;
 
 import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.ProgettoController;

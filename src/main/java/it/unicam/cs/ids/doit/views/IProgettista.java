@@ -9,6 +9,8 @@ import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
+import it.unicam.cs.ids.doit.utils.printers.PrinterAssociazioni;
+import it.unicam.cs.ids.doit.utils.printers.PrinterProgetti;
 
 public class IProgettista extends IUtente {
 

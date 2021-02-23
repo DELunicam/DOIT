@@ -6,6 +6,9 @@ import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
+import it.unicam.cs.ids.doit.utils.printers.PrinterCandidature;
+import it.unicam.cs.ids.doit.utils.printers.PrinterProgetti;
+import it.unicam.cs.ids.doit.utils.printers.PrinterProgettisti;
 import it.unicam.cs.ids.doit.valutazione.ValutazioneController;
 
 import java.util.HashMap;

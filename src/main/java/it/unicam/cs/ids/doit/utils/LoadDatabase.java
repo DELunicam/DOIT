@@ -155,9 +155,6 @@ public class LoadDatabase {
         poi.setIdProgetto(Long.valueOf(3));
         poi.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
-        Candidatura pep = new Candidatura();
-        
-
         return args -> {
             log.info("Preloading " + repository.save(foo));
             log.info("Preloading " + repository.save(bar));

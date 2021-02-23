@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.doit.views;
+package it.unicam.cs.ids.doit.utils.printers;
 
 import it.unicam.cs.ids.doit.gestori_utenti.EnteController;
 import it.unicam.cs.ids.doit.utenti.Ente;
