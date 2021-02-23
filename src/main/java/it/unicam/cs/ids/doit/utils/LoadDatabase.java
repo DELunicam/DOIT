@@ -128,20 +128,20 @@ public class LoadDatabase {
 
         Candidatura zoo = new Candidatura();
         //zoo.setId("CAND4");
-        zoo.setIdProgettista(8L);
-        zoo.setIdProgetto(Long.valueOf(7));
+        zoo.setIdProgettista(9L);
+        zoo.setIdProgetto(Long.valueOf(5));
         zoo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
         Candidatura ciao = new Candidatura();
         //ciao.setId("CAND5");
-        ciao.setIdProgettista(8L);
-		ciao.setIdProgetto(7L);
+        ciao.setIdProgettista(10L);
+		ciao.setIdProgetto(5L);
         ciao.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
         Candidatura puffo = new Candidatura();
         //puffo.setId("CAND6");
         puffo.setIdProgettista(8L);
-		puffo.setIdProgetto(7L);
+		puffo.setIdProgetto(5L);
         puffo.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
         Candidatura bee = new Candidatura();

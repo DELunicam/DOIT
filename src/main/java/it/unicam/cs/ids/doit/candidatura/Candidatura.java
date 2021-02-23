@@ -19,7 +19,7 @@ public class Candidatura {
 	private Long idProgettista;
 	@Enumerated(EnumType.STRING)
 	private StatoCandidatura stato;
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
     private Map<Long, Boolean> pareriEsperti = new HashMap<Long, Boolean>(); // idesperto, valutazione pos o neg
 
 	public Candidatura() {
