@@ -48,6 +48,10 @@ public class GestoreProgettisti {
     public Long getIdProgettistaByUsername(String username) {
         return progettistaRepository.findProgettistaByUsername(username).getId();
     }
+   // public boolean checkProgettista(Long idProgettista)
+   // {
+   //     return progettistaRepository.existsById(idProgettista);
+   // }
 
     public Set<Specializzazione> getSpecializzazioni(Long idProgettista) {
         return progettistaRepository.findById(idProgettista).get().getSpecializzazioni();

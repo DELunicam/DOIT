@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Configuration
 public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
@@ -154,6 +155,8 @@ public class LoadDatabase {
         poi.setIdProgetto(Long.valueOf(3));
         poi.setStatoCandidatura(StatoCandidatura.DA_VALUTARE);
 
+        Candidatura pep = new Candidatura();
+        
 
         return args -> {
             log.info("Preloading " + repository.save(foo));

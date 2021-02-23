@@ -1,14 +1,21 @@
 package it.unicam.cs.ids.doit.views;
 
+import it.unicam.cs.ids.doit.associazione.Associazione;
 import it.unicam.cs.ids.doit.associazione.AssociazioneController;
 import it.unicam.cs.ids.doit.associazione.StatoAssociazione;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
+import it.unicam.cs.ids.doit.progetto.Progetto;
+import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 
 public class IProgettista extends IUtente {
 
+    private ProgettoController getProgettoController()
+    {
+        return SpringContext.getBean(ProgettoController.class);
+    }
     private ProgettistaController getProgettistaController() {
         return SpringContext.getBean(ProgettistaController.class);
     }
@@ -77,12 +84,28 @@ public class IProgettista extends IUtente {
     public void selezionaProgetto() {
         System.out.println("Digitare l'id del progetto per visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
+      
         if (!idProgetto.equals("EXIT")) {
-            PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
+            try{Long.valueOf(idProgetto);}
+    
+            catch (NumberFormatException e) {
+                System.out.println("Inserisci un id valido");
+                selezionaProgetto();
+                return;
+            }
+            Progetto progetto = getProgettoController().one(Long.valueOf(idProgetto));
+            if (progetto == null) {
+                System.out.println("Inserisci un id valido");
+                selezionaProgetto();
+                return;
+            }
+            else{
+            
+            PrinterProgetti.printInfoProgetto(progetto.getId());
             System.out.println("Desideri candidarti a questo progetto?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
             if (input.equals("Y")) {
-                getCandidaturaController().creaCandidatura(id, Long.valueOf(idProgetto));
+                getCandidaturaController().creaCandidatura(id, progetto.getId());
                 System.out.println("Congratulazioni, ti sei candidato al progetto " + idProgetto);
 
             } else if (input.equals("N")) {
@@ -93,6 +116,7 @@ public class IProgettista extends IUtente {
             }
 
         }
+    }
     }
     public void accettaAssociazione()
     {
@@ -120,7 +144,25 @@ public class IProgettista extends IUtente {
     {
         System.out.println("Digitare l'id dell'associazione desiderata, [EXIT] per uscire");
         String idAssociazione = sc.nextLine();
+      
         if (!idAssociazione.equals("EXIT")) {
+            try
+            {
+                Long.valueOf(idAssociazione);
+            }
+            catch (NumberFormatException e) {
+                System.out.println("Inserisci un id valido");
+                selezionaAssociazione();
+                return;
+            }
+            Associazione associazione = getAssociazioneController().getAssociazioneById(Long.valueOf(idAssociazione));
+            if (associazione == null) {
+                System.out.println("Inserisci un id valido");
+                selezionaAssociazione();
+                return;
+            }
+            else{
+
             PrinterAssociazioni.printInfoAssociazione(Long.valueOf(idAssociazione));
             System.out.println("Desideri accettare questa richiesta?\n[Y] YES,    [N] NO)\n");
             String input = sc.nextLine().toUpperCase();
@@ -139,4 +181,5 @@ public class IProgettista extends IUtente {
         }
     }
 
+    }
 }
