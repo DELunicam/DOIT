@@ -213,8 +213,7 @@ public class IVisitatore {
             factory = new FactoryIEnte();
         }
         else {
-            System.out.println("Benvenuto utente " + utente.getUsername());
-            // non è instance -> non è un utente registrato -> non si dovrebbe attivare
+            System.out.println("Utente non registrato");
             autenticazione();
         }
 
