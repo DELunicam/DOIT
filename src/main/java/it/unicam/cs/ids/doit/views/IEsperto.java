@@ -3,6 +3,8 @@ package it.unicam.cs.ids.doit.views;
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
 import it.unicam.cs.ids.doit.candidatura.StatoCandidatura;
+import it.unicam.cs.ids.doit.progetto.Progetto;
+import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.progetto.StatoProgetto;
 import it.unicam.cs.ids.doit.utils.SpringContext;
@@ -22,6 +24,11 @@ public class IEsperto extends IUtente {
     private ValutazioneController getValutazioneController() {
         return SpringContext.getBean(ValutazioneController.class);
     }
+
+    private ProgettoController getProgettoController() {
+        return SpringContext.getBean(ProgettoController.class);
+    }
+
 
     public IEsperto(Long idEsperto) {
         super(idEsperto);
@@ -66,7 +73,12 @@ public class IEsperto extends IUtente {
 
     // CASO D'USO
     public void valutaProposta() {
-        PrinterProgetti.printListaProgetti(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
+        Set<Progetto> progetti = getProgettoController().allByStato(StatoProgetto.IN_VALUTAZIONE_PROGETTO);
+        if (progetti.size() == 0) {
+            System.out.println("Non ci sono progetti da valutare");
+            return;
+        }
+        PrinterProgetti.printBasicProgetti(progetti);
         System.out.println("Digitare l'id del progetto per selezionarlo e visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
         while (!idProgetto.equals("EXIT")) {
@@ -103,8 +115,13 @@ public class IEsperto extends IUtente {
     public void valutaProgettisti() {
         Set<Long> idsConsigliate = new HashSet<>();
         Set<Long> idsSconsigliate = new HashSet<>();
-        PrinterProgetti.printListaProgetti(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
 
+        Set<Progetto> progetti = getProgettoController().allByStato(StatoProgetto.IN_VALUTAZIONE_CANDIDATURE);
+        if (progetti.size() == 0) {
+            System.out.println("Non ci sono progetti per cui è possibile valutare candidature");
+            return;
+        }
+        PrinterProgetti.printBasicProgetti(progetti);
         System.out.println("Digitare l'id del progetto per selezionarlo e visualizzare i dettagli, [EXIT] per uscire");
         String idProgetto = sc.nextLine();
         if (!idProgetto.equals("EXIT")) {

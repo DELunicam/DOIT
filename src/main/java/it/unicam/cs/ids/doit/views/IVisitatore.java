@@ -1,6 +1,9 @@
 package it.unicam.cs.ids.doit.views;
 
+import it.unicam.cs.ids.doit.gestori_utenti.ProgettistaController;
 import it.unicam.cs.ids.doit.gestori_utenti.UtenteController;
+import it.unicam.cs.ids.doit.progetto.Progetto;
+import it.unicam.cs.ids.doit.progetto.ProgettoController;
 import it.unicam.cs.ids.doit.progetto.Specializzazione;
 import it.unicam.cs.ids.doit.utenti.*;
 import it.unicam.cs.ids.doit.utils.SpringContext;
@@ -20,6 +23,14 @@ public class IVisitatore {
         return SpringContext.getBean(UtenteController.class);
     }
 
+    private ProgettoController getProgettoController() {
+        return SpringContext.getBean(ProgettoController.class);
+    }
+
+    private ProgettistaController getProgettistaController() {
+        return SpringContext.getBean(ProgettistaController.class);
+    }
+
     public IVisitatore() {
         this.sc = new Scanner(System.in);
     }
@@ -27,8 +38,8 @@ public class IVisitatore {
     public void opzioniDisponibili() {
         while (true) {
             System.out.println("Cosa vuoi fare?\n" +
-                "[VISUALIZZA PROGETTI]\n" +
-                "[VISUALIZZA PROGETTISTI]\n" +
+                    "[VISUALIZZA PROGETTI]\n" +
+                    "[VISUALIZZA PROGETTISTI]\n" +
                 "[REGISTRAZIONE]\n" +
                 "[LOGIN]");
             String input = sc.nextLine().toUpperCase();
@@ -52,14 +63,18 @@ public class IVisitatore {
     }
 
     public void visualizzaListaProgetti() {
-        PrinterProgetti.printListaProgetti();
+        Set<Progetto> progetti = getProgettoController().all();
+        if (progetti.size() == 0) {
+            System.out.println("Non ci sono progetti");
+            return;
+        }
+        PrinterProgetti.printBasicProgetti(progetti);
         System.out.println("Digita l'id di un progetto per visualizzarne i dettagli, [EXIT] per uscire");
         while (true) {
             String idProgetto = sc.nextLine();
             if (idProgetto.equalsIgnoreCase("EXIT")) {
                 break;
-            }
-            else {
+            } else {
                 try {
                     Long.valueOf(idProgetto);
                 }
@@ -74,14 +89,18 @@ public class IVisitatore {
     }
 
     public void visualizzaProgettisti() {
-        PrinterProgettisti.printListaProgettisti();
+        Set<Progettista> progettisti = getProgettistaController().all();
+        if (progettisti.size() == 0) {
+            System.out.println("Non ci sono progettisti");
+            return;
+        }
+        PrinterProgettisti.printBasicProgettisti(progettisti);
         System.out.println("Digita l'id di un progettista per visualizzarne i dettagli, [EXIT] per uscire");
         while (true) {
             String idProgettista = sc.nextLine();
             if (idProgettista.equalsIgnoreCase("EXIT")) {
                 break;
-            }
-            else {
+            } else {
                 try {
                     Long.valueOf(idProgettista);
                 }
@@ -91,7 +110,6 @@ public class IVisitatore {
                     break;
                 }
                 PrinterProgettisti.printInfoProgettista(Long.valueOf(idProgettista));
-                //PrinterProgetti.printListaProgettiSvolti(Long.valueOf(idProgettista));
             }
         }
     }
