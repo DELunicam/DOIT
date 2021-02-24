@@ -36,6 +36,8 @@ public class IEsperto extends IUtente {
                     "[VALUTA PROGETTISTI]\n" +
                     "[INVIA MESSAGGIO]\n" +
                     "[VISUALIZZA NOTIFICHE]\n" +
+                    "[VISUALIZZA PROGETTI]\n" +
+                    "[VISUALIZZA PROGETTISTI]\n" +
                     "[LOGOUT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
@@ -50,6 +52,12 @@ public class IEsperto extends IUtente {
                     break;
                 case "VISUALIZZA NOTIFICHE":
                     visualizzaMessaggi();
+                    break;
+                case "VISUALIZZA PROGETTI":
+                    visualizzaListaProgetti();
+                    break;
+                case "VISUALIZZA PROGETTISTI":
+                    visualizzaProgettisti();
                     break;
                 case "LOGOUT":
                     logout();

@@ -54,8 +54,10 @@ public class IEnte extends IUtente {
                     + "[ASSEGNA LAVORATORI] \n"
                     + "[INVIA PROPOSTA DI ASSOCIAZIONE]\n"
                     + "[INVIA MESSAGGIO]\n"
-                    + "[VISUALIZZA NOTIFICHE]\n" +
-                    "[LOGOUT]");
+                    + "[VISUALIZZA NOTIFICHE]\n"
+                    + "[VISUALIZZA PROGETTI]\n"
+                    + "[VISUALIZZA PROGETTISTI]\n"
+                    + "[LOGOUT]");
             String input = sc.nextLine().toUpperCase();
             switch (input) {
                 case "INSERISCI CANDIDATURA":
@@ -72,6 +74,12 @@ public class IEnte extends IUtente {
                     break;
                 case "VISUALIZZA NOTIFICHE":
                     visualizzaMessaggi();
+                    break;
+                case "VISUALIZZA PROGETTI":
+                    visualizzaListaProgetti();
+                    break;
+                case "VISUALIZZA PROGETTISTI":
+                    visualizzaProgettisti();
                     break;
                 case "LOGOUT":
                     logout();

@@ -3,6 +3,8 @@ package it.unicam.cs.ids.doit.views;
 import it.unicam.cs.ids.doit.notifica.MessaggioController;
 import it.unicam.cs.ids.doit.utils.SpringContext;
 import it.unicam.cs.ids.doit.utils.printers.PrinterMessaggi;
+import it.unicam.cs.ids.doit.utils.printers.PrinterProgetti;
+import it.unicam.cs.ids.doit.utils.printers.PrinterProgettisti;
 import it.unicam.cs.ids.doit.utils.printers.PrinterUtenti;
 import it.unicam.cs.ids.doit.views.factoryViews.FactoryIVisitatore;
 
@@ -19,19 +21,6 @@ public class IUtente {
 
     private MessaggioController getMessaggioController() {
         return SpringContext.getBean(MessaggioController.class);
-    }
-
-    public void opzioniUtente(String input) {
-        switch (input) {
-            case "INVIA MESSAGGIO":
-                inviaMessaggio();
-                break;
-            case "VISUALIZZA NOTIFICHE":
-                visualizzaMessaggi();
-                break;
-            case "EXIT":
-                return;
-        }
     }
 
     public void inviaMessaggio() {
@@ -56,6 +45,51 @@ public class IUtente {
         System.out.println("Si vogliono visualizzare anche i messaggi gia letti? [Y] [N]");
         if (sc.nextLine().equalsIgnoreCase("Y")) {
             PrinterMessaggi.printListaMessaggiLetti(id);
+        }
+    }
+
+    public void visualizzaListaProgetti() {
+        PrinterProgetti.printListaProgetti();
+        System.out.println("Digita l'id di un progetto per visualizzarne i dettagli, [EXIT] per uscire");
+        while (true) {
+            String idProgetto = sc.nextLine();
+            if (idProgetto.equalsIgnoreCase("EXIT")) {
+                break;
+            }
+            else {
+                try {
+                    Long.valueOf(idProgetto);
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("Inserisci un id valido");
+                    visualizzaListaProgetti();
+                    break;
+                }
+                PrinterProgetti.printInfoProgetto(Long.valueOf(idProgetto));
+            }
+        }      
+    }
+
+    public void visualizzaProgettisti() {
+        PrinterProgettisti.printListaProgettisti();
+        System.out.println("Digita l'id di un progettista per visualizzarne i dettagli, [EXIT] per uscire");
+        while (true) {
+            String idProgettista = sc.nextLine();
+            if (idProgettista.equalsIgnoreCase("EXIT")) {
+                break;
+            }
+            else {
+                try {
+                    Long.valueOf(idProgettista);
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("Inserisci un id valido");
+                    visualizzaProgettisti();
+                    break;
+                }
+                PrinterProgettisti.printInfoProgettista(Long.valueOf(idProgettista));
+                //PrinterProgetti.printListaProgettiSvolti(Long.valueOf(idProgettista));
+            }
         }
     }
 
