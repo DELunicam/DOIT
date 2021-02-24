@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/it/unicam/cs/ids/doit/utils/printers/PrinterAssociazioni.java
 package it.unicam.cs.ids.doit.utils.printers;
-=======
-package it.unicam.cs.ids.doit.views.printers;
->>>>>>> enzo:src/main/java/it/unicam/cs/ids/doit/views/printers/PrinterAssociazioni.java
 
 import it.unicam.cs.ids.doit.associazione.Associazione;
 import it.unicam.cs.ids.doit.associazione.AssociazioneController;

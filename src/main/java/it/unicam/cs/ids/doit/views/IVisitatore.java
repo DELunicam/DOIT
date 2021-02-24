@@ -7,8 +7,6 @@ import it.unicam.cs.ids.doit.utils.SpringContext;
 import it.unicam.cs.ids.doit.utils.printers.PrinterProgetti;
 import it.unicam.cs.ids.doit.utils.printers.PrinterProgettisti;
 import it.unicam.cs.ids.doit.views.factoryViews.*;
-import it.unicam.cs.ids.doit.views.printers.PrinterProgetti;
-import it.unicam.cs.ids.doit.views.printers.PrinterProgettisti;
 
 import java.util.HashSet;
 import java.util.Scanner;

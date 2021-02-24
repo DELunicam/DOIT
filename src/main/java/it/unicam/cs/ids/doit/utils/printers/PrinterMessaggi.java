@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/it/unicam/cs/ids/doit/utils/printers/PrinterMessaggi.java
 package it.unicam.cs.ids.doit.utils.printers;
-=======
-package it.unicam.cs.ids.doit.views.printers;
->>>>>>> enzo:src/main/java/it/unicam/cs/ids/doit/views/printers/PrinterMessaggi.java
 
 import it.unicam.cs.ids.doit.notifica.Messaggio;
 import it.unicam.cs.ids.doit.notifica.MessaggioController;

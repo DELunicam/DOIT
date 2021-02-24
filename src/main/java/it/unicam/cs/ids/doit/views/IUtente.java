@@ -7,8 +7,6 @@ import it.unicam.cs.ids.doit.utils.printers.PrinterProgetti;
 import it.unicam.cs.ids.doit.utils.printers.PrinterProgettisti;
 import it.unicam.cs.ids.doit.utils.printers.PrinterUtenti;
 import it.unicam.cs.ids.doit.views.factoryViews.FactoryIVisitatore;
-import it.unicam.cs.ids.doit.views.printers.PrinterMessaggi;
-import it.unicam.cs.ids.doit.views.printers.PrinterUtenti;
 
 import java.util.Scanner;
 

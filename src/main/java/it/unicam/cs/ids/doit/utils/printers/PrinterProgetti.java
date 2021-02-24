@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/it/unicam/cs/ids/doit/utils/printers/PrinterProgetti.java
 package it.unicam.cs.ids.doit.utils.printers;
-=======
-package it.unicam.cs.ids.doit.views.printers;
->>>>>>> enzo:src/main/java/it/unicam/cs/ids/doit/views/printers/PrinterProgetti.java
 
 import it.unicam.cs.ids.doit.progetto.Progetto;
 import it.unicam.cs.ids.doit.progetto.ProgettoController;
