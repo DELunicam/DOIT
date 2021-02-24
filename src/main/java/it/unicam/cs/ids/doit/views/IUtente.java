@@ -7,6 +7,8 @@ import it.unicam.cs.ids.doit.utils.printers.PrinterProgetti;
 import it.unicam.cs.ids.doit.utils.printers.PrinterProgettisti;
 import it.unicam.cs.ids.doit.utils.printers.PrinterUtenti;
 import it.unicam.cs.ids.doit.views.factoryViews.FactoryIVisitatore;
+import it.unicam.cs.ids.doit.views.printers.PrinterMessaggi;
+import it.unicam.cs.ids.doit.views.printers.PrinterUtenti;
 
 import java.util.Scanner;
 
@@ -26,18 +28,20 @@ public class IUtente {
     public void inviaMessaggio() {
         System.out.println("Seleziona un utente digitando l'id corrispondente");
         PrinterUtenti.printListaUtenti();
-        Long idReceiver = Long.valueOf(sc.nextLine());
-        //Destinatario non presente? Check dalla POST e try catch per gestire exception?
-        System.out.println("Scrivi il testo del messaggio");
-        String testo = sc.nextLine();
-        // crea notifica
-        // inserisci idSender, idReceiver, messaggio, letto=false
-        // POST notifica
-        if (getMessaggioController().createMessaggio(id, idReceiver, testo).isPresent()) {
-            System.out.println("Messaggio inviato!");
-        } else {
-            System.out.println("Destinatario non valido");
+        try {
+            Long idReceiver = Long.valueOf(sc.nextLine());
+            System.out.println("Scrivi il testo del messaggio");
+            String testo = sc.nextLine();
+            if (getMessaggioController().createMessaggio(id, idReceiver, testo).isPresent()) {
+                System.out.println("Messaggio inviato!");
+            } else {
+                System.out.println("Destinatario non valido");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Id digitato non valido");
+            inviaMessaggio();
         }
+
     }
 
     public void visualizzaMessaggi() {
@@ -98,7 +102,6 @@ public class IUtente {
         final FactoryIVisitatore factory = new FactoryIVisitatore();
         factory.creaVista();
     }
-
 
 
 }

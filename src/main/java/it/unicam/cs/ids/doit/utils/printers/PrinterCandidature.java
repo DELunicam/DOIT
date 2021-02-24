@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/it/unicam/cs/ids/doit/utils/printers/PrinterCandidature.java
 package it.unicam.cs.ids.doit.utils.printers;
+=======
+package it.unicam.cs.ids.doit.views.printers;
+>>>>>>> enzo:src/main/java/it/unicam/cs/ids/doit/views/printers/PrinterCandidature.java
 
 import it.unicam.cs.ids.doit.candidatura.Candidatura;
 import it.unicam.cs.ids.doit.candidatura.CandidaturaController;
