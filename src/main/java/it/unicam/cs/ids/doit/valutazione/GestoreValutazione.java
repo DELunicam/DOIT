@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class GestoreValutazione {
@@ -18,6 +19,7 @@ public class GestoreValutazione {
     ProgettoRepository progettoRepository;
     @Autowired
     EspertoRepository espertoRepository;
+
 
     public GestoreValutazione() {
 
@@ -51,4 +53,12 @@ public class GestoreValutazione {
         return null;
     }
 
+    public Valutazione findValutazioneById(Long idValutazione)
+    {
+        return repository.findById(idValutazione).get();
+    }
+    public Set<Valutazione> getVautazioniByIdProgetto(Long idProgetto)
+    {
+        return repository.findValutazioniByIdProgetto(idProgetto);
+    }
 }
