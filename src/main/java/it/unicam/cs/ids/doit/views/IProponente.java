@@ -306,6 +306,10 @@ public class IProponente extends IUtente {
                     "Digita l'id della candidatura per visualizzare le informazioni del progettista desiderato,    [DONE] per terminare");
 
             while (true) {
+                if (getCandidaturaController().getCandidatureByIdProgettoAndStato(idProgetto, StatoCandidatura.DA_VALUTARE).size() == 0) {
+                    System.out.println("Non ci sono più candidature valide");
+                    break;
+                }
                 String idCandidaturaScelta = sc.nextLine();
                 if (idCandidaturaScelta.toUpperCase().equals("DONE")) {
                     System.out.println("Selezione terminata \n");
